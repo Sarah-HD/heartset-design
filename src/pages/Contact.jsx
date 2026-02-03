@@ -93,10 +93,8 @@ export default function Contact() {
             </h3>
             
             <div className="space-y-6">
-              <a 
-                href="https://calendly.com/your-calendar-link"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link 
+                to={createPageUrl("BookSession")}
                 className="group block border border-black/10 p-8 hover:border-black/30 transition-all duration-500 relative overflow-hidden"
               >
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">

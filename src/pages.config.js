@@ -52,6 +52,7 @@ import Contact from './pages/Contact';
 import FocusGroup from './pages/FocusGroup';
 import Home from './pages/Home';
 import Referral from './pages/Referral';
+import BookSession from './pages/BookSession';
 import __Layout from './Layout.jsx';
 
 
@@ -61,6 +62,7 @@ export const PAGES = {
     "FocusGroup": FocusGroup,
     "Home": Home,
     "Referral": Referral,
+    "BookSession": BookSession,
 }
 
 export const pagesConfig = {

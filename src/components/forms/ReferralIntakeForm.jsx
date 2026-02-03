@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+import { createPageUrl } from "@/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -203,14 +205,19 @@ export default function ReferralIntakeForm() {
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
-                className="bg-neutral-50 border border-black/10 p-6 text-center"
+                className="bg-neutral-50 border border-black/10 p-6"
               >
-                <p className="text-sm text-black/70 font-light mb-4">
-                  After submission, you'll receive a link to book your 15-minute referral call.
+                <p className="text-sm text-black/70 font-light mb-4 text-center">
+                  After submission, you can book your 15-minute referral call.
                 </p>
-                <p className="text-xs text-black/40 font-light italic">
-                  15-Minute Referral Call – Legal Pathway
-                </p>
+                <Link 
+                  to={createPageUrl("BookSession") + "?type=legal-referral"}
+                  className="block text-center"
+                >
+                  <Button type="button" variant="outline" className="w-full">
+                    Book Referral Call
+                  </Button>
+                </Link>
               </motion.div>
             )}
           </motion.div>
