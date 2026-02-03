@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, X } from "lucide-react";
+import GeneralInquiryForm from "@/components/forms/GeneralInquiryForm";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 export default function Contact() {
+  const [showInquiryForm, setShowInquiryForm] = useState(false);
+  
   return (
     <div className="min-h-screen bg-white text-black font-sans antialiased">
       {/* Header */}
@@ -65,13 +69,13 @@ export default function Contact() {
             >
               Before You Reach Out
             </h2>
-            
+
             <p className="text-base text-black/50 font-light mb-16 max-w-2xl leading-relaxed">
-              Heartset Design works primarily with credentialed experts developing 
-              proprietary frameworks, focus group validation, and scalable authority systems.
+              Heartset Design builds business strategies around legal support and works 
+              with credentialed experts developing proprietary frameworks and scalable systems.
               <br /><br />
-              If you're seeking focused strategic clarity, legal alignment, or next-step 
-              guidance, you may request a 15-minute session below.
+              For legal services, we refer to our legal partner membership. 
+              For strategic clarity or framework validation, you may request a 15-minute session below.
             </p>
           </motion.div>
           
@@ -90,7 +94,9 @@ export default function Contact() {
             
             <div className="space-y-6">
               <a 
-                href="#"
+                href="https://calendly.com/your-calendar-link"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group block border border-black/10 p-8 hover:border-black/30 transition-all duration-500 relative overflow-hidden"
               >
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -99,17 +105,20 @@ export default function Contact() {
                       Book a 15-Minute Strategy Session
                     </h4>
                     <p className="text-sm text-black/50 font-light">
-                      For professionals seeking clarity on frameworks, validation, or legal positioning.
+                      For professionals seeking clarity on frameworks, validation pathways, or legal positioning.
+                    </p>
+                    <p className="text-xs text-black/30 font-light mt-2 italic">
+                      This session is for strategic clarity only. It is not a sales call.
                     </p>
                   </div>
                   <span className="text-black/30 group-hover:text-black group-hover:translate-x-1 transition-all duration-300">→</span>
                 </div>
                 <div className="absolute bottom-0 left-0 w-0 h-px bg-black group-hover:w-full transition-all duration-700" />
               </a>
-              
-              <a 
-                href="#"
-                className="group block border border-black/10 p-8 hover:border-black/30 transition-all duration-500 relative overflow-hidden"
+
+              <button 
+                onClick={() => setShowInquiryForm(true)}
+                className="group block border border-black/10 p-8 hover:border-black/30 transition-all duration-500 relative overflow-hidden w-full text-left"
               >
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                   <div>
@@ -123,8 +132,8 @@ export default function Contact() {
                   <span className="text-black/30 group-hover:text-black group-hover:translate-x-1 transition-all duration-300">→</span>
                 </div>
                 <div className="absolute bottom-0 left-0 w-0 h-px bg-black group-hover:w-full transition-all duration-700" />
-              </a>
-              
+              </button>
+
               <Link 
                 to={createPageUrl("Referral")}
                 className="group block border border-black/10 p-8 hover:border-black/30 transition-all duration-500 relative overflow-hidden"
@@ -132,7 +141,7 @@ export default function Contact() {
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                   <div>
                     <h4 className="text-lg font-medium mb-2">
-                      Referred for Web Design?
+                      Referred for Web or Design Services?
                     </h4>
                     <p className="text-sm text-black/50 font-light">
                       If you were referred by a colleague specifically for web or design services.
@@ -163,6 +172,27 @@ export default function Contact() {
           </p>
         </div>
       </footer>
-    </div>
-  );
-}
+
+      {/* General Inquiry Dialog */}
+      <Dialog open={showInquiryForm} onOpenChange={setShowInquiryForm}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-0">
+          <div className="sticky top-0 bg-white border-b border-black/10 p-6 flex items-center justify-between z-10">
+            <h3 
+              className="text-xl"
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
+              General Inquiry
+            </h3>
+            <button
+              onClick={() => setShowInquiryForm(false)}
+              className="text-black/40 hover:text-black transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+          <GeneralInquiryForm onClose={() => setShowInquiryForm(false)} />
+        </DialogContent>
+      </Dialog>
+      </div>
+      );
+      }
