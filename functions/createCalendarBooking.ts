@@ -20,7 +20,7 @@ Deno.serve(async (req) => {
     const endDateTime = new Date(startDateTime);
     endDateTime.setMinutes(endDateTime.getMinutes() + 15);
 
-    // Create calendar event
+    // Create calendar event with Google Meet
     const event = {
       summary: sessionType === 'legal-referral' 
         ? '15-Minute Referral Call – Legal Pathway'
@@ -37,6 +37,12 @@ Deno.serve(async (req) => {
       attendees: [
         { email: email }
       ],
+      conferenceData: {
+        createRequest: {
+          requestId: `meet-${Date.now()}`,
+          conferenceSolutionKey: { type: 'hangoutsMeet' }
+        }
+      },
       reminders: {
         useDefault: false,
         overrides: [
@@ -46,7 +52,7 @@ Deno.serve(async (req) => {
       },
     };
 
-    const response = await fetch('https://www.googleapis.com/calendar/v3/calendars/primary/events', {
+    const response = await fetch('https://www.googleapis.com/calendar/v3/calendars/primary/events?conferenceDataVersion=1', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${accessToken}`,
