@@ -29,7 +29,7 @@ export default function HeroSection() {
           className="text-4xl md:text-6xl lg:text-7xl leading-[1.1] mb-8"
           style={{ fontFamily: "'Playfair Display', serif" }}
         >
-          Framework Architecture<br />
+          Authority Infrastructure™<br />
           <span className="italic text-white/70">for Expertise That Scales</span>
         </h1>
         
@@ -39,8 +39,8 @@ export default function HeroSection() {
           transition={{ delay: 0.5, duration: 0.8 }}
           className="text-lg md:text-xl text-white/60 max-w-2xl leading-relaxed mb-12 font-light"
         >
-          We help experienced professionals turn lived expertise into proprietary frameworks, 
-          validate them through focus groups, and build systems prepared for scale without ads, 
+          We partner with experienced professionals to convert lived expertise into proprietary authority systems, 
+          validate them through focus groups, and build infrastructure prepared for institutional scale — without ads, 
           funnels, or legal risk.
         </motion.p>
         
@@ -54,7 +54,7 @@ export default function HeroSection() {
             to={createPageUrl("Apply")}
             className="group inline-flex items-center gap-3 bg-white text-black px-8 py-4 text-sm tracking-wide hover:bg-white/90 transition-all duration-300"
           >
-            <span>Apply for the Framework</span>
+            <span>Apply for Authority Infrastructure™</span>
             <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
           </Link>
           

@@ -19,29 +19,29 @@ export default function FocusGroupSection() {
             className="text-3xl md:text-4xl lg:text-5xl mb-8 leading-tight"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
-            Ready to validate<br />
-            <span className="italic text-black/60">your framework?</span>
+            Join the Focus Group
           </h2>
           
           <p className="text-lg text-black/50 font-light mb-12 max-w-xl mx-auto">
-            Whether you're pressure-testing an idea or preparing for scale, 
-            the focus group is the first signal.
+            Our focus groups are working sessions for credentialed professionals validating frameworks, 
+            language, and delivery models in real time.<br /><br />
+            Participation is limited and requires confirmation.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             <Link
-              to={createPageUrl("Apply")}
+              to={createPageUrl("FocusGroup")}
               className="group inline-flex items-center gap-3 bg-black text-white px-10 py-5 text-sm tracking-wide hover:bg-black/90 transition-all duration-300"
             >
-              <span>Apply for the Framework</span>
+              <span>Join the Focus Group</span>
               <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
             </Link>
             
             <Link
-              to={createPageUrl("FocusGroup")}
+              to={createPageUrl("Apply")}
               className="group inline-flex items-center gap-3 border border-black/20 text-black px-10 py-5 text-sm tracking-wide hover:border-black transition-all duration-300"
             >
-              <span>Join the Focus Group</span>
+              <span>Apply for Authority Infrastructure™</span>
               <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
             </Link>
           </div>

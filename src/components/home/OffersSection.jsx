@@ -9,22 +9,22 @@ export default function OffersSection() {
   
   const tiers = [
     {
-      tier: "Tier 1 — Cohort",
-      title: "Framework + Focus Group Engine™",
+      tier: "Cohort-Based Engagement",
+      title: "Authority Infrastructure™",
       price: "$6,500",
-      description: "Group-based · Validated · System-led · Peer review · Office hours · Structured implementation"
+      description: "Delivered through a credentialed focus group validating real-world authority systems."
     },
     {
-      tier: "Tier 2 — Strategic (1:1)",
-      title: "Framework Architecture (Private Engagement)",
-      price: "By Application",
-      description: "Research alignment · Refinement · Strategic positioning"
+      tier: "Private Engagement",
+      title: "Authority Infrastructure™ — Strategic Architecture",
+      price: "Application Only",
+      description: "Private strategy · Research-aligned · Application only"
     },
     {
-      tier: "Tier 3 — Built For You",
-      title: "Authority Infrastructure",
-      price: "Custom Scope",
-      description: "Framework · Validation engine · Lead foundation · Systems installed · Pricing shared after review"
+      tier: "Built-for-You",
+      title: "Authority Infrastructure™ — Implementation",
+      price: "Scope Defined After Review",
+      description: "Custom systems · Institutional readiness · Scope defined after review"
     }
   ];
   
@@ -44,7 +44,7 @@ export default function OffersSection() {
             className="text-3xl md:text-4xl lg:text-5xl leading-tight"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
-            Framework & Focus Group Pathways
+            Authority Infrastructure™ Pathways
           </h2>
         </motion.div>
         
@@ -89,7 +89,7 @@ export default function OffersSection() {
             to={createPageUrl("Apply")}
             className="group inline-flex items-center gap-3 bg-white text-black px-10 py-5 text-sm tracking-wide hover:bg-white/90 transition-all duration-300"
           >
-            <span>Apply for the Framework</span>
+            <span>Apply for Authority Infrastructure™</span>
             <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
           </Link>
         </motion.div>

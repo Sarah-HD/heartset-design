@@ -29,7 +29,7 @@ export default function MethodSection() {
             className="text-3xl md:text-4xl lg:text-5xl leading-tight"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
-            The Architected Authority™ Method
+            The Authority Infrastructure™ Method
           </h2>
         </motion.div>
         

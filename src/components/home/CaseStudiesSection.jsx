@@ -8,7 +8,7 @@ export default function CaseStudiesSection() {
   const cases = [
     {
       title: "Nonprofit Consultant",
-      outcome: "Designed a donor framework → secured second funding meeting after initial rejection"
+      outcome: "Donor framework refined → second funding meeting secured"
     },
     {
       title: "Licensed Social Worker (MSW)",
@@ -30,13 +30,16 @@ export default function CaseStudiesSection() {
           className="mb-20"
         >
           <p className="text-xs tracking-[0.3em] uppercase text-black/40 mb-6">
-            Proof
+            Case Studies
+          </p>
+          <p className="text-base text-black/50 font-light mt-4 max-w-2xl">
+            Selected examples of frameworks and systems developed across nonprofit, education, and professional services.
           </p>
           <h2 
             className="text-3xl md:text-4xl lg:text-5xl leading-tight"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
-            Case Studies
+            Proof of Application
           </h2>
         </motion.div>
         

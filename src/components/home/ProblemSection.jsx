@@ -6,9 +6,8 @@ export default function ProblemSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   
   const problems = [
-    "Expertise without structure",
-    "Revenue tied to labor",
-    "Frameworks without protection",
+    "Revenue tied to time and labor",
+    "Frameworks that aren't defensible",
     "Launches without validation",
     "Authority without leverage"
   ];
@@ -29,7 +28,7 @@ export default function ProblemSection() {
             className="text-3xl md:text-4xl lg:text-5xl leading-tight"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
-            Why Experts Get Stuck
+            Why Experienced Professionals Get Stuck
           </h2>
         </motion.div>
         
@@ -65,7 +64,7 @@ export default function ProblemSection() {
                 className="text-2xl md:text-3xl text-white mt-2"
                 style={{ fontFamily: "'Playfair Display', serif" }}
               >
-                You need <span className="italic">architecture.</span>
+                You need <span className="italic">infrastructure.</span>
               </p>
             </div>
           </motion.div>
