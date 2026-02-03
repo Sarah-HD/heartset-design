@@ -28,7 +28,7 @@ export default function DefinitionSection() {
               /dɪˈzaɪn/ <span className="italic">noun</span>
             </p>
             <p className="text-xl md:text-2xl text-black/70 leading-relaxed font-light">
-              a system of intention, structure, and consequence — not decoration.
+              a system of intention, structure, and consequence, not decoration.
             </p>
           </div>
         </motion.div>

@@ -24,8 +24,8 @@ export default function ReferralSection() {
               Referred by a colleague?
             </h3>
             <p className="text-sm text-black/50 font-light max-w-md">
-              If you were directed here for a specific engagement — including web, systems, 
-              or strategic design — use the referral form below.
+              If you were directed here for a specific engagement including web, systems, 
+              or strategic design, use the referral form below.
             </p>
           </div>
           

@@ -40,8 +40,8 @@ export default function HeroSection() {
           className="text-lg md:text-xl text-white/60 max-w-2xl leading-relaxed mb-12 font-light"
         >
           We help experienced professionals turn lived expertise into proprietary frameworks, 
-          validate them through focus groups, and build systems prepared for scale — 
-          without ads, funnels, or legal risk.
+          validate them through focus groups, and build systems prepared for scale without ads, 
+          funnels, or legal risk.
         </motion.p>
         
         <motion.div

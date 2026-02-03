@@ -301,7 +301,7 @@ export default function FocusGroupIntakeForm() {
             <StepCard key="step5">
               <CardHeader
                 title="Validation Intent"
-                subtitle="This is a working group. Clear goals help everyone grow — and growth is always better with thoughtful partners in the room."
+                subtitle="This is a working group. Clear goals help everyone grow, and growth is always better with thoughtful partners in the room."
               />
               
               <div className="space-y-2">
@@ -403,7 +403,7 @@ export default function FocusGroupIntakeForm() {
                     Do you know 1–2 colleagues who would genuinely benefit? (optional)
                   </Label>
                   <p className="text-sm text-black/50 font-light mb-4">
-                    Growth is always stronger with trusted peers. We'll reach out respectfully — no spam.
+                    Growth is always stronger with trusted peers. We'll reach out respectfully, no spam.
                   </p>
                   <Textarea
                     id="peerReferrals"
@@ -420,7 +420,7 @@ export default function FocusGroupIntakeForm() {
             <StepCard key="step7">
               <CardHeader
                 title="Confidentiality & Participation"
-                subtitle="This protects you, the group, and Heartset Design — without legal heaviness."
+                subtitle="This protects you, the group, and Heartset Design without legal heaviness."
               />
               
               <div className="space-y-6">

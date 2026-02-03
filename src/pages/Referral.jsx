@@ -38,8 +38,8 @@ export default function Referral() {
             </h1>
             
             <p className="text-lg text-black/60 font-light leading-relaxed max-w-2xl">
-              If you were referred by a colleague for a specific engagement — including 
-              web, systems, or strategic design — please complete the form below.
+              If you were referred by a colleague for a specific engagement including 
+              web, systems, or strategic design, please complete the form below.
             </p>
             
             <p className="text-sm text-black/40 font-light mt-4 italic">
