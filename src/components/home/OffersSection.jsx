@@ -12,19 +12,19 @@ export default function OffersSection() {
       tier: "Tier 1 — Cohort",
       title: "Framework + Focus Group Engine™",
       price: "$6,500",
-      description: "Group-based, validated, system-led"
+      description: "Group-based · Validated · System-led · Peer review · Office hours · Structured implementation"
     },
     {
-      tier: "Tier 2 — Strategic",
-      title: "Framework Architecture (1:1)",
-      price: "$10,000",
-      description: "Private strategy, research alignment, refinement"
+      tier: "Tier 2 — Strategic (1:1)",
+      title: "Framework Architecture (Private Engagement)",
+      price: "By Application",
+      description: "Research alignment · Refinement · Strategic positioning"
     },
     {
       tier: "Tier 3 — Built For You",
       title: "Authority Infrastructure",
-      price: "$25,000",
-      description: "Framework, validation engine, lead foundation, systems installed"
+      price: "Custom Scope",
+      description: "Framework · Validation engine · Lead foundation · Systems installed · Pricing shared after review"
     }
   ];
   

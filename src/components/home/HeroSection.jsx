@@ -29,8 +29,8 @@ export default function HeroSection() {
           className="text-4xl md:text-6xl lg:text-7xl leading-[1.1] mb-8"
           style={{ fontFamily: "'Playfair Display', serif" }}
         >
-          Architecting Authority<br />
-          <span className="italic text-white/70">for Credentialed Experts</span>
+          Framework Architecture<br />
+          <span className="italic text-white/70">for Expertise That Scales</span>
         </h1>
         
         <motion.p
@@ -39,9 +39,9 @@ export default function HeroSection() {
           transition={{ delay: 0.5, duration: 0.8 }}
           className="text-lg md:text-xl text-white/60 max-w-2xl leading-relaxed mb-12 font-light"
         >
-          We help PhDs, clinicians, educators, and consultants turn lived expertise 
-          into proprietary frameworks, validate them through focus groups, and prepare 
-          for scalable authority — without ads, funnels, or legal risk.
+          We help experienced professionals turn lived expertise into proprietary frameworks, 
+          validate them through focus groups, and build systems prepared for scale — 
+          without ads, funnels, or legal risk.
         </motion.p>
         
         <motion.div

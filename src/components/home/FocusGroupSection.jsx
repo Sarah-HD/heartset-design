@@ -19,13 +19,13 @@ export default function FocusGroupSection() {
             className="text-3xl md:text-4xl lg:text-5xl mb-8 leading-tight"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
-            Ready to architect<br />
-            <span className="italic text-black/60">your authority?</span>
+            Ready to validate<br />
+            <span className="italic text-black/60">your framework?</span>
           </h2>
           
           <p className="text-lg text-black/50 font-light mb-12 max-w-xl mx-auto">
-            Whether you're validating a framework or building the infrastructure to scale it, 
-            start with the right pathway.
+            Whether you're pressure-testing an idea or preparing for scale, 
+            the focus group is the first signal.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">

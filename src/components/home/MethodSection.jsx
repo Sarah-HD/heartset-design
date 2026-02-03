@@ -6,11 +6,11 @@ export default function MethodSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   
   const steps = [
-    { number: "01", title: "Extract the framework" },
+    { number: "01", title: "Extract the proprietary framework" },
     { number: "02", title: "Validate it with real professionals" },
-    { number: "03", title: "Systematize delivery" },
-    { number: "04", title: "Secure IP + legal footing" },
-    { number: "05", title: "Prepare for institutional scale" }
+    { number: "03", title: "Systematize delivery and outcomes" },
+    { number: "04", title: "Secure legal + IP footing" },
+    { number: "05", title: "Prepare for institutional or scalable adoption" }
   ];
   
   return (
