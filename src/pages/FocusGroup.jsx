@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { ArrowLeft } from "lucide-react";
+import FocusGroupIntakeForm from "@/components/forms/FocusGroupIntakeForm";
 
 export default function FocusGroup() {
   return (
@@ -27,7 +28,7 @@ export default function FocusGroup() {
             className="mb-16"
           >
             <p className="text-xs tracking-[0.3em] uppercase text-black/40 mb-6">
-              Participate
+              Focus Group Intake
             </p>
             <h1 
               className="text-4xl md:text-5xl lg:text-6xl mb-8 leading-tight"
@@ -37,66 +38,25 @@ export default function FocusGroup() {
               <span className="italic text-black/60">Focus Group</span>
             </h1>
             
-            <p className="text-lg text-black/60 font-light leading-relaxed max-w-2xl">
-              Help validate frameworks developed by credentialed experts. Your participation 
-              shapes methods that serve professionals like you.
+            <p className="text-lg text-black/60 font-light leading-relaxed max-w-2xl mb-8">
+              This is a collaborative working group designed to validate and refine professional 
+              frameworks with credentialed peers.
             </p>
+            
+            <div className="bg-neutral-50 border-l-2 border-black/20 p-6 mb-12">
+              <p className="text-sm text-black/60 font-light leading-relaxed">
+                Your place is not held until you confirm via email. After submitting, 
+                check your inbox for a confirmation request from Heartset Design.
+              </p>
+            </div>
           </motion.div>
           
-          {/* Benefits */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.8 }}
-            className="mb-16"
           >
-            <h2 
-              className="text-xl mb-8"
-              style={{ fontFamily: "'Playfair Display', serif" }}
-            >
-              What You'll Receive
-            </h2>
-            
-            <div className="space-y-4">
-              {[
-                "Early access to validated frameworks",
-                "Direct input on methodology development",
-                "Priority consideration for future programs",
-                "Connection with peer professionals"
-              ].map((benefit, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.4 + index * 0.1, duration: 0.6 }}
-                  className="flex items-center gap-4"
-                >
-                  <span className="w-2 h-2 bg-black/20 rounded-full" />
-                  <p className="text-base text-black/70 font-light">{benefit}</p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-            className="space-y-8"
-          >
-            <div className="border border-black/10 p-12 text-center">
-              <p className="text-black/50 mb-6">Focus group sign-up coming soon</p>
-              <p className="text-sm text-black/30 font-light">
-                In the meantime, reach out via the contact page to express interest.
-              </p>
-              <Link
-                to={createPageUrl("Contact")}
-                className="inline-flex items-center gap-2 mt-8 text-sm text-black/60 hover:text-black transition-colors duration-300"
-              >
-                <span className="w-6 h-px bg-current" />
-                <span>Go to Contact</span>
-              </Link>
-            </div>
+            <FocusGroupIntakeForm />
           </motion.div>
         </div>
       </main>
