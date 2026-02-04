@@ -10,6 +10,7 @@ import CaseStudiesSection from "@/components/home/CaseStudiesSection";
 import OffersSection from "@/components/home/OffersSection";
 import FocusGroupSection from "@/components/home/FocusGroupSection";
 import ReferralSection from "@/components/home/ReferralSection";
+import CredibilitySection from "@/components/home/CredibilitySection";
 import Footer from "@/components/home/Footer";
 
 export default function Home() {
@@ -23,6 +24,7 @@ export default function Home() {
       <OffersSection />
       <FocusGroupSection />
       <ReferralSection />
+      <CredibilitySection />
       <Footer />
     </div>
   );

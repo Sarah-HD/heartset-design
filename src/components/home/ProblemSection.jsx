@@ -7,7 +7,7 @@ export default function ProblemSection() {
   
   const problems = [
     "Revenue tied to time and labor",
-    "Frameworks that aren't defensible",
+    "Systems that aren't defensible",
     "Launches without validation",
     "Authority without leverage"
   ];
