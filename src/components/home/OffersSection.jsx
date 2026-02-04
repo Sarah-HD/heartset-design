@@ -16,13 +16,13 @@ export default function OffersSection() {
     },
     {
       tier: "Private Engagement",
-      title: "Authority Infrastructure™ — Strategic Architecture",
+      title: "Authority Infrastructure™: Strategic Architecture",
       price: "Application Only",
       description: "Private strategy · Research-aligned · Application only"
     },
     {
       tier: "Built-for-You",
-      title: "Authority Infrastructure™ — Implementation",
+      title: "Authority Infrastructure™: Implementation",
       price: "Scope Defined After Review",
       description: "Custom systems · Institutional readiness · Scope defined after review"
     }

@@ -40,7 +40,7 @@ export default function HeroSection() {
           className="text-lg md:text-xl text-white/60 max-w-2xl leading-relaxed mb-12 font-light"
         >
           We partner with experienced professionals to convert lived expertise into proprietary authority systems, 
-          validate them through focus groups, and build infrastructure prepared for institutional scale — without ads, 
+          validate them through focus groups, and build infrastructure prepared for institutional scale. No ads, 
           funnels, or legal risk.
         </motion.p>
         
