@@ -13,69 +13,53 @@ export default function CaseStudiesSection() {
   
   const cases = [
     {
-      id: "nonprofit-fundraising",
-      category: "Institutional & Nonprofit Strategy",
-      title: "Nonprofit Fundraising Strategy",
-      subtitle: "Institutional Partnership Momentum",
-      clientType: "Nonprofit Organization",
-      challenge: "Strong mission and community impact, but fundraising language and visual strategy were not aligned with institutional decision-makers.",
+      id: "accelerator-readiness",
+      title: "Institutional Readiness → Selective Accelerator Acceptance",
+      subtitle: "Women.NYC Acceptance",
+      clientType: "Tech Founder",
+      context: "Applied to Goldman Sachs and Women.NYC",
+      challenge: "Client was preparing for multiple highly selective accelerators requiring more than a pitch — she needed institutional clarity, defensible positioning, and a system that could scale beyond a single program.",
       applied: [
-        "Reframed program narrative for financial institutions and corporate partners",
-        "Redesigned fundraising visuals to meet institutional review standards",
-        "Structured a long-term partnership ask aligned with sustainability goals"
+        "Developed a proprietary framework, including a named methodology (SIS – Cultural Intelligence System)",
+        "Structured a lean business plan aligned with institutional and venture evaluation criteria",
+        "Built an MVP using Base44 to demonstrate functional viability",
+        "Guided creation of a trademark-ready brand identity and visual system",
+        "Advised on trademark strategy and legal protection pathways",
+        "Conducted reverse interviews with past Goldman Sachs participants to model selection logic",
+        "Designed custom interview frameworks before official accelerator prompts were released",
+        "Refined founder narrative, positioning, and institutional \"why\"",
+        "Prepared the business for long-term ecosystem participation, not just acceptance"
       ],
       outcome: [
-        "Secured a second-stage meeting with a large Ohio-based credit union",
-        "Invited to submit full program materials for internal review",
-        "Formal $50,000 partnership request presented",
-        "Organization entered active collaboration consideration"
+        "Accepted into Women.NYC, a premier accelerator for technology founders",
+        "Positioned with a transferable framework, MVP, and brand system beyond the accelerator",
+        "Established institutional credibility applicable across future funding and partnership opportunities"
       ],
-      whyMatters: "Shifted the organization from grassroots fundraising to institutional partnership positioning."
+      whyMatters: "This wasn't about getting into a program. It was about building Authority Infrastructure — a framework, system, and narrative that institutions recognize, validate, and invest in."
     },
     {
-      id: "hospital-cafe",
-      category: "Institutional Partnerships & Launch Strategy",
-      title: "Children's Hospital Café Launch",
-      subtitle: "High Internal Engagement",
-      clientType: "Food & Beverage Concept (Institutional Partnership)",
-      challenge: "Launching a new café inside a major hospital system required internal alignment, compliance awareness, and employee buy-in.",
+      id: "social-enterprise",
+      title: "Community Event → Revenue-Generating Social Enterprise",
+      subtitle: "MBA (Industrial–Organizational Psychology)",
+      clientType: "MBA, Psychology (Industrial–Organizational)\nAuthor, Speaker, Community Leader",
+      challenge: "Client was hosting business lunches informally—low pricing, no monetization structure, no long-term revenue model.",
       applied: [
-        "Supported partnership pathway with one of the nation's largest children's hospitals",
-        "Aligned launch strategy with institutional communication standards",
-        "Designed employee-facing rollout and appreciation initiative"
+        "Reframed events as a social enterprise, not a meetup",
+        "Introduced tiered ticket pricing (general, sponsor, partner)",
+        "Integrated curriculum and book ecosystem",
+        "Aligned language for grant and institutional funding eligibility"
       ],
       outcome: [
-        "Successful café launch inside the hospital system",
-        "Highest engagement rate among two new franchise launches",
-        "Leveraged internal employee newsletter for visibility",
-        "Strong internal adoption and participation"
+        "$1,000 cash profit from first restructured event",
+        "$5,000 secured in grant funding (health/community sector)",
+        "Increased book sales during launch window",
+        "Interest in bulk curriculum purchases from educators"
       ],
-      whyMatters: "Institutional launches succeed through internal trust—not external hype."
-    },
-    {
-      id: "consultant-rebrand",
-      category: "Professional Services & Revenue Systems",
-      title: "Consultant Rebrand + Strategic Outreach",
-      subtitle: "21 Qualified Leads",
-      clientType: "Consultant / Service Professional",
-      challenge: "Strong technical skill set, weak positioning, inconsistent client acquisition.",
-      applied: [
-        "Clarified niche authority positioning",
-        "Designed confidence-based outreach language",
-        "Implemented a curated, high-intent lead vetting system"
-      ],
-      outcome: [
-        "100 targeted outreach messages",
-        "80 responses",
-        "21 highly qualified leads",
-        "Increased inbound credibility post-rebrand"
-      ],
-      whyMatters: "Authority converts faster than volume marketing."
+      whyMatters: "Client transitioned from hosting events to operating a mission-driven revenue engine."
     },
     {
       id: "workshop-launch",
-      category: "Professional Services & Revenue Systems",
-      title: "First Workshop Launch",
+      title: "First Workshop Launch → Repeatable Revenue Model",
       subtitle: "Duplicated Revenue System",
       clientType: "Career Transitioner (Tech → Business)",
       background: "Client spent nearly 20 years in Quality Assurance (QA) within the tech industry before transitioning into entrepreneurship.",
@@ -96,30 +80,27 @@ export default function CaseStudiesSection() {
       whyMatters: "Client learned she could generate repeatable revenue from expertise—without marketing complexity."
     },
     {
-      id: "social-enterprise",
-      category: "Social Enterprise & Monetization Strategy",
-      title: "Community Event → Revenue-Generating Social Enterprise",
-      subtitle: "MBA (Industrial–Organizational Psychology)",
-      clientType: "MBA, Psychology (Industrial–Organizational)\nAuthor, Speaker, Community Leader",
-      challenge: "Client was hosting business lunches informally—low pricing, no monetization structure, no long-term revenue model.",
+      id: "consultant-rebrand",
+      title: "Strategic Rebrand → 21 Qualified Leads in 30 Days",
+      subtitle: "21 Qualified Leads",
+      clientType: "Consultant / Service Professional",
+      challenge: "Strong technical skill set, weak positioning, inconsistent client acquisition.",
       applied: [
-        "Reframed events as a social enterprise, not a meetup",
-        "Introduced tiered ticket pricing (general, sponsor, partner)",
-        "Integrated curriculum and book ecosystem",
-        "Aligned language for grant and institutional funding eligibility"
+        "Clarified niche authority positioning",
+        "Designed confidence-based outreach language",
+        "Implemented a curated, high-intent lead vetting system"
       ],
       outcome: [
-        "$1,000 cash profit from first restructured event",
-        "$5,000 secured in grant funding (health/community sector)",
-        "Increased book sales during launch window",
-        "Interest in bulk curriculum purchases from educators"
+        "100 targeted outreach messages",
+        "80 responses",
+        "21 highly qualified leads",
+        "Increased inbound credibility post-rebrand"
       ],
-      whyMatters: "Client transitioned from hosting events to operating a mission-driven revenue engine."
+      whyMatters: "Authority converts faster than volume marketing."
     },
     {
       id: "organic-content",
-      category: "Content & Platform Strategy",
-      title: "Organic Content Strategy (2019–2020)",
+      title: "Organic Content Strategy → 1.5M Views Pre-Monetization",
       subtitle: "1.5M Views Pre-Monetization → Monetization Reactivated",
       clientType: "Content Creator / Platform Strategist",
       challenge: "Built substantial organic reach before platform monetization structures existed, but needed to reactivate revenue systems post-algorithm shift.",
@@ -136,6 +117,44 @@ export default function CaseStudiesSection() {
         "Platform intelligence leveraged for strategic timing"
       ],
       whyMatters: "Platform mastery requires understanding timing, systems, and sustainable monetization—not just viral content."
+    },
+    {
+      id: "nonprofit-fundraising",
+      title: "Nonprofit Fundraising Strategy → Second Institutional Review",
+      subtitle: "Institutional Partnership Momentum",
+      clientType: "Nonprofit Organization",
+      challenge: "Strong mission and community impact, but fundraising language and visual strategy were not aligned with institutional decision-makers.",
+      applied: [
+        "Reframed program narrative for financial institutions and corporate partners",
+        "Redesigned fundraising visuals to meet institutional review standards",
+        "Structured a long-term partnership ask aligned with sustainability goals"
+      ],
+      outcome: [
+        "Secured a second-stage meeting with a large Ohio-based credit union",
+        "Invited to submit full program materials for internal review",
+        "Formal $50,000 partnership request presented",
+        "Organization entered active collaboration consideration"
+      ],
+      whyMatters: "Shifted the organization from grassroots fundraising to institutional partnership positioning."
+    },
+    {
+      id: "hospital-cafe",
+      title: "Healthcare Partnership → Launch with a Top 3 U.S. Children's Hospital",
+      subtitle: "High Internal Engagement",
+      clientType: "Food & Beverage Concept (Institutional Partnership)",
+      challenge: "Launching a new café inside a major hospital system required internal alignment, compliance awareness, and employee buy-in.",
+      applied: [
+        "Supported partnership pathway with one of the nation's largest children's hospitals",
+        "Aligned launch strategy with institutional communication standards",
+        "Designed employee-facing rollout and appreciation initiative"
+      ],
+      outcome: [
+        "Successful café launch inside the hospital system",
+        "Highest engagement rate among two new franchise launches",
+        "Leveraged internal employee newsletter for visibility",
+        "Strong internal adoption and participation"
+      ],
+      whyMatters: "Institutional launches succeed through internal trust—not external hype."
     }
   ];
   
@@ -203,6 +222,17 @@ export default function CaseStudiesSection() {
                         {study.clientType}
                       </p>
                     </div>
+                    
+                    {study.context && (
+                      <div>
+                        <p className="text-xs tracking-wide uppercase text-black/40 mb-2">
+                          Context
+                        </p>
+                        <p className="text-sm md:text-base font-light">
+                          {study.context}
+                        </p>
+                      </div>
+                    )}
                     
                     {study.background && (
                       <div>
