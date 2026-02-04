@@ -115,6 +115,27 @@ export default function CaseStudiesSection() {
         "Interest in bulk curriculum purchases from educators"
       ],
       whyMatters: "Client transitioned from hosting events to operating a mission-driven revenue engine."
+    },
+    {
+      id: "organic-content",
+      category: "Content & Platform Strategy",
+      title: "Organic Content Strategy (2019–2020)",
+      subtitle: "1.5M Views Pre-Monetization → Monetization Reactivated",
+      clientType: "Content Creator / Platform Strategist",
+      challenge: "Built substantial organic reach before platform monetization structures existed, but needed to reactivate revenue systems post-algorithm shift.",
+      applied: [
+        "Analyzed platform timing and monetization eligibility windows",
+        "Restructured content strategy for current monetization models",
+        "Positioned existing authority for strategic re-entry",
+        "Maintained audience trust through transparent transition"
+      ],
+      outcome: [
+        "1.5M+ views achieved organically (2019–2020)",
+        "Content strategy developed before short-form monetization incentives",
+        "Successfully reactivated monetization eligibility",
+        "Platform intelligence leveraged for strategic timing"
+      ],
+      whyMatters: "Platform mastery requires understanding timing, systems, and sustainable monetization—not just viral content."
     }
   ];
   
