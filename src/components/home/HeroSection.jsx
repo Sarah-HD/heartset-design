@@ -6,15 +6,26 @@ import { createPageUrl } from "@/utils";
 export default function HeroSection() {
   return (
     <section className="min-h-screen bg-black text-white flex flex-col justify-center px-6 md:px-16 lg:px-24 py-20 relative overflow-hidden">
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 z-0 opacity-10" 
+        style={{ 
+          backgroundImage: `url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/698234f6159af9c88427982a/617d7af2c_ChatGPTImageFeb5202610_41_29AM1.png')`, 
+          backgroundSize: 'cover', 
+          backgroundPosition: 'center',
+          filter: 'grayscale(100%) brightness(50%)' 
+        }}
+      />
+      
       {/* Subtle architectural line accent */}
-      <div className="absolute top-0 right-0 w-px h-full bg-white/10" />
+      <div className="absolute top-0 right-0 w-px h-full bg-white/10 z-10" />
       <div className="absolute top-1/3 right-12 w-24 h-px bg-white/20 hidden lg:block" />
       
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-        className="max-w-4xl"
+        className="max-w-4xl relative z-10"
       >
         <motion.p
           initial={{ opacity: 0 }}
