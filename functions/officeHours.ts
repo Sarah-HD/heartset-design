@@ -43,7 +43,7 @@ Deno.serve(async (req) => {
     if (action === 'bookSlot') {
       const event = {
         summary: `Office Hours - ${user.full_name || user.email}`,
-        description: `Office hours session with ${user.full_name || user.email}\nEmail: ${user.email}`,
+        description: `Office hours session with ${user.full_name || user.email}\n\nEmail: ${user.email}\n\nTopic:\n${eventData.topic}`,
         start: {
           dateTime: eventData.startTime,
           timeZone: 'America/New_York',
@@ -77,11 +77,22 @@ Deno.serve(async (req) => {
 
       const createdEvent = await response.json();
 
+      const meetingLink = createdEvent.hangoutLink || 'Meeting link will be in your calendar invitation';
+      const sessionTime = new Date(eventData.startTime).toLocaleString('en-US', { 
+        timeZone: 'America/New_York',
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        timeZoneName: 'short'
+      });
+
       // Send confirmation email
       await base44.integrations.Core.SendEmail({
         to: user.email,
-        subject: 'Office Hours Confirmed',
-        body: `Your office hours session has been confirmed.\n\nTime: ${new Date(eventData.startTime).toLocaleString('en-US', { timeZone: 'America/New_York' })}\n\nYou will receive a calendar invitation with the meeting link.`
+        subject: 'Office Hours Session Confirmed',
+        body: `Your office hours session has been confirmed.\n\n━━━━━━━━━━━━━━━━━━━━━\n\nSESSION DETAILS\n\nTime: ${sessionTime}\nDuration: 20 minutes\n\nMeeting Link:\n${meetingLink}\n\n━━━━━━━━━━━━━━━━━━━━━\n\nWHAT YOU'LL COVER\n\n${eventData.topic}\n\n━━━━━━━━━━━━━━━━━━━━━\n\nA calendar invitation has been sent to your email with the meeting details.\n\nSee you then.`
       });
 
       return Response.json({ success: true, event: createdEvent });

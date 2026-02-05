@@ -3,12 +3,14 @@ import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import { Calendar, Clock, CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function OfficeHours() {
   const [user, setUser] = useState(null);
   const [selectedSlot, setSelectedSlot] = useState(null);
+  const [topic, setTopic] = useState("");
   const [booked, setBooked] = useState(false);
   
   const queryClient = useQueryClient();
@@ -37,12 +39,13 @@ export default function OfficeHours() {
   });
 
   const bookMutation = useMutation({
-    mutationFn: async (slot) => {
+    mutationFn: async ({ slot, topic }) => {
       const response = await base44.functions.invoke('officeHours', {
         action: 'bookSlot',
         eventData: {
           startTime: slot.start,
-          endTime: slot.end
+          endTime: slot.end,
+          topic
         }
       });
       return response.data;
@@ -51,13 +54,14 @@ export default function OfficeHours() {
       queryClient.invalidateQueries({ queryKey: ['officeHourSlots'] });
       setBooked(true);
       setSelectedSlot(null);
+      setTopic("");
       setTimeout(() => setBooked(false), 5000);
     },
   });
 
   const handleBook = async () => {
-    if (!selectedSlot) return;
-    await bookMutation.mutateAsync(selectedSlot);
+    if (!selectedSlot || !topic.trim()) return;
+    await bookMutation.mutateAsync({ slot: selectedSlot, topic });
   };
 
   if (!user) {
@@ -168,18 +172,34 @@ export default function OfficeHours() {
                         <p className="text-sm text-black/60">20-minute session</p>
                       </div>
                     </div>
+
+                    <div>
+                      <label className="text-sm text-black/60 mb-2 block">
+                        What do you need help with?
+                      </label>
+                      <Textarea
+                        value={topic}
+                        onChange={(e) => setTopic(e.target.value)}
+                        placeholder="Briefly describe what you'd like to cover during this session..."
+                        className="h-24"
+                        required
+                      />
+                    </div>
                     
                     <div className="flex gap-3">
                       <Button
                         onClick={handleBook}
-                        disabled={bookMutation.isPending}
+                        disabled={bookMutation.isPending || !topic.trim()}
                         className="flex-1 bg-black hover:bg-black/80"
                       >
                         {bookMutation.isPending ? 'Booking...' : 'Confirm Booking'}
                       </Button>
                       <Button
                         variant="outline"
-                        onClick={() => setSelectedSlot(null)}
+                        onClick={() => {
+                          setSelectedSlot(null);
+                          setTopic("");
+                        }}
                       >
                         Cancel
                       </Button>
