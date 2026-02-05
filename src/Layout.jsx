@@ -2,9 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
+import { Menu, X } from "lucide-react";
 
 export default function Layout({ children }) {
   const [user, setUser] = React.useState(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
   React.useEffect(() => {
     const loadUser = async () => {
@@ -73,7 +75,8 @@ export default function Layout({ children }) {
             Heartset Design
           </Link>
           
-          <div className="flex items-center gap-8">
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-8">
             <Link
               to={createPageUrl("Home")}
               className="text-sm text-black/60 hover:text-black transition-colors duration-200"
@@ -115,7 +118,69 @@ export default function Layout({ children }) {
               </Link>
             )}
           </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 text-black/60 hover:text-black"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
         </div>
+
+        {/* Mobile Navigation Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-white border-t border-black/10">
+            <div className="px-6 py-4 flex flex-col gap-4">
+              <Link
+                to={createPageUrl("Home")}
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-sm text-black/60 hover:text-black transition-colors duration-200 py-2"
+              >
+                Home
+              </Link>
+              <Link
+                to={createPageUrl("VideoLibrary")}
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-sm text-black/60 hover:text-black transition-colors duration-200 py-2"
+              >
+                Video Library
+              </Link>
+              <Link
+                to={createPageUrl("Assignments")}
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-sm text-black/60 hover:text-black transition-colors duration-200 py-2"
+              >
+                Assignments
+              </Link>
+              <Link
+                to={createPageUrl("OfficeHours")}
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-sm text-black/60 hover:text-black transition-colors duration-200 py-2"
+              >
+                Office Hours
+              </Link>
+              {user && (
+                <Link
+                  to={createPageUrl("Account")}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm text-black/60 hover:text-black transition-colors duration-200 py-2"
+                >
+                  Account
+                </Link>
+              )}
+              {user?.role === 'admin' && (
+                <Link
+                  to={createPageUrl("VideoAdmin")}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm bg-black text-white px-4 py-2 hover:bg-black/80 transition-colors duration-200 text-center"
+                >
+                  Admin
+                </Link>
+              )}
+            </div>
+          </div>
+        )}
       </nav>
       
       {/* Content with top padding to account for fixed nav */}
