@@ -6,18 +6,26 @@ import { createPageUrl } from "@/utils";
 export default function HeroSection() {
   return (
     <section className="min-h-screen bg-black text-white flex flex-col justify-center px-6 md:px-16 lg:px-24 py-20 relative overflow-hidden">
-      {/* Background Image */}
-      <div 
-        className="absolute inset-0 z-0" 
-        style={{ 
-          backgroundImage: `url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/698234f6159af9c88427982a/617d7af2c_ChatGPTImageFeb5202610_41_29AM1.png')`, 
-          backgroundSize: 'cover', 
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          opacity: '0.12',
-          filter: 'grayscale(100%)' 
-        }}
-      />
+      {/* Background Image with Gradient Overlay */}
+      <div className="absolute inset-0 z-0">
+        <div 
+          className="absolute inset-0" 
+          style={{ 
+            backgroundImage: `url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/698234f6159af9c88427982a/617d7af2c_ChatGPTImageFeb5202610_41_29AM1.png')`, 
+            backgroundSize: 'cover', 
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            filter: 'grayscale(100%)',
+            opacity: '0.25'
+          }}
+        />
+        <div 
+          className="absolute inset-0" 
+          style={{
+            background: 'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.9) 100%)'
+          }}
+        />
+      </div>
       
       {/* Subtle architectural line accent */}
       <div className="absolute top-0 right-0 w-px h-full bg-white/10 z-10" />
