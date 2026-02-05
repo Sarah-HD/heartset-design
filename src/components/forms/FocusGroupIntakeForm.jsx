@@ -180,6 +180,8 @@ export default function FocusGroupIntakeForm() {
                       "Consultant",
                       "Coach (high-ticket / executive / niche)",
                       "Nonprofit / Program Director",
+                      "Fractional Executive / Operator",
+                      "Senior Consultant / Advisor",
                       "Other (please describe)"
                     ].map((role) => (
                       <div key={role} className="flex items-center space-x-3">
