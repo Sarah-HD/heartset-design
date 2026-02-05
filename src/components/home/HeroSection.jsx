@@ -41,7 +41,7 @@ export default function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.8 }}
-          className="text-xs tracking-[0.3em] uppercase text-white/50 mb-8"
+          className="text-xs tracking-[0.3em] uppercase text-white/60 mb-8"
         >
           Heartset Design
         </motion.p>
@@ -58,7 +58,7 @@ export default function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.8 }}
-          className="text-lg md:text-xl text-white/60 max-w-2xl leading-relaxed mb-12 font-light"
+          className="text-lg md:text-xl text-white/60 max-w-xl lg:max-w-2xl leading-relaxed mb-12 font-light"
         >
           We partner with experienced professionals to convert lived expertise into proprietary authority systems, 
           validate them through focus groups, and build infrastructure prepared for institutional scale. No ads, 
@@ -73,7 +73,7 @@ export default function HeroSection() {
         >
           <Link
             to={createPageUrl("Apply")}
-            className="group inline-flex items-center gap-3 bg-white text-black px-8 py-4 text-sm tracking-wide hover:bg-white/90 transition-all duration-300"
+            className="group inline-flex items-center gap-3 bg-white text-black px-8 py-3 text-sm tracking-wider hover:bg-white/90 transition-all duration-300"
           >
             <span>Apply for Authority Infrastructure™</span>
             <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
