@@ -8,12 +8,12 @@ export default function HeroSection() {
     <section className="min-h-screen bg-black text-white flex flex-col justify-center px-6 md:px-16 lg:px-24 py-20 relative overflow-hidden">
       {/* Background Image */}
       <div 
-        className="absolute inset-0 z-0 opacity-10" 
+        className="absolute inset-0 z-0 opacity-[0.15]" 
         style={{ 
           backgroundImage: `url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/698234f6159af9c88427982a/617d7af2c_ChatGPTImageFeb5202610_41_29AM1.png')`, 
           backgroundSize: 'cover', 
           backgroundPosition: 'center',
-          filter: 'grayscale(100%) brightness(50%)' 
+          filter: 'grayscale(100%) brightness(70%)' 
         }}
       />
       
