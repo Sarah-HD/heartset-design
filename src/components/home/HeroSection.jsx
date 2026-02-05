@@ -16,13 +16,13 @@ export default function HeroSection() {
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
             filter: 'grayscale(100%)',
-            opacity: '0.25'
+            opacity: '0.5'
           }}
         />
         <div 
           className="absolute inset-0" 
           style={{
-            background: 'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.9) 100%)'
+            background: 'linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.7) 100%)'
           }}
         />
       </div>
