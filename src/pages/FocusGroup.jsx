@@ -38,17 +38,24 @@ export default function FocusGroup() {
               <span className="italic text-black/60">Focus Group</span>
             </h1>
             
-            <p className="text-lg text-black/60 font-light leading-relaxed max-w-2xl mb-8">
-              This is a collaborative working group designed to validate and refine professional 
-              frameworks with credentialed peers.
+            <p className="text-lg text-black/60 font-light leading-relaxed max-w-2xl mb-6">
+              This is a collaborative working group for experienced professionals who want to validate and refine their frameworks with credentialed peers.
             </p>
             
-            <div className="bg-neutral-50 border-l-2 border-black/20 p-6 mb-12">
+            <p className="text-lg text-black/60 font-light leading-relaxed max-w-2xl mb-8">
+              You'll test clarity, positioning, and demand in real time — and leave with insight into whether your work is ready for programs, cohorts, or institutional scale.
+            </p>
+            
+            <div className="bg-neutral-50 border-l-2 border-black/20 p-6 mb-8">
               <p className="text-sm text-black/60 font-light leading-relaxed">
                 Your place is not held until you confirm via email. After submitting, 
                 check your inbox for a confirmation request from Heartset Design.
               </p>
             </div>
+            
+            <p className="text-sm text-black/50 font-light italic mb-12">
+              This is not a webinar or passive training. Participation and feedback are expected.
+            </p>
           </motion.div>
           
           <motion.div
