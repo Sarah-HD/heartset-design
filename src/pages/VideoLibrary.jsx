@@ -5,6 +5,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Play } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { createPageUrl } from "@/utils";
 
 export default function VideoLibrary() {
   const { data: videos = [], isLoading } = useQuery({
@@ -100,6 +102,13 @@ export default function VideoLibrary() {
                                   {video.description}
                                 </p>
                               )}
+                              <Link
+                                to={createPageUrl("Assignments")}
+                                className="inline-flex items-center gap-2 text-xs text-black/40 hover:text-black transition-colors"
+                              >
+                                <span className="w-4 h-px bg-current" />
+                                <span>Complete Assignment</span>
+                              </Link>
                             </div>
                           </CardContent>
                         </Card>

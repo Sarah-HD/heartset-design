@@ -92,6 +92,12 @@ export default function Layout({ children }) {
             >
               Assignments
             </Link>
+            <Link
+              to={createPageUrl("OfficeHours")}
+              className="text-sm text-black/60 hover:text-black transition-colors duration-200"
+            >
+              Office Hours
+            </Link>
             {user && (
               <Link
                 to={createPageUrl("Account")}

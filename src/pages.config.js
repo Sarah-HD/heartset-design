@@ -57,6 +57,7 @@ import VideoAdmin from './pages/VideoAdmin';
 import VideoLibrary from './pages/VideoLibrary';
 import Assignments from './pages/Assignments';
 import Account from './pages/Account';
+import OfficeHours from './pages/OfficeHours';
 import __Layout from './Layout.jsx';
 
 
@@ -71,6 +72,7 @@ export const PAGES = {
     "VideoLibrary": VideoLibrary,
     "Assignments": Assignments,
     "Account": Account,
+    "OfficeHours": OfficeHours,
 }
 
 export const pagesConfig = {
