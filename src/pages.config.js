@@ -54,6 +54,9 @@ import FocusGroup from './pages/FocusGroup';
 import Home from './pages/Home';
 import Referral from './pages/Referral';
 import VideoAdmin from './pages/VideoAdmin';
+import VideoLibrary from './pages/VideoLibrary';
+import Assignments from './pages/Assignments';
+import Account from './pages/Account';
 import __Layout from './Layout.jsx';
 
 
@@ -65,6 +68,9 @@ export const PAGES = {
     "Home": Home,
     "Referral": Referral,
     "VideoAdmin": VideoAdmin,
+    "VideoLibrary": VideoLibrary,
+    "Assignments": Assignments,
+    "Account": Account,
 }
 
 export const pagesConfig = {
