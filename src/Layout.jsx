@@ -134,9 +134,9 @@ export default function Layout({ children }) {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`md:hidden p-2 rounded transition-colors ${isTransparent ? 'text-white bg-white/10 hover:bg-white/20' : 'text-black/60 hover:text-black'}`}
+            className={`md:hidden p-3 rounded transition-colors ${isTransparent ? 'text-white bg-white/20 hover:bg-white/30 border border-white/30' : 'text-black/60 hover:text-black'}`}
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
           </button>
         </div>
 
