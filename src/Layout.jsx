@@ -73,7 +73,7 @@ export default function Layout({ children }) {
       `}</style>
       
       {/* Global Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 ${isTransparent ? 'bg-transparent' : 'bg-white border-b border-black/10'}`}>
+      <nav className={`fixed top-0 left-0 right-0 z-[100] ${isTransparent ? 'bg-transparent' : 'bg-white border-b border-black/10'}`}>
         <div className="px-6 md:px-16 lg:px-24 py-4 flex items-center justify-between">
           <Link 
             to={createPageUrl("Home")}
