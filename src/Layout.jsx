@@ -199,8 +199,8 @@ export default function Layout({ children }) {
         )}
       </nav>
       
-      {/* Content with top padding to account for fixed nav */}
-      <div className="pt-[73px]">
+      {/* Content with top padding to account for fixed nav (except transparent home) */}
+      <div className={isTransparent ? '' : 'pt-[73px]'}>
         {children}
       </div>
     </>
