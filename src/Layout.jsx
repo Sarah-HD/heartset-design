@@ -111,7 +111,7 @@ export default function Layout({ children }) {
             )}
             {user?.role === 'admin' && (
               <Link
-                to={createPageUrl("VideoAdmin")}
+                to={createPageUrl("AdminDashboard")}
                 className="text-sm bg-black text-white px-4 py-2 hover:bg-black/80 transition-colors duration-200"
               >
                 Admin
@@ -171,7 +171,7 @@ export default function Layout({ children }) {
               )}
               {user?.role === 'admin' && (
                 <Link
-                  to={createPageUrl("VideoAdmin")}
+                  to={createPageUrl("AdminDashboard")}
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-sm bg-black text-white px-4 py-2 hover:bg-black/80 transition-colors duration-200 text-center"
                 >
