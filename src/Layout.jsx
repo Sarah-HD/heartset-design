@@ -4,7 +4,7 @@ import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import { Menu, X } from "lucide-react";
 
-export default function Layout({ children }) {
+export default function Layout({ children, currentPageName }) {
   const [user, setUser] = React.useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
@@ -22,6 +22,9 @@ export default function Layout({ children }) {
 
   const isFocusGroup = user?.cohort_type === 'focus_group' || !user?.cohort_type;
   const showFullProgram = user?.cohort_type === 'sprint' || user?.cohort_type === 'advisory';
+  
+  // Transparent nav with white text for unauthenticated Home page
+  const isTransparent = currentPageName === 'Home' && !user;
   return (
     <>
       <style>{`
@@ -68,11 +71,11 @@ export default function Layout({ children }) {
       `}</style>
       
       {/* Global Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-black/10">
+      <nav className={`fixed top-0 left-0 right-0 z-50 ${isTransparent ? 'bg-transparent' : 'bg-white border-b border-black/10'}`}>
         <div className="px-6 md:px-16 lg:px-24 py-4 flex items-center justify-between">
           <Link 
             to={createPageUrl("Home")}
-            className="text-lg"
+            className={`text-lg ${isTransparent ? 'text-white' : 'text-black'}`}
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
             Heartset Design
@@ -82,13 +85,13 @@ export default function Layout({ children }) {
           <div className="hidden md:flex items-center gap-8">
             <Link
               to={createPageUrl("Home")}
-              className="text-sm text-black/60 hover:text-black transition-colors duration-200"
+              className={`text-sm transition-colors duration-200 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
             >
               Home
             </Link>
             <Link
               to={createPageUrl("VideoLibrary")}
-              className="text-sm text-black/60 hover:text-black transition-colors duration-200"
+              className={`text-sm transition-colors duration-200 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
             >
               Video Library
             </Link>
@@ -96,13 +99,13 @@ export default function Layout({ children }) {
               <>
                 <Link
                   to={createPageUrl("Assignments")}
-                  className="text-sm text-black/60 hover:text-black transition-colors duration-200"
+                  className={`text-sm transition-colors duration-200 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
                 >
                   Assignments
                 </Link>
                 <Link
                   to={createPageUrl("OfficeHours")}
-                  className="text-sm text-black/60 hover:text-black transition-colors duration-200"
+                  className={`text-sm transition-colors duration-200 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
                 >
                   Office Hours
                 </Link>
@@ -111,7 +114,7 @@ export default function Layout({ children }) {
             {user && (
               <Link
                 to={createPageUrl("Account")}
-                className="text-sm text-black/60 hover:text-black transition-colors duration-200"
+                className={`text-sm transition-colors duration-200 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
               >
                 Account
               </Link>
@@ -119,7 +122,7 @@ export default function Layout({ children }) {
             {user?.role === 'admin' && (
               <Link
                 to={createPageUrl("AdminDashboard")}
-                className="text-sm bg-black text-white px-4 py-2 hover:bg-black/80 transition-colors duration-200"
+                className={`text-sm px-4 py-2 transition-colors duration-200 ${isTransparent ? 'bg-white text-black hover:bg-white/90' : 'bg-black text-white hover:bg-black/80'}`}
               >
                 Admin
               </Link>
@@ -129,7 +132,7 @@ export default function Layout({ children }) {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 text-black/60 hover:text-black"
+            className={`md:hidden p-2 transition-colors ${isTransparent ? 'text-white/80 hover:text-white' : 'text-black/60 hover:text-black'}`}
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -137,19 +140,19 @@ export default function Layout({ children }) {
 
         {/* Mobile Navigation Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-white border-t border-black/10">
+          <div className={`md:hidden ${isTransparent ? 'bg-black/90 backdrop-blur-sm border-t border-white/10' : 'bg-white border-t border-black/10'}`}>
             <div className="px-6 py-4 flex flex-col gap-4">
               <Link
                 to={createPageUrl("Home")}
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-sm text-black/60 hover:text-black transition-colors duration-200 py-2"
+                className={`text-sm transition-colors duration-200 py-2 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
               >
                 Home
               </Link>
               <Link
                 to={createPageUrl("VideoLibrary")}
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-sm text-black/60 hover:text-black transition-colors duration-200 py-2"
+                className={`text-sm transition-colors duration-200 py-2 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
               >
                 Video Library
               </Link>
@@ -158,14 +161,14 @@ export default function Layout({ children }) {
                   <Link
                     to={createPageUrl("Assignments")}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="text-sm text-black/60 hover:text-black transition-colors duration-200 py-2"
+                    className={`text-sm transition-colors duration-200 py-2 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
                   >
                     Assignments
                   </Link>
                   <Link
                     to={createPageUrl("OfficeHours")}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="text-sm text-black/60 hover:text-black transition-colors duration-200 py-2"
+                    className={`text-sm transition-colors duration-200 py-2 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
                   >
                     Office Hours
                   </Link>
@@ -175,7 +178,7 @@ export default function Layout({ children }) {
                 <Link
                   to={createPageUrl("Account")}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-sm text-black/60 hover:text-black transition-colors duration-200 py-2"
+                  className={`text-sm transition-colors duration-200 py-2 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
                 >
                   Account
                 </Link>
@@ -184,7 +187,7 @@ export default function Layout({ children }) {
                 <Link
                   to={createPageUrl("AdminDashboard")}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-sm bg-black text-white px-4 py-2 hover:bg-black/80 transition-colors duration-200 text-center"
+                  className={`text-sm px-4 py-2 transition-colors duration-200 text-center ${isTransparent ? 'bg-white text-black hover:bg-white/90' : 'bg-black text-white hover:bg-black/80'}`}
                 >
                   Admin
                 </Link>
