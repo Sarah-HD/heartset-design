@@ -58,6 +58,8 @@ import OfficeHours from './pages/OfficeHours';
 import Referral from './pages/Referral';
 import VideoAdmin from './pages/VideoAdmin';
 import VideoLibrary from './pages/VideoLibrary';
+import Survey from './pages/Survey';
+import AdminDashboard from './pages/AdminDashboard';
 import __Layout from './Layout.jsx';
 
 
@@ -73,6 +75,8 @@ export const PAGES = {
     "Referral": Referral,
     "VideoAdmin": VideoAdmin,
     "VideoLibrary": VideoLibrary,
+    "Survey": Survey,
+    "AdminDashboard": AdminDashboard,
 }
 
 export const pagesConfig = {
