@@ -48,6 +48,7 @@
  * The mainPage value must match a key in the PAGES object exactly.
  */
 import Account from './pages/Account';
+import AdminDashboard from './pages/AdminDashboard';
 import Apply from './pages/Apply';
 import Assignments from './pages/Assignments';
 import BookSession from './pages/BookSession';
@@ -56,15 +57,15 @@ import FocusGroup from './pages/FocusGroup';
 import Home from './pages/Home';
 import OfficeHours from './pages/OfficeHours';
 import Referral from './pages/Referral';
+import Survey from './pages/Survey';
 import VideoAdmin from './pages/VideoAdmin';
 import VideoLibrary from './pages/VideoLibrary';
-import Survey from './pages/Survey';
-import AdminDashboard from './pages/AdminDashboard';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
     "Account": Account,
+    "AdminDashboard": AdminDashboard,
     "Apply": Apply,
     "Assignments": Assignments,
     "BookSession": BookSession,
@@ -73,10 +74,9 @@ export const PAGES = {
     "Home": Home,
     "OfficeHours": OfficeHours,
     "Referral": Referral,
+    "Survey": Survey,
     "VideoAdmin": VideoAdmin,
     "VideoLibrary": VideoLibrary,
-    "Survey": Survey,
-    "AdminDashboard": AdminDashboard,
 }
 
 export const pagesConfig = {

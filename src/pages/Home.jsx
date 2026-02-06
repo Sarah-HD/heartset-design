@@ -34,6 +34,10 @@ export default function Home() {
     loadUser();
   }, []);
 
+  const isFocusGroup = user?.cohort_type === 'focus_group' || !user?.cohort_type;
+  const isSprint = user?.cohort_type === 'sprint';
+  const isAdvisory = user?.cohort_type === 'advisory';
+
   // Show loading state briefly
   if (loading) {
     return (
@@ -62,7 +66,9 @@ export default function Home() {
                 Authority Infrastructure™
               </h1>
               <p className="text-lg text-black/60 font-light max-w-3xl mx-auto">
-                This portal supports structured execution. Complete what is assigned, when it is assigned.
+                {isFocusGroup && "This portal hosts your Focus Group materials. Review the content and come prepared to reflect."}
+                {isSprint && "This portal supports structured execution. Complete what is assigned, when it is assigned."}
+                {isAdvisory && "Your custom advisory portal. Materials and next steps will be shared as we progress."}
               </p>
             </motion.div>
 
@@ -79,11 +85,17 @@ export default function Home() {
                       className="text-2xl mb-4"
                       style={{ fontFamily: "'Playfair Display', serif" }}
                     >
-                      Current Phase
+                      {isFocusGroup && "Program Context"}
+                      {isSprint && "Current Phase"}
+                      {isAdvisory && "Engagement Type"}
                     </h2>
                     <div className="flex items-center gap-3 p-4 bg-neutral-50 rounded">
                       <div className="w-2 h-2 rounded-full bg-black"></div>
-                      <span className="text-lg font-medium">Focus Group</span>
+                      <span className="text-lg font-medium">
+                        {isFocusGroup && "Focus Group Intensive"}
+                        {isSprint && "28-Day Guided Sprint"}
+                        {isAdvisory && "Private Advisory"}
+                      </span>
                     </div>
                   </CardContent>
                 </Card>
@@ -114,8 +126,16 @@ export default function Home() {
                       <div className="flex items-start gap-3 text-sm">
                         <Clock className="w-4 h-4 text-black/60 mt-0.5 flex-shrink-0" />
                         <div>
-                          <p className="font-medium">Office Hours Window</p>
-                          <p className="text-black/60">Tue–Thu</p>
+                          <p className="font-medium">
+                            {isFocusGroup && "Completion Target"}
+                            {isSprint && "Office Hours Window"}
+                            {isAdvisory && "Next Check-In"}
+                          </p>
+                          <p className="text-black/60">
+                            {isFocusGroup && "Before live session"}
+                            {isSprint && "Tue–Thu"}
+                            {isAdvisory && "TBD"}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -153,18 +173,35 @@ export default function Home() {
                       </div>
                     </Link>
                     
-                    <Link
-                      to={createPageUrl("Assignments")}
-                      className="flex items-center gap-4 p-4 bg-neutral-50 hover:bg-neutral-100 rounded transition-colors group"
-                    >
-                      <div className="w-12 h-12 rounded-full bg-black/10 flex items-center justify-center flex-shrink-0 group-hover:bg-black/20 transition-colors">
-                        <FileText className="w-6 h-6 text-black/60" />
-                      </div>
-                      <div className="flex-1">
-                        <p className="font-medium mb-1">Complete: Assignment – Offer Signal Check</p>
-                        <p className="text-sm text-black/60">10 minutes</p>
-                      </div>
-                    </Link>
+                    {isFocusGroup && (
+                      <Link
+                        to={createPageUrl("VideoLibrary")}
+                        className="flex items-center gap-4 p-4 bg-neutral-50 hover:bg-neutral-100 rounded transition-colors group"
+                      >
+                        <div className="w-12 h-12 rounded-full bg-black/10 flex items-center justify-center flex-shrink-0 group-hover:bg-black/20 transition-colors">
+                          <FileText className="w-6 h-6 text-black/60" />
+                        </div>
+                        <div className="flex-1">
+                          <p className="font-medium mb-1">Reflect: Offer Signal Check</p>
+                          <p className="text-sm text-black/60">Optional preparation</p>
+                        </div>
+                      </Link>
+                    )}
+                    
+                    {(isSprint || isAdvisory) && (
+                      <Link
+                        to={createPageUrl("Assignments")}
+                        className="flex items-center gap-4 p-4 bg-neutral-50 hover:bg-neutral-100 rounded transition-colors group"
+                      >
+                        <div className="w-12 h-12 rounded-full bg-black/10 flex items-center justify-center flex-shrink-0 group-hover:bg-black/20 transition-colors">
+                          <FileText className="w-6 h-6 text-black/60" />
+                        </div>
+                        <div className="flex-1">
+                          <p className="font-medium mb-1">Complete: Assignment – Offer Signal Check</p>
+                          <p className="text-sm text-black/60">10 minutes</p>
+                        </div>
+                      </Link>
+                    )}
                   </div>
                 </CardContent>
               </Card>
@@ -182,25 +219,50 @@ export default function Home() {
                     className="text-2xl mb-6"
                     style={{ fontFamily: "'Playfair Display', serif" }}
                   >
-                    Rules of Engagement
+                    {isFocusGroup && "How This Session Works"}
+                    {(isSprint || isAdvisory) && "Rules of Engagement"}
                   </h2>
                   <ul className="space-y-3">
-                    <li className="flex items-start gap-3 text-black/70">
-                      <span className="w-1.5 h-1.5 rounded-full bg-black/40 mt-2 flex-shrink-0"></span>
-                      <span>No brainstorming during sessions</span>
-                    </li>
-                    <li className="flex items-start gap-3 text-black/70">
-                      <span className="w-1.5 h-1.5 rounded-full bg-black/40 mt-2 flex-shrink-0"></span>
-                      <span>Office hours require completed assignments</span>
-                    </li>
-                    <li className="flex items-start gap-3 text-black/70">
-                      <span className="w-1.5 h-1.5 rounded-full bg-black/40 mt-2 flex-shrink-0"></span>
-                      <span>No DM coaching</span>
-                    </li>
-                    <li className="flex items-start gap-3 text-black/70">
-                      <span className="w-1.5 h-1.5 rounded-full bg-black/40 mt-2 flex-shrink-0"></span>
-                      <span>This is execution, not ideation</span>
-                    </li>
+                    {isFocusGroup && (
+                      <>
+                        <li className="flex items-start gap-3 text-black/70">
+                          <span className="w-1.5 h-1.5 rounded-full bg-black/40 mt-2 flex-shrink-0"></span>
+                          <span>Come prepared with reflections from the material</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-black/70">
+                          <span className="w-1.5 h-1.5 rounded-full bg-black/40 mt-2 flex-shrink-0"></span>
+                          <span>This is not a brainstorming session</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-black/70">
+                          <span className="w-1.5 h-1.5 rounded-full bg-black/40 mt-2 flex-shrink-0"></span>
+                          <span>Questions should relate to clarity, not customization</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-black/70">
+                          <span className="w-1.5 h-1.5 rounded-full bg-black/40 mt-2 flex-shrink-0"></span>
+                          <span>Coaching support begins in the full program</span>
+                        </li>
+                      </>
+                    )}
+                    {(isSprint || isAdvisory) && (
+                      <>
+                        <li className="flex items-start gap-3 text-black/70">
+                          <span className="w-1.5 h-1.5 rounded-full bg-black/40 mt-2 flex-shrink-0"></span>
+                          <span>No brainstorming during sessions</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-black/70">
+                          <span className="w-1.5 h-1.5 rounded-full bg-black/40 mt-2 flex-shrink-0"></span>
+                          <span>Office hours require completed assignments</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-black/70">
+                          <span className="w-1.5 h-1.5 rounded-full bg-black/40 mt-2 flex-shrink-0"></span>
+                          <span>No DM coaching</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-black/70">
+                          <span className="w-1.5 h-1.5 rounded-full bg-black/40 mt-2 flex-shrink-0"></span>
+                          <span>This is execution, not ideation</span>
+                        </li>
+                      </>
+                    )}
                   </ul>
                 </CardContent>
               </Card>

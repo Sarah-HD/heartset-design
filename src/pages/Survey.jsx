@@ -49,16 +49,12 @@ export default function Survey() {
 
   const submitMutation = useMutation({
     mutationFn: async (data) => {
-      await base44.entities.SurveyResponse.create(data);
+      const createdResponse = await base44.entities.SurveyResponse.create(data);
       
-      // Send confirmation email
-      if (user) {
-        await base44.integrations.Core.SendEmail({
-          to: user.email,
-          subject: 'Survey Response Received',
-          body: `Thank you for completing the survey.\n\nYour responses have been recorded.\n\nNext steps will be communicated to you shortly.`
-        });
-      }
+      // Trigger conversion email based on Q14 response
+      await base44.functions.invoke('surveyConversionEmail', {
+        surveyResponseId: createdResponse.id
+      });
     },
     onSuccess: () => {
       setSubmitted(true);

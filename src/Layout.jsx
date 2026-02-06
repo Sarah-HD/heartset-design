@@ -19,6 +19,9 @@ export default function Layout({ children }) {
     };
     loadUser();
   }, []);
+
+  const isFocusGroup = user?.cohort_type === 'focus_group' || !user?.cohort_type;
+  const showFullProgram = user?.cohort_type === 'sprint' || user?.cohort_type === 'advisory';
   return (
     <>
       <style>{`
@@ -89,18 +92,22 @@ export default function Layout({ children }) {
             >
               Video Library
             </Link>
-            <Link
-              to={createPageUrl("Assignments")}
-              className="text-sm text-black/60 hover:text-black transition-colors duration-200"
-            >
-              Assignments
-            </Link>
-            <Link
-              to={createPageUrl("OfficeHours")}
-              className="text-sm text-black/60 hover:text-black transition-colors duration-200"
-            >
-              Office Hours
-            </Link>
+            {showFullProgram && (
+              <>
+                <Link
+                  to={createPageUrl("Assignments")}
+                  className="text-sm text-black/60 hover:text-black transition-colors duration-200"
+                >
+                  Assignments
+                </Link>
+                <Link
+                  to={createPageUrl("OfficeHours")}
+                  className="text-sm text-black/60 hover:text-black transition-colors duration-200"
+                >
+                  Office Hours
+                </Link>
+              </>
+            )}
             {user && (
               <Link
                 to={createPageUrl("Account")}
@@ -146,20 +153,24 @@ export default function Layout({ children }) {
               >
                 Video Library
               </Link>
-              <Link
-                to={createPageUrl("Assignments")}
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-sm text-black/60 hover:text-black transition-colors duration-200 py-2"
-              >
-                Assignments
-              </Link>
-              <Link
-                to={createPageUrl("OfficeHours")}
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-sm text-black/60 hover:text-black transition-colors duration-200 py-2"
-              >
-                Office Hours
-              </Link>
+              {showFullProgram && (
+                <>
+                  <Link
+                    to={createPageUrl("Assignments")}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-sm text-black/60 hover:text-black transition-colors duration-200 py-2"
+                  >
+                    Assignments
+                  </Link>
+                  <Link
+                    to={createPageUrl("OfficeHours")}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-sm text-black/60 hover:text-black transition-colors duration-200 py-2"
+                  >
+                    Office Hours
+                  </Link>
+                </>
+              )}
               {user && (
                 <Link
                   to={createPageUrl("Account")}
