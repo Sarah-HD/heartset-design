@@ -3,19 +3,16 @@ import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
-import { Upload, CheckCircle2 } from "lucide-react";
+import { Upload, CheckCircle2, Clock, ExternalLink } from "lucide-react";
 
 export default function Assignments() {
   const [user, setUser] = useState(null);
-  const [formData, setFormData] = useState({
-    assignmentName: "",
-    response: "",
-    file: null
-  });
+  const [selectedAssignment, setSelectedAssignment] = useState(null);
+  const [response, setResponse] = useState("");
+  const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   
@@ -33,6 +30,12 @@ export default function Assignments() {
     loadUser();
   }, []);
 
+  const { data: assignments = [] } = useQuery({
+    queryKey: ['assignments'],
+    queryFn: () => base44.entities.Assignment.list('order'),
+    enabled: !!user,
+  });
+
   const { data: submissions = [] } = useQuery({
     queryKey: ['submissions', user?.email],
     queryFn: () => base44.entities.HomeworkSubmission.filter({ userEmail: user?.email }, '-created_date'),
@@ -40,23 +43,25 @@ export default function Assignments() {
   });
 
   const submitMutation = useMutation({
-    mutationFn: async (data) => {
+    mutationFn: async () => {
       let fileUrl = null;
-      if (data.file) {
-        const { file_url } = await base44.integrations.Core.UploadFile({ file: data.file });
+      if (file) {
+        const { file_url } = await base44.integrations.Core.UploadFile({ file });
         fileUrl = file_url;
       }
 
       return base44.entities.HomeworkSubmission.create({
-        assignmentName: data.assignmentName,
-        response: data.response,
+        assignmentName: selectedAssignment.title,
+        response,
         fileUrl,
         userEmail: user.email
       });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['submissions'] });
-      setFormData({ assignmentName: "", response: "", file: null });
+      setSelectedAssignment(null);
+      setResponse("");
+      setFile(null);
       setSubmitted(true);
       setTimeout(() => setSubmitted(false), 3000);
     },
@@ -64,14 +69,18 @@ export default function Assignments() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.assignmentName || !formData.response) return;
+    if (!selectedAssignment || !response) return;
     
     setUploading(true);
     try {
-      await submitMutation.mutateAsync(formData);
+      await submitMutation.mutateAsync();
     } finally {
       setUploading(false);
     }
+  };
+
+  const hasCompletedAssignment = (assignmentTitle) => {
+    return submissions.some(sub => sub.assignmentName === assignmentTitle);
   };
 
   if (!user) {
@@ -102,68 +111,154 @@ export default function Assignments() {
             </p>
           </motion.div>
 
-          {/* Submission Form */}
-          <Card className="border-black/10 mb-12">
-            <CardHeader>
-              <CardTitle>Submit Assignment</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label className="text-sm text-black/60 mb-2 block">Assignment</label>
-                  <Select
-                    value={formData.assignmentName}
-                    onValueChange={(value) => setFormData({ ...formData, assignmentName: value })}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select assignment" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Orientation Reflection">Orientation Reflection</SelectItem>
-                      <SelectItem value="Framework Design Exercise">Framework Design Exercise</SelectItem>
-                      <SelectItem value="Validation Plan">Validation Plan</SelectItem>
-                      <SelectItem value="System Installation Documentation">System Installation Documentation</SelectItem>
-                      <SelectItem value="Readiness Assessment">Readiness Assessment</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+          {/* Available Assignments */}
+          <div className="mb-12">
+            <h2 
+              className="text-2xl mb-6"
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
+              Available Assignments
+            </h2>
+            
+            {assignments.length === 0 ? (
+              <p className="text-black/40">No assignments available yet.</p>
+            ) : (
+              <div className="grid gap-4">
+                {assignments.map((assignment) => {
+                  const isCompleted = hasCompletedAssignment(assignment.title);
+                  
+                  return (
+                    <Card 
+                      key={assignment.id} 
+                      className={`border-black/10 ${isCompleted ? 'bg-neutral-50' : ''}`}
+                    >
+                      <CardContent className="p-6">
+                        <div className="flex items-start justify-between mb-3">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-2">
+                              <h3 className="font-medium">{assignment.title}</h3>
+                              {isCompleted && (
+                                <Badge className="bg-green-600 text-white">
+                                  <CheckCircle2 className="w-3 h-3 mr-1" />
+                                  Completed
+                                </Badge>
+                              )}
+                            </div>
+                            {assignment.description && (
+                              <p className="text-sm text-black/60 mb-3">{assignment.description}</p>
+                            )}
+                            <div className="flex items-center gap-4 text-xs text-black/50">
+                              {assignment.phaseTag && (
+                                <Badge variant="outline" className="text-xs">
+                                  {assignment.phaseTag}
+                                </Badge>
+                              )}
+                              {assignment.timeEstimate && (
+                                <div className="flex items-center gap-1">
+                                  <Clock className="w-3 h-3" />
+                                  <span>{assignment.timeEstimate}</span>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="flex gap-2">
+                          {assignment.googleDocUrl && (
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => window.open(assignment.googleDocUrl, '_blank')}
+                            >
+                              <ExternalLink className="w-4 h-4 mr-2" />
+                              Open Assignment
+                            </Button>
+                          )}
+                          <Button
+                            size="sm"
+                            onClick={() => {
+                              setSelectedAssignment(assignment);
+                              setResponse("");
+                              setFile(null);
+                            }}
+                            className="bg-black hover:bg-black/80"
+                          >
+                            Submit Response
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+            )}
+          </div>
 
-                <div>
-                  <label className="text-sm text-black/60 mb-2 block">Reflection / Response</label>
-                  <Textarea
-                    value={formData.response}
-                    onChange={(e) => setFormData({ ...formData, response: e.target.value })}
-                    placeholder="Share your insights, reflections, or completed work..."
-                    className="h-48"
-                    required
-                  />
-                </div>
+          {/* Submission Modal/Form */}
+          {selectedAssignment && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-12"
+            >
+              <Card className="border-black/20 border-2">
+                <CardHeader>
+                  <CardTitle>Submit: {selectedAssignment.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div>
+                      <label className="text-sm text-black/60 mb-2 block">Your Response</label>
+                      <Textarea
+                        value={response}
+                        onChange={(e) => setResponse(e.target.value)}
+                        placeholder="Share your insights, reflections, or completed work..."
+                        className="h-48"
+                        required
+                      />
+                    </div>
 
-                <div>
-                  <label className="text-sm text-black/60 mb-2 block">Attach File (Optional)</label>
-                  <Input
-                    type="file"
-                    onChange={(e) => setFormData({ ...formData, file: e.target.files[0] })}
-                  />
-                </div>
+                    <div>
+                      <label className="text-sm text-black/60 mb-2 block">Attach File (Optional)</label>
+                      <input
+                        type="file"
+                        onChange={(e) => setFile(e.target.files[0])}
+                        className="block w-full text-sm text-black/60 file:mr-4 file:py-2 file:px-4 file:border-0 file:bg-black file:text-white file:text-sm file:cursor-pointer hover:file:bg-black/80"
+                      />
+                    </div>
 
-                {submitted && (
-                  <div className="flex items-center gap-2 text-green-600 bg-green-50 p-4 rounded">
-                    <CheckCircle2 className="w-5 h-5" />
-                    <span>Assignment submitted successfully</span>
-                  </div>
-                )}
+                    {submitted && (
+                      <div className="flex items-center gap-2 text-green-600 bg-green-50 p-4 rounded">
+                        <CheckCircle2 className="w-5 h-5" />
+                        <span>Assignment submitted successfully</span>
+                      </div>
+                    )}
 
-                <Button
-                  type="submit"
-                  disabled={uploading || !formData.assignmentName || !formData.response}
-                  className="w-full bg-black hover:bg-black/80"
-                >
-                  {uploading ? 'Submitting...' : 'Submit Assignment'}
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
+                    <div className="flex gap-3">
+                      <Button
+                        type="submit"
+                        disabled={uploading || !response}
+                        className="flex-1 bg-black hover:bg-black/80"
+                      >
+                        {uploading ? 'Submitting...' : 'Submit Assignment'}
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => {
+                          setSelectedAssignment(null);
+                          setResponse("");
+                          setFile(null);
+                        }}
+                      >
+                        Cancel
+                      </Button>
+                    </div>
+                  </form>
+                </CardContent>
+              </Card>
+            </motion.div>
+          )}
 
           {/* Previous Submissions */}
           <div>
