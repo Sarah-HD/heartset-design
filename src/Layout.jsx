@@ -1,12 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import { Menu, X } from "lucide-react";
 
-export default function Layout({ children, currentPageName }) {
+export default function Layout({ children }) {
   const [user, setUser] = React.useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const location = useLocation();
 
   React.useEffect(() => {
     const loadUser = async () => {
@@ -24,7 +25,8 @@ export default function Layout({ children, currentPageName }) {
   const showFullProgram = user?.cohort_type === 'sprint' || user?.cohort_type === 'advisory';
   
   // Transparent nav with white text for unauthenticated Home page
-  const isTransparent = currentPageName === 'Home' && !user;
+  const isHomePage = location.pathname === '/' || location.pathname === '/Home';
+  const isTransparent = isHomePage && !user;
   return (
     <>
       <style>{`
