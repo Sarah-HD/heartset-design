@@ -90,7 +90,7 @@ export default function OfficeHours() {
             <div className="bg-neutral-50 border-l-2 border-black/20 p-6">
               <p className="text-base text-black/70 font-light leading-relaxed">
                 Office hours are reserved for clarification, execution review, and decision support 
-                related to program material. Sessions are 20 minutes and conducted via video call.
+                related to program material. Sessions are 15 minutes and conducted via video call.
               </p>
             </div>
           </motion.div>
@@ -140,7 +140,7 @@ export default function OfficeHours() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium truncate">{slot.display}</p>
-                        <p className="text-xs text-black/40">20 minutes</p>
+                        <p className="text-xs text-black/40">15 minutes</p>
                       </div>
                       {selectedSlot?.start === slot.start && (
                         <div className="w-5 h-5 rounded-full bg-black flex items-center justify-center flex-shrink-0">
@@ -169,7 +169,7 @@ export default function OfficeHours() {
                       <Calendar className="w-5 h-5 text-black/60" />
                       <div>
                         <p className="font-medium">{selectedSlot.display}</p>
-                        <p className="text-sm text-black/60">20-minute session</p>
+                        <p className="text-sm text-black/60">15-minute session</p>
                       </div>
                     </div>
 

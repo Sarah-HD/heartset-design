@@ -92,7 +92,7 @@ Deno.serve(async (req) => {
       await base44.integrations.Core.SendEmail({
         to: user.email,
         subject: 'Office Hours Session Confirmed',
-        body: `Your office hours session has been confirmed.\n\n━━━━━━━━━━━━━━━━━━━━━\n\nSESSION DETAILS\n\nTime: ${sessionTime}\nDuration: 20 minutes\n\nMeeting Link:\n${meetingLink}\n\n━━━━━━━━━━━━━━━━━━━━━\n\nWHAT YOU'LL COVER\n\n${eventData.topic}\n\n━━━━━━━━━━━━━━━━━━━━━\n\nA calendar invitation has been sent to your email with the meeting details.\n\nSee you then.`
+        body: `Your office hours session has been confirmed.\n\n━━━━━━━━━━━━━━━━━━━━━\n\nSESSION DETAILS\n\nTime: ${sessionTime}\nDuration: 15 minutes\n\nMeeting Link:\n${meetingLink}\n\n━━━━━━━━━━━━━━━━━━━━━\n\nWHAT YOU'LL COVER\n\n${eventData.topic}\n\n━━━━━━━━━━━━━━━━━━━━━\n\nA calendar invitation has been sent to your email with the meeting details.\n\nSee you then.`
       });
 
       return Response.json({ success: true, event: createdEvent });
@@ -127,7 +127,7 @@ function generateAvailableSlots(existingEvents) {
         slotStart.setHours(hour, 0, 0, 0);
         
         const slotEnd = new Date(slotStart);
-        slotEnd.setMinutes(20); // 20-minute slots
+        slotEnd.setMinutes(15); // 15-minute slots
 
         // Check if slot conflicts with existing events
         const isBooked = existingEvents.some(event => {

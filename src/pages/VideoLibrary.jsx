@@ -3,7 +3,8 @@ import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Play } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Play, Clock } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
@@ -96,6 +97,19 @@ export default function VideoLibrary() {
                             </div>
                             
                             <div className="p-6">
+                              <div className="flex items-center gap-2 mb-3">
+                                {video.phaseTag && (
+                                  <Badge variant="outline" className="text-xs">
+                                    {video.phaseTag}
+                                  </Badge>
+                                )}
+                                {video.duration && (
+                                  <div className="flex items-center gap-1 text-xs text-black/50">
+                                    <Clock className="w-3 h-3" />
+                                    <span>{video.duration}</span>
+                                  </div>
+                                )}
+                              </div>
                               <h3 className="font-medium mb-2 line-clamp-2">{video.title}</h3>
                               {video.description && (
                                 <p className="text-sm text-black/50 line-clamp-2 mb-4">
@@ -104,9 +118,8 @@ export default function VideoLibrary() {
                               )}
                               <Link
                                 to={createPageUrl("Assignments")}
-                                className="inline-flex items-center gap-2 text-xs text-black/40 hover:text-black transition-colors"
+                                className="inline-flex items-center gap-2 text-xs font-medium bg-black text-white px-4 py-2 hover:bg-black/80 transition-colors"
                               >
-                                <span className="w-4 h-px bg-current" />
                                 <span>Complete Assignment</span>
                               </Link>
                             </div>
