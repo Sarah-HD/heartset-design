@@ -6,9 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { motion } from "framer-motion";
-import { CheckCircle2, Lock } from "lucide-react";
+import { Progress } from "@/components/ui/progress";
+import { motion, AnimatePresence } from "framer-motion";
+import { CheckCircle2, Lock, ArrowRight, ArrowLeft } from "lucide-react";
 
 export default function Survey() {
   const [user, setUser] = useState(null);
@@ -17,6 +19,7 @@ export default function Survey() {
   const [responses, setResponses] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [accessGranted, setAccessGranted] = useState(false);
+  const [currentSection, setCurrentSection] = useState(0);
 
   React.useEffect(() => {
     const loadUser = async () => {
@@ -84,6 +87,41 @@ export default function Survey() {
 
   const updateResponse = (questionId, value) => {
     setResponses({ ...responses, [questionId]: value });
+  };
+
+  const groupQuestionsBySections = (questions) => {
+    const sections = [];
+    let currentSec = [];
+    let currentSecName = "";
+
+    questions.forEach((q, idx) => {
+      if (q.sectionTitle) {
+        if (currentSec.length > 0) {
+          sections.push({ title: currentSecName, questions: currentSec });
+        }
+        currentSecName = q.sectionTitle;
+        currentSec = [q];
+      } else {
+        currentSec.push(q);
+      }
+    });
+
+    if (currentSec.length > 0) {
+      sections.push({ title: currentSecName, questions: currentSec });
+    }
+
+    return sections;
+  };
+
+  const canProceed = (section) => {
+    return section.questions.every(q => {
+      if (!q.required) return true;
+      const response = responses[q.id];
+      if (q.type === 'checkbox') {
+        return response && response.length > 0;
+      }
+      return response && response.trim() !== '';
+    });
   };
 
   // Auto-select first active survey if user is logged in
@@ -178,86 +216,168 @@ export default function Survey() {
     );
   }
 
+  const sections = groupQuestionsBySections(activeSurvey.questions);
+  const totalSections = sections.length;
+  const progressPercent = ((currentSection + 1) / totalSections) * 100;
+  const currentSec = sections[currentSection];
+
   return (
     <div className="min-h-screen bg-white">
-      <div className="px-6 md:px-16 lg:px-24 py-16 md:py-24">
-        <div className="max-w-3xl mx-auto">
+      <div className="px-6 md:px-16 lg:px-24 py-12 md:py-16">
+        <div className="max-w-2xl mx-auto">
+          {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-12"
+            className="mb-8"
           >
             <h1 
-              className="text-4xl md:text-5xl mb-4"
+              className="text-3xl md:text-4xl mb-3"
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
               {activeSurvey.title}
             </h1>
             {activeSurvey.description && (
-              <p className="text-lg text-black/60 font-light">
+              <p className="text-base text-black/60 font-light">
                 {activeSurvey.description}
               </p>
             )}
           </motion.div>
 
-          <form onSubmit={handleSubmit}>
-            <div className="space-y-8">
-              {activeSurvey.questions.map((question, idx) => (
-                <Card key={idx} className="border-black/10">
-                  <CardContent className="p-6">
-                    <h3 className="font-medium mb-4">
-                      {idx + 1}. {question.text}
-                      {question.required && <span className="text-red-600 ml-1">*</span>}
-                    </h3>
+          {/* Progress Bar */}
+          <div className="mb-8">
+            <div className="flex justify-between text-xs text-black/50 mb-2">
+              <span>Section {currentSection + 1} of {totalSections}</span>
+              <span>{Math.round(progressPercent)}% Complete</span>
+            </div>
+            <Progress value={progressPercent} className="h-2" />
+          </div>
 
-                    {question.type === 'text' && (
-                      <Input
-                        value={responses[question.id] || ''}
-                        onChange={(e) => updateResponse(question.id, e.target.value)}
-                        placeholder="Your answer"
-                        required={question.required}
-                      />
-                    )}
+          {/* Section Content */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentSection}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Card className="border-black/10 mb-6">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-xl">
+                    {currentSec.title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  {currentSec.questions.map((question, qIdx) => (
+                    <div key={question.id} className="pb-6 border-b border-black/5 last:border-0 last:pb-0">
+                      <h3 className="font-medium mb-3 text-base">
+                        {question.text}
+                        {question.required && <span className="text-red-600 ml-1">*</span>}
+                      </h3>
 
-                    {question.type === 'textarea' && (
-                      <Textarea
-                        value={responses[question.id] || ''}
-                        onChange={(e) => updateResponse(question.id, e.target.value)}
-                        placeholder="Your answer"
-                        className="h-32"
-                        required={question.required}
-                      />
-                    )}
+                      {question.type === 'text' && (
+                        <Input
+                          value={responses[question.id] || ''}
+                          onChange={(e) => updateResponse(question.id, e.target.value)}
+                          placeholder="Your answer"
+                          className="max-w-md"
+                        />
+                      )}
 
-                    {question.type === 'radio' && (
-                      <RadioGroup
-                        value={responses[question.id]}
-                        onValueChange={(value) => updateResponse(question.id, value)}
-                        required={question.required}
-                      >
-                        {question.options.map((option, optIdx) => (
-                          <div key={optIdx} className="flex items-center space-x-2 mb-2">
-                            <RadioGroupItem value={option} id={`q${idx}-opt${optIdx}`} />
-                            <Label htmlFor={`q${idx}-opt${optIdx}`}>{option}</Label>
+                      {question.type === 'textarea' && (
+                        <Textarea
+                          value={responses[question.id] || ''}
+                          onChange={(e) => updateResponse(question.id, e.target.value)}
+                          placeholder="Your answer"
+                          className="h-24"
+                        />
+                      )}
+
+                      {question.type === 'radio' && (
+                        <RadioGroup
+                          value={responses[question.id]}
+                          onValueChange={(value) => updateResponse(question.id, value)}
+                        >
+                          <div className="space-y-2">
+                            {question.options.map((option, optIdx) => (
+                              <div key={optIdx} className="flex items-start space-x-3 p-3 rounded hover:bg-neutral-50 transition-colors cursor-pointer">
+                                <RadioGroupItem value={option} id={`q${question.id}-opt${optIdx}`} className="mt-0.5" />
+                                <Label htmlFor={`q${question.id}-opt${optIdx}`} className="flex-1 cursor-pointer leading-relaxed">
+                                  {option}
+                                </Label>
+                              </div>
+                            ))}
                           </div>
-                        ))}
-                      </RadioGroup>
-                    )}
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                        </RadioGroup>
+                      )}
 
-            <div className="mt-8">
-              <Button
-                type="submit"
-                disabled={submitMutation.isPending}
-                className="w-full bg-black hover:bg-black/80"
-              >
-                {submitMutation.isPending ? 'Submitting...' : 'Submit Survey'}
-              </Button>
-            </div>
-          </form>
+                      {question.type === 'checkbox' && (
+                        <div className="space-y-2">
+                          {question.options.map((option, optIdx) => (
+                            <div key={optIdx} className="flex items-start space-x-3 p-3 rounded hover:bg-neutral-50 transition-colors">
+                              <Checkbox
+                                id={`q${question.id}-opt${optIdx}`}
+                                checked={(responses[question.id] || []).includes(option)}
+                                onCheckedChange={(checked) => {
+                                  const current = responses[question.id] || [];
+                                  if (checked) {
+                                    updateResponse(question.id, [...current, option]);
+                                  } else {
+                                    updateResponse(question.id, current.filter(o => o !== option));
+                                  }
+                                }}
+                                className="mt-0.5"
+                              />
+                              <Label htmlFor={`q${question.id}-opt${optIdx}`} className="flex-1 cursor-pointer leading-relaxed">
+                                {option}
+                              </Label>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+
+              {/* Navigation Buttons */}
+              <div className="flex gap-3">
+                {currentSection > 0 && (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setCurrentSection(currentSection - 1)}
+                    className="gap-2"
+                  >
+                    <ArrowLeft className="w-4 h-4" />
+                    Previous
+                  </Button>
+                )}
+                
+                {currentSection < totalSections - 1 ? (
+                  <Button
+                    type="button"
+                    onClick={() => setCurrentSection(currentSection + 1)}
+                    disabled={!canProceed(currentSec)}
+                    className="flex-1 bg-black hover:bg-black/80 gap-2"
+                  >
+                    Next Section
+                    <ArrowRight className="w-4 h-4" />
+                  </Button>
+                ) : (
+                  <Button
+                    type="button"
+                    onClick={handleSubmit}
+                    disabled={submitMutation.isPending || !canProceed(currentSec)}
+                    className="flex-1 bg-black hover:bg-black/80"
+                  >
+                    {submitMutation.isPending ? 'Submitting...' : 'Submit Survey'}
+                  </Button>
+                )}
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </div>

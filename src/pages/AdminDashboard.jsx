@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Upload, Trash2, Video as VideoIcon, Users, FileText, BarChart3, UserCheck } from "lucide-react";
 import { motion } from "framer-motion";
+import SurveyCreator from "@/components/admin/SurveyCreator";
 
 export default function AdminDashboard() {
   const [user, setUser] = useState(null);
@@ -458,6 +459,10 @@ export default function AdminDashboard() {
 
             {/* Survey Results Tab */}
             <TabsContent value="surveys">
+              <div className="mb-8">
+                <SurveyCreator />
+              </div>
+              
               <div className="space-y-4">
                 <p className="text-sm text-black/60">Total Responses: {surveyResponses.length}</p>
                 {surveyResponses.map((response) => (
