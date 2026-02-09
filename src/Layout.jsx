@@ -73,7 +73,7 @@ export default function Layout({ children }) {
       `}</style>
       
       {/* Global Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-[100] ${isTransparent ? 'bg-black/40 backdrop-blur-sm border-b border-white/10' : 'bg-white border-b border-black/10'}`}>
+      <nav className={`fixed top-0 left-0 right-0 z-[200] ${isTransparent ? 'bg-black/40 backdrop-blur-sm border-b border-white/10' : 'bg-white border-b border-black/10'}`}>
         <div className="px-6 md:px-16 lg:px-24 py-4 flex items-center justify-between">
           <Link 
             to={createPageUrl("Home")}
@@ -142,9 +142,9 @@ export default function Layout({ children }) {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`md:hidden p-3 rounded transition-colors ${isTransparent ? 'text-white bg-white/20 hover:bg-white/30 border border-white/30' : 'text-black/60 hover:text-black'}`}
+            className={`md:hidden p-2 rounded transition-colors ${isTransparent ? 'text-white bg-white/10 hover:bg-white/20 border border-white/20' : 'text-black/60 hover:text-black border border-black/10'}`}
           >
-            {mobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
 
