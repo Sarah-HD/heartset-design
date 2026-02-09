@@ -60,6 +60,7 @@ import Referral from './pages/Referral';
 import Survey from './pages/Survey';
 import VideoAdmin from './pages/VideoAdmin';
 import VideoLibrary from './pages/VideoLibrary';
+import OperatingManual from './pages/OperatingManual';
 import __Layout from './Layout.jsx';
 
 
@@ -77,6 +78,7 @@ export const PAGES = {
     "Survey": Survey,
     "VideoAdmin": VideoAdmin,
     "VideoLibrary": VideoLibrary,
+    "OperatingManual": OperatingManual,
 }
 
 export const pagesConfig = {
