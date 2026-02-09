@@ -122,12 +122,20 @@ export default function Layout({ children }) {
               </Link>
             )}
             {user?.role === 'admin' && (
-              <Link
-                to={createPageUrl("AdminDashboard")}
-                className={`text-sm px-4 py-2 transition-colors duration-200 ${isTransparent ? 'bg-white text-black hover:bg-white/90' : 'bg-black text-white hover:bg-black/80'}`}
-              >
-                Admin
-              </Link>
+              <>
+                <Link
+                  to={createPageUrl("OperatingManual")}
+                  className={`text-sm transition-colors duration-200 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
+                >
+                  Operating Manual
+                </Link>
+                <Link
+                  to={createPageUrl("AdminDashboard")}
+                  className={`text-sm px-4 py-2 transition-colors duration-200 ${isTransparent ? 'bg-white text-black hover:bg-white/90' : 'bg-black text-white hover:bg-black/80'}`}
+                >
+                  Admin
+                </Link>
+              </>
             )}
           </div>
 
@@ -186,13 +194,22 @@ export default function Layout({ children }) {
                 </Link>
               )}
               {user?.role === 'admin' && (
-                <Link
-                  to={createPageUrl("AdminDashboard")}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`text-sm px-4 py-2 transition-colors duration-200 text-center ${isTransparent ? 'bg-white text-black hover:bg-white/90' : 'bg-black text-white hover:bg-black/80'}`}
-                >
-                  Admin
-                </Link>
+                <>
+                  <Link
+                    to={createPageUrl("OperatingManual")}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`text-sm transition-colors duration-200 py-2 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
+                  >
+                    Operating Manual
+                  </Link>
+                  <Link
+                    to={createPageUrl("AdminDashboard")}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`text-sm px-4 py-2 transition-colors duration-200 text-center ${isTransparent ? 'bg-white text-black hover:bg-white/90' : 'bg-black text-white hover:bg-black/80'}`}
+                  >
+                    Admin
+                  </Link>
+                </>
               )}
             </div>
           </div>
