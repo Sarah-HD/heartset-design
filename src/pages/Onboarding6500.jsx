@@ -172,7 +172,7 @@ export default function Onboarding6500() {
 
   const cards = [
     // CARD 0 - METHOD SNAPSHOT
-    <Card key="card-1">
+    <Card key="card-0">
       <CardHeader>
         <CardTitle>Method Snapshot</CardTitle>
       </CardHeader>
