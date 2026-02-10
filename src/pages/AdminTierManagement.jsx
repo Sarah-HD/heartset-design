@@ -10,7 +10,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { UserPlus, Users, FileText } from "lucide-react";
+import { UserPlus, Users, FileText, ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
+import { createPageUrl } from "@/utils";
 
 export default function AdminTierManagement() {
   const [user, setUser] = useState(null);
@@ -165,6 +167,10 @@ export default function AdminTierManagement() {
     <div className="min-h-screen bg-white">
       <div className="px-6 md:px-16 lg:px-24 py-16 md:py-24">
         <div className="max-w-7xl mx-auto">
+          <Link to={createPageUrl("Home")} className="inline-flex items-center gap-2 text-sm text-black/60 hover:text-black mb-4">
+            <ArrowLeft className="w-4 h-4" />
+            Back to Admin Dashboard
+          </Link>
           <div className="flex justify-between items-center mb-12">
             <h1 className="text-4xl" style={{ fontFamily: "'Playfair Display', serif" }}>
               Tier Management
