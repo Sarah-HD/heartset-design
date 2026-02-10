@@ -1,6 +1,7 @@
 import React from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -10,9 +11,25 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 
 export default function VideoLibrary() {
+  const [user, setUser] = React.useState(null);
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    const loadUser = async () => {
+      try {
+        const currentUser = await base44.auth.me();
+        setUser(currentUser);
+      } catch (error) {
+        base44.auth.redirectToLogin();
+      }
+    };
+    loadUser();
+  }, [navigate]);
+
   const { data: videos = [], isLoading } = useQuery({
     queryKey: ['videos'],
     queryFn: () => base44.entities.Video.list('-created_date'),
+    enabled: !!user,
   });
 
   const sections = [
@@ -25,6 +42,14 @@ export default function VideoLibrary() {
 
   // Group videos by section based on title prefix or just show all for now
   const allVideos = videos;
+
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <p className="text-black/40">Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white">

@@ -92,34 +92,50 @@ export default function Layout({ children }) {
               Home
             </Link>
             <Link
-              to={createPageUrl("VideoLibrary")}
+              to={createPageUrl("Contact")}
               className={`text-sm transition-colors duration-200 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
             >
-              Video Library
+              Contact
             </Link>
-            {showFullProgram && (
+            {user && (
               <>
                 <Link
-                  to={createPageUrl("Assignments")}
+                  to={createPageUrl("VideoLibrary")}
                   className={`text-sm transition-colors duration-200 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
                 >
-                  Assignments
+                  Video Library
                 </Link>
+                {showFullProgram && (
+                  <>
+                    <Link
+                      to={createPageUrl("Assignments")}
+                      className={`text-sm transition-colors duration-200 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
+                    >
+                      Assignments
+                    </Link>
+                    <Link
+                      to={createPageUrl("OfficeHours")}
+                      className={`text-sm transition-colors duration-200 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
+                    >
+                      Office Hours
+                    </Link>
+                  </>
+                )}
                 <Link
-                  to={createPageUrl("OfficeHours")}
+                  to={createPageUrl("Account")}
                   className={`text-sm transition-colors duration-200 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
                 >
-                  Office Hours
+                  Account
                 </Link>
               </>
             )}
-            {user && (
-              <Link
-                to={createPageUrl("Account")}
-                className={`text-sm transition-colors duration-200 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
+            {!user && (
+              <button
+                onClick={() => base44.auth.redirectToLogin()}
+                className={`text-sm px-4 py-2 transition-colors duration-200 ${isTransparent ? 'bg-white text-black hover:bg-white/90' : 'bg-black text-white hover:bg-black/80'}`}
               >
-                Account
-              </Link>
+                Sign In
+              </button>
             )}
             {user?.role === 'admin' && (
               <>
@@ -160,38 +176,58 @@ export default function Layout({ children }) {
                 Home
               </Link>
               <Link
-                to={createPageUrl("VideoLibrary")}
+                to={createPageUrl("Contact")}
                 onClick={() => setMobileMenuOpen(false)}
                 className={`text-sm transition-colors duration-200 py-2 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
               >
-                Video Library
+                Contact
               </Link>
-              {showFullProgram && (
+              {user && (
                 <>
                   <Link
-                    to={createPageUrl("Assignments")}
+                    to={createPageUrl("VideoLibrary")}
                     onClick={() => setMobileMenuOpen(false)}
                     className={`text-sm transition-colors duration-200 py-2 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
                   >
-                    Assignments
+                    Video Library
                   </Link>
+                  {showFullProgram && (
+                    <>
+                      <Link
+                        to={createPageUrl("Assignments")}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={`text-sm transition-colors duration-200 py-2 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
+                      >
+                        Assignments
+                      </Link>
+                      <Link
+                        to={createPageUrl("OfficeHours")}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={`text-sm transition-colors duration-200 py-2 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
+                      >
+                        Office Hours
+                      </Link>
+                    </>
+                  )}
                   <Link
-                    to={createPageUrl("OfficeHours")}
+                    to={createPageUrl("Account")}
                     onClick={() => setMobileMenuOpen(false)}
                     className={`text-sm transition-colors duration-200 py-2 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
                   >
-                    Office Hours
+                    Account
                   </Link>
                 </>
               )}
-              {user && (
-                <Link
-                  to={createPageUrl("Account")}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`text-sm transition-colors duration-200 py-2 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
+              {!user && (
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    base44.auth.redirectToLogin();
+                  }}
+                  className={`text-sm px-4 py-2 transition-colors duration-200 text-center ${isTransparent ? 'bg-white text-black hover:bg-white/90' : 'bg-black text-white hover:bg-black/80'}`}
                 >
-                  Account
-                </Link>
+                  Sign In
+                </button>
               )}
               {user?.role === 'admin' && (
                 <>

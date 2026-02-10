@@ -56,11 +56,11 @@ import Contact from './pages/Contact';
 import FocusGroup from './pages/FocusGroup';
 import Home from './pages/Home';
 import OfficeHours from './pages/OfficeHours';
+import OperatingManual from './pages/OperatingManual';
 import Referral from './pages/Referral';
 import Survey from './pages/Survey';
 import VideoAdmin from './pages/VideoAdmin';
 import VideoLibrary from './pages/VideoLibrary';
-import OperatingManual from './pages/OperatingManual';
 import __Layout from './Layout.jsx';
 
 
@@ -74,11 +74,11 @@ export const PAGES = {
     "FocusGroup": FocusGroup,
     "Home": Home,
     "OfficeHours": OfficeHours,
+    "OperatingManual": OperatingManual,
     "Referral": Referral,
     "Survey": Survey,
     "VideoAdmin": VideoAdmin,
     "VideoLibrary": VideoLibrary,
-    "OperatingManual": OperatingManual,
 }
 
 export const pagesConfig = {
