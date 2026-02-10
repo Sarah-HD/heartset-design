@@ -71,10 +71,65 @@ export default function Home() {
     enabled: !!isAdminUser,
   });
 
-  const toggleChecklist = (id) => {
-    setChecklist(prev => prev.map(item => 
-      item.id === id ? { ...item, done: !item.done } : item
-    ));
+  const { data: adminTasks = [] } = useQuery({
+    queryKey: ['adminTasks'],
+    queryFn: async () => {
+      const currentUser = await base44.auth.me();
+      return base44.entities.AdminTask.filter({ adminEmail: currentUser.email }, '-created_date');
+    },
+    enabled: !!isAdminUser,
+  });
+
+  // Real-time subscriptions for admin dashboard
+  React.useEffect(() => {
+    if (!isAdminUser) return;
+
+    const unsubscribeTier = base44.entities.TierAssignment.subscribe(() => {
+      queryClient.invalidateQueries({ queryKey: ['tier-assignments'] });
+    });
+
+    const unsubscribeSprint = base44.entities.SprintOnboarding.subscribe(() => {
+      queryClient.invalidateQueries({ queryKey: ['sprint-onboardings'] });
+    });
+
+    const unsubscribeAdvisory = base44.entities.AdvisoryApplication.subscribe(() => {
+      queryClient.invalidateQueries({ queryKey: ['advisory-applications'] });
+    });
+
+    const unsubscribeSubmissions = base44.entities.HomeworkSubmission.subscribe(() => {
+      queryClient.invalidateQueries({ queryKey: ['submissions'] });
+    });
+
+    const unsubscribeTasks = base44.entities.AdminTask.subscribe(() => {
+      queryClient.invalidateQueries({ queryKey: ['adminTasks'] });
+    });
+
+    return () => {
+      unsubscribeTier();
+      unsubscribeSprint();
+      unsubscribeAdvisory();
+      unsubscribeSubmissions();
+      unsubscribeTasks();
+    };
+  }, [isAdminUser, queryClient]);
+
+  const toggleTask = async (taskId, currentDone) => {
+    try {
+      await base44.entities.AdminTask.update(taskId, { done: !currentDone });
+      queryClient.invalidateQueries({ queryKey: ['adminTasks'] });
+    } catch (error) {
+      console.error('Failed to toggle task:', error);
+    }
+  };
+
+  const deleteTask = async (taskId) => {
+    if (!confirm('Delete this task?')) return;
+    try {
+      await base44.entities.AdminTask.delete(taskId);
+      queryClient.invalidateQueries({ queryKey: ['adminTasks'] });
+    } catch (error) {
+      console.error('Failed to delete task:', error);
+    }
   };
 
   // Show loading state briefly
