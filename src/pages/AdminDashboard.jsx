@@ -7,9 +7,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Upload, Trash2, Video as VideoIcon, Users, FileText, BarChart3, UserCheck } from "lucide-react";
+import { Upload, Trash2, Video as VideoIcon, Users, FileText, BarChart3, UserCheck, UserPlus } from "lucide-react";
 import { motion } from "framer-motion";
 import SurveyCreator from "@/components/admin/SurveyCreator";
+import { Link } from "react-router-dom";
+import { createPageUrl } from "@/utils";
 
 export default function AdminDashboard() {
   const [user, setUser] = useState(null);
@@ -156,14 +158,22 @@ export default function AdminDashboard() {
     <div className="min-h-screen bg-white">
       <div className="px-6 md:px-16 lg:px-24 py-16 md:py-24">
         <div className="max-w-7xl mx-auto">
-          <div className="mb-12">
-            <h1 
-              className="text-4xl md:text-5xl mb-2"
-              style={{ fontFamily: "'Playfair Display', serif" }}
-            >
-              Admin Dashboard
-            </h1>
-            <p className="text-black/50 text-sm">Manage content, users, and track program progress</p>
+          <div className="mb-12 flex justify-between items-start">
+            <div>
+              <h1 
+                className="text-4xl md:text-5xl mb-2"
+                style={{ fontFamily: "'Playfair Display', serif" }}
+              >
+                Admin Dashboard
+              </h1>
+              <p className="text-black/50 text-sm">Manage content, users, and track program progress</p>
+            </div>
+            <Link to={createPageUrl("AdminTierManagement")}>
+              <Button className="bg-black hover:bg-black/80">
+                <UserPlus className="w-4 h-4 mr-2" />
+                Tier Management
+              </Button>
+            </Link>
           </div>
 
           <Tabs defaultValue="videos" className="space-y-8">
