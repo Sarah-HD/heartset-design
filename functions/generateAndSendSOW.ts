@@ -95,46 +95,48 @@ Make it professional, clear, and tailored to the tier level. Use formal legal la
         file: pdfFile 
       });
 
-      // Send to DocuSeal
-      const docusealApiKey = Deno.env.get('DOCUSEAL_API_KEY');
+      // Send to SignWell
+      const signwellApiKey = Deno.env.get('SIGNWELL_API_KEY');
       
-      if (!docusealApiKey) {
-        throw new Error('DOCUSEAL_API_KEY not configured');
+      if (!signwellApiKey) {
+        throw new Error('SIGNWELL_API_KEY not configured');
       }
 
-      // Create DocuSeal submission
-      const docusealResponse = await fetch('https://api.docuseal.co/submissions', {
+      // Create SignWell document
+      const signwellResponse = await fetch('https://www.signwell.com/api/v1/documents/', {
         method: 'POST',
         headers: {
-          'X-Auth-Token': docusealApiKey,
+          'X-Api-Key': signwellApiKey,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          template_id: 'REPLACE_WITH_YOUR_TEMPLATE_ID', // You'll need to create a template in DocuSeal first
-          send_email: true,
-          submitters: [{
-            email: userEmail,
-            role: 'Client'
+          test_mode: false,
+          name: `Scope of Work - ${userEmail}`,
+          files: [{
+            name: `SOW_${userEmail}.pdf`,
+            file_url: pdfUrl
           }],
-          documents: [{
-            name: `Scope of Work - ${userEmail}`,
-            url: pdfUrl
-          }]
+          recipients: [{
+            email: userEmail,
+            name: userEmail.split('@')[0],
+            order: 1
+          }],
+          draft: false
         })
       });
 
-      if (!docusealResponse.ok) {
-        const errorText = await docusealResponse.text();
-        throw new Error(`DocuSeal API error: ${errorText}`);
+      if (!signwellResponse.ok) {
+        const errorText = await signwellResponse.text();
+        throw new Error(`SignWell API error: ${errorText}`);
       }
 
-      const docusealData = await docusealResponse.json();
+      const signwellData = await signwellResponse.json();
 
       // Update record with success
       await base44.asServiceRole.entities.LegalDocument.update(docRecord.id, {
         status: 'sent',
         generatedContent: sowContent,
-        docusealSubmissionId: docusealData.id
+        docusealSubmissionId: signwellData.id
       });
 
       return Response.json({ 
