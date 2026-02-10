@@ -6,8 +6,9 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Lock, ArrowRight, ArrowLeft } from "lucide-react";
+import { Lock, ArrowRight, ArrowLeft, CheckCircle2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { base44 } from "@/api/base44Client";
 
 const TOTAL_STEPS = 8;
 
@@ -50,12 +51,19 @@ export default function FocusGroupIntakeForm() {
   const onSubmit = async (data) => {
     setIsSubmitting(true);
     
-    console.log("Form submission:", data);
-    
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    setIsSubmitting(false);
-    setSubmitted(true);
+    try {
+      await base44.functions.invoke('sendFocusGroupAccessEmail', {
+        userEmail: data.email,
+        formData: data
+      });
+      
+      setSubmitted(true);
+    } catch (error) {
+      console.error('Submission failed:', error);
+      alert('Submission failed. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -63,23 +71,40 @@ export default function FocusGroupIntakeForm() {
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="border border-black/10 bg-white p-12 text-center"
+        className="border border-black/10 bg-white p-12"
       >
-        <div className="w-16 h-16 bg-black/5 rounded-full flex items-center justify-center mx-auto mb-6">
-          <Lock className="w-8 h-8 text-black/30" />
+        <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6">
+          <CheckCircle2 className="w-8 h-8 text-green-600" />
         </div>
         <h3 
-          className="text-2xl mb-4"
+          className="text-2xl mb-6 text-center"
           style={{ fontFamily: "'Playfair Display', serif" }}
         >
-          Request Received
+          Submission Confirmed!
         </h3>
-        <p className="text-black/70 font-light leading-relaxed max-w-md mx-auto mb-6">
-          Check your inbox for an email titled <strong>"Confirm Your Focus Group Spot."</strong>
-        </p>
-        <p className="text-sm text-black/50 font-light">
-          Your place is not held until you reply <strong>CONFIRMED</strong>.
-        </p>
+        
+        <div className="max-w-md mx-auto space-y-6">
+          <p className="text-black/70 font-light leading-relaxed">
+            Check your inbox for two emails:
+          </p>
+          
+          <ul className="space-y-3 ml-6">
+            <li className="text-black/70 font-light leading-relaxed flex items-start gap-2">
+              <span className="text-black/40 mt-1">•</span>
+              <span>Access confirmation from <strong>Heartset.app</strong></span>
+            </li>
+            <li className="text-black/70 font-light leading-relaxed flex items-start gap-2">
+              <span className="text-black/40 mt-1">•</span>
+              <span>A note from <strong>Sarah</strong> with important guidance</span>
+            </li>
+          </ul>
+          
+          <div className="bg-amber-50 border-l-2 border-amber-600 p-4 mt-6">
+            <p className="text-sm text-black/70 font-light leading-relaxed">
+              If Sarah's email lands in Promotions, please move it to Primary.
+            </p>
+          </div>
+        </div>
       </motion.div>
     );
   }
