@@ -76,6 +76,12 @@ export default function AdminTierManagement() {
     enabled: !!user,
   });
 
+  const { data: legalDocuments = [] } = useQuery({
+    queryKey: ['legalDocuments'],
+    queryFn: () => base44.entities.LegalDocument.list('-created_date'),
+    enabled: !!user,
+  });
+
   const addAssignmentMutation = useMutation({
     mutationFn: (data) => base44.entities.TierAssignment.create(data),
     onSuccess: () => {
@@ -116,6 +122,24 @@ export default function AdminTierManagement() {
       setInviteRole("user");
       alert("Invitation sent! User will receive an email to set their password.");
     },
+  });
+
+  const sendSOWMutation = useMutation({
+    mutationFn: async ({ userEmail, tierAssignmentId }) => {
+      const response = await base44.functions.invoke('generateAndSendSOW', {
+        userEmail,
+        tierAssignmentId,
+        documentType: 'scope_of_work'
+      });
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['legalDocuments'] });
+      alert('Scope of Work generated and sent for signature!');
+    },
+    onError: (error) => {
+      alert('Failed to send SOW: ' + error.message);
+    }
   });
 
   const handleAddAssignment = (e) => {
@@ -358,6 +382,17 @@ export default function AdminTierManagement() {
                           </p>
                         </div>
                         <div className="flex gap-2">
+                          <Button
+                            size="sm"
+                            onClick={() => sendSOWMutation.mutate({ 
+                              userEmail: assignment.userEmail,
+                              tierAssignmentId: assignment.id
+                            })}
+                            disabled={sendSOWMutation.isPending}
+                            className="bg-black hover:bg-black/80"
+                          >
+                            {sendSOWMutation.isPending ? 'Sending...' : 'Send SOW'}
+                          </Button>
                           {assignment.status !== 'active' && (
                             <Button
                               size="sm"
