@@ -15,6 +15,9 @@ import { UserPlus, Users, FileText } from "lucide-react";
 export default function AdminTierManagement() {
   const [user, setUser] = useState(null);
   const [showAddForm, setShowAddForm] = useState(false);
+  const [showInviteForm, setShowInviteForm] = useState(false);
+  const [inviteEmail, setInviteEmail] = useState("");
+  const [inviteRole, setInviteRole] = useState("user");
   const [newAssignment, setNewAssignment] = useState({
     userEmail: "",
     tier: "sprint_6500",
@@ -101,9 +104,26 @@ export default function AdminTierManagement() {
     },
   });
 
+  const inviteUserMutation = useMutation({
+    mutationFn: async ({ email, role }) => {
+      await base44.users.inviteUser(email, role);
+    },
+    onSuccess: () => {
+      setShowInviteForm(false);
+      setInviteEmail("");
+      setInviteRole("user");
+      alert("Invitation sent! User will receive an email to set their password.");
+    },
+  });
+
   const handleAddAssignment = (e) => {
     e.preventDefault();
     addAssignmentMutation.mutate(newAssignment);
+  };
+
+  const handleInviteUser = (e) => {
+    e.preventDefault();
+    inviteUserMutation.mutate({ email: inviteEmail, role: inviteRole });
   };
 
   const getTierBadge = (tier) => {
@@ -149,16 +169,74 @@ export default function AdminTierManagement() {
             <h1 className="text-4xl" style={{ fontFamily: "'Playfair Display', serif" }}>
               Tier Management
             </h1>
-            <Button onClick={() => setShowAddForm(!showAddForm)} className="bg-black hover:bg-black/80">
-              <UserPlus className="w-4 h-4 mr-2" />
-              Manual Add / Pro Bono
-            </Button>
+            <div className="flex gap-2">
+              <Button onClick={() => setShowInviteForm(!showInviteForm)} variant="outline" className="border-black">
+                <UserPlus className="w-4 h-4 mr-2" />
+                Invite User
+              </Button>
+              <Button onClick={() => setShowAddForm(!showAddForm)} className="bg-black hover:bg-black/80">
+                <UserPlus className="w-4 h-4 mr-2" />
+                Assign to Tier
+              </Button>
+            </div>
           </div>
+
+          {showInviteForm && (
+            <Card className="mb-8 border-black/20 border-2">
+              <CardHeader>
+                <CardTitle>Invite User (Send Password Setup Email)</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleInviteUser} className="space-y-4">
+                  <div>
+                    <Label>Email</Label>
+                    <Input
+                      type="email"
+                      value={inviteEmail}
+                      onChange={(e) => setInviteEmail(e.target.value)}
+                      placeholder="user@example.com"
+                      required
+                      className="mt-2"
+                    />
+                  </div>
+
+                  <div>
+                    <Label>Role</Label>
+                    <Select 
+                      value={inviteRole}
+                      onValueChange={(val) => setInviteRole(val)}
+                    >
+                      <SelectTrigger className="mt-2">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="user">User</SelectItem>
+                        <SelectItem value="admin">Admin</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <p className="text-sm text-black/60">
+                    User will receive an automated email to set their password. After login, manually assign them to a tier below.
+                  </p>
+
+                  <div className="flex gap-2">
+                    <Button type="submit" className="bg-black hover:bg-black/80" disabled={inviteUserMutation.isPending}>
+                      {inviteUserMutation.isPending ? "Sending..." : "Send Invitation"}
+                    </Button>
+                    <Button type="button" variant="outline" onClick={() => setShowInviteForm(false)}>
+                      Cancel
+                    </Button>
+                  </div>
+                </form>
+              </CardContent>
+            </Card>
+          )}
 
           {showAddForm && (
             <Card className="mb-8 border-black/20 border-2">
               <CardHeader>
-                <CardTitle>Add User to Tier</CardTitle>
+                <CardTitle>Assign User to Tier</CardTitle>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleAddAssignment} className="space-y-4">
