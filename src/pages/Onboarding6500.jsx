@@ -8,16 +8,17 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { CheckCircle2, ArrowLeft, ArrowRight } from "lucide-react";
+import { CheckCircle2, ArrowLeft, ArrowRight, Info } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 export default function Onboarding6500() {
   const [user, setUser] = useState(null);
   const [submitted, setSubmitted] = useState(false);
   const [currentCard, setCurrentCard] = useState(0);
   const [formData, setFormData] = useState({
-    linkedIn: "",
     hasMethod: null,
     methodName: "",
+    noMethodName: false,
     methodComponents: ["", "", "", "", "", "", "", ""],
     existingAssets: [],
     primaryAudience: "",
@@ -36,7 +37,6 @@ export default function Onboarding6500() {
     toolScheduling: "",
     toolForms: "",
     ipAcknowledgement: false,
-    clientIpAcknowledgement: false,
     executionAcknowledgement: false
   });
 
@@ -67,9 +67,8 @@ export default function Onboarding6500() {
   const submitMutation = useMutation({
     mutationFn: () => base44.entities.SprintOnboarding.create({
       userEmail: user.email,
-      linkedIn: formData.linkedIn || undefined,
       hasMethod: formData.hasMethod,
-      methodName: formData.methodName || undefined,
+      methodName: formData.noMethodName ? undefined : (formData.methodName || undefined),
       methodComponents: formData.methodComponents.filter(c => c.trim() !== ""),
       existingAssets: formData.existingAssets,
       primaryAudience: formData.primaryAudience || undefined,
@@ -88,7 +87,7 @@ export default function Onboarding6500() {
       toolScheduling: formData.toolScheduling || undefined,
       toolForms: formData.toolForms || undefined,
       ipAcknowledgement: formData.ipAcknowledgement,
-      clientIpAcknowledgement: formData.clientIpAcknowledgement,
+      clientIpAcknowledgement: true,
       executionAcknowledgement: formData.executionAcknowledgement
     }),
     onSuccess: () => {
@@ -97,7 +96,7 @@ export default function Onboarding6500() {
   });
 
   const handleSubmit = () => {
-    if (!formData.ipAcknowledgement || !formData.clientIpAcknowledgement || !formData.executionAcknowledgement) {
+    if (!formData.ipAcknowledgement || !formData.executionAcknowledgement) {
       alert("Please acknowledge all required terms.");
       return;
     }
@@ -143,7 +142,7 @@ export default function Onboarding6500() {
     }));
   };
 
-  const totalCards = 19;
+  const totalCards = 17;
 
   if (!user) {
     return (
@@ -172,25 +171,7 @@ export default function Onboarding6500() {
   }
 
   const cards = [
-    // CARD 0 - LINKEDIN (OPTIONAL)
-    <Card key="card-0">
-      <CardHeader>
-        <CardTitle>LinkedIn Profile (Optional)</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div>
-          <Label>LinkedIn profile URL</Label>
-          <Input 
-            value={formData.linkedIn}
-            onChange={(e) => setFormData(prev => ({ ...prev, linkedIn: e.target.value }))}
-            placeholder="https://www.linkedin.com/in/yourprofile"
-            className="mt-2"
-          />
-        </div>
-      </CardContent>
-    </Card>,
-
-    // CARD 1 - METHOD SNAPSHOT
+    // CARD 0 - METHOD SNAPSHOT
     <Card key="card-1">
       <CardHeader>
         <CardTitle>Method Snapshot</CardTitle>
@@ -214,32 +195,56 @@ export default function Onboarding6500() {
       </CardContent>
     </Card>,
 
-    // CARD 2 - METHOD NAME
-    <Card key="card-2">
+    // CARD 1 - METHOD NAME
+    <Card key="card-1">
       <CardHeader>
         <CardTitle>Method Name (Optional)</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div>
+        <div className="space-y-3">
           <Label>Working name of your method or approach (if you have one)</Label>
           <Input 
             value={formData.methodName}
             onChange={(e) => setFormData(prev => ({ ...prev, methodName: e.target.value }))}
-            placeholder='Example: "4-Step Reset," "XYZ Method," or "No formal name yet"'
+            placeholder='Example: "4-Step Reset," "XYZ Method"'
             className="mt-2"
+            disabled={formData.noMethodName}
           />
+          <div className="flex items-center space-x-2">
+            <Checkbox 
+              checked={formData.noMethodName}
+              onCheckedChange={(checked) => setFormData(prev => ({ 
+                ...prev, 
+                noMethodName: checked,
+                methodName: checked ? "" : prev.methodName
+              }))}
+              id="no-method-name"
+            />
+            <Label htmlFor="no-method-name" className="text-sm text-black/60">No formal name yet</Label>
+          </div>
         </div>
       </CardContent>
     </Card>,
 
-    // CARD 3 - METHOD COMPONENTS
-    <Card key="card-3">
+    // CARD 2 - METHOD COMPONENTS
+    <Card key="card-2">
       <CardHeader>
-        <CardTitle>Method Components</CardTitle>
+        <CardTitle className="flex items-center gap-2">
+          Method Components
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Info className="w-4 h-4 text-black/40 cursor-help" />
+              </TooltipTrigger>
+              <TooltipContent className="max-w-xs">
+                <p className="text-sm">These can be steps, phases, or recurring elements. Names only — no explanations.</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <Label>List the main parts, phases, or components of how you work (names only)</Label>
-        <p className="text-sm text-black/60">These can be steps, phases, or recurring elements. Names only — no explanations.</p>
         {formData.methodComponents.map((comp, idx) => (
           <Input
             key={idx}
@@ -249,33 +254,46 @@ export default function Onboarding6500() {
               newComps[idx] = e.target.value;
               setFormData(prev => ({ ...prev, methodComponents: newComps }));
             }}
-            placeholder={`Component ${idx + 1}`}
+            placeholder={`Component ${idx + 1}${idx > 2 ? ' (optional)' : ''}`}
             className="mt-2"
           />
         ))}
       </CardContent>
     </Card>,
 
-    // CARD 4 - EXISTING ASSETS
-    <Card key="card-4">
+    // CARD 3 - EXISTING ASSETS
+    <Card key="card-3">
       <CardHeader>
         <CardTitle>Existing Assets</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <Label>List any existing assets you currently have (titles only)</Label>
-        <p className="text-sm text-black/60">Drafts and unfinished materials count.</p>
-        <Textarea
-          value={formData.existingAssets.join('\n')}
-          onChange={(e) => setFormData(prev => ({ ...prev, existingAssets: e.target.value.split('\n').filter(a => a.trim()) }))}
-          placeholder="One per line"
-          className="mt-2"
-          rows={5}
-        />
+        <Label>Which of the following currently exist in any form?</Label>
+        <p className="text-sm text-black/60">Select all that apply</p>
+        <div className="mt-3 space-y-2">
+          {[
+            "Course",
+            "Program",
+            "Workshop",
+            "Workbook / Guide",
+            "E-book or digital material",
+            "Coaching / Consulting service",
+            "Training / Speaking material",
+            "None yet (delivery is mostly live or informal)"
+          ].map(asset => (
+            <div key={asset} className="flex items-center space-x-2">
+              <Checkbox 
+                checked={formData.existingAssets.includes(asset)}
+                onCheckedChange={() => handleAssetToggle(asset)}
+              />
+              <Label>{asset}</Label>
+            </div>
+          ))}
+        </div>
       </CardContent>
     </Card>,
 
-    // CARD 5 - CURRENT AUDIENCE
-    <Card key="card-5">
+    // CARD 4 - CURRENT AUDIENCE
+    <Card key="card-4">
       <CardHeader>
         <CardTitle>Current Audience</CardTitle>
       </CardHeader>
@@ -293,8 +311,8 @@ export default function Onboarding6500() {
       </CardContent>
     </Card>,
 
-    // CARD 6 - WHERE THEY EXIST
-    <Card key="card-6">
+    // CARD 5 - WHERE THEY EXIST
+    <Card key="card-5">
       <CardHeader>
         <CardTitle>Where They Exist</CardTitle>
       </CardHeader>
@@ -314,8 +332,8 @@ export default function Onboarding6500() {
       </CardContent>
     </Card>,
 
-    // CARD 7 - PRICING REALITY
-    <Card key="card-7">
+    // CARD 6 - PRICING REALITY
+    <Card key="card-6">
       <CardHeader>
         <CardTitle>Pricing Reality</CardTitle>
       </CardHeader>
@@ -333,8 +351,8 @@ export default function Onboarding6500() {
       </CardContent>
     </Card>,
 
-    // CARD 8 - LOWER-TIER OPTIONS
-    <Card key="card-8">
+    // CARD 7 - LOWER-TIER OPTIONS
+    <Card key="card-7">
       <CardHeader>
         <CardTitle>Lower-Tier Options</CardTitle>
       </CardHeader>
@@ -357,8 +375,8 @@ export default function Onboarding6500() {
       </CardContent>
     </Card>,
 
-    // CARD 9 - CAPACITY CONSTRAINTS
-    <Card key="card-9">
+    // CARD 8 - CAPACITY CONSTRAINTS
+    <Card key="card-8">
       <CardHeader>
         <CardTitle>Capacity Constraints</CardTitle>
       </CardHeader>
@@ -379,8 +397,8 @@ export default function Onboarding6500() {
       </CardContent>
     </Card>,
 
-    // CARD 10 - AUTHORITY SIGNALS
-    <Card key="card-10">
+    // CARD 9 - AUTHORITY SIGNALS
+    <Card key="card-9">
       <CardHeader>
         <CardTitle>Authority Signals</CardTitle>
       </CardHeader>
@@ -398,17 +416,25 @@ export default function Onboarding6500() {
       </CardContent>
     </Card>,
 
-    // CARD 11 - CLIENT OUTCOMES
-    <Card key="card-11">
+    // CARD 10 - CLIENT OUTCOMES
+    <Card key="card-10">
       <CardHeader>
-        <CardTitle>Client Outcomes</CardTitle>
+        <CardTitle className="flex items-center gap-2">
+          Client Outcomes
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Info className="w-4 h-4 text-black/40 cursor-help" />
+              </TooltipTrigger>
+              <TooltipContent className="max-w-xs">
+                <p className="text-sm">Outcomes can be behavioral (what changed) or numerical (counts, timelines, results). Examples: decisions made, habits changed, boundaries set, revenue, retention, completion, etc.</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <Label>List up to three outcomes you've helped clients achieve</Label>
-        <p className="text-sm text-black/60">
-          Outcomes can be behavioral (what changed) or numerical (counts, timelines, results).<br/>
-          Examples: decisions made, habits changed, boundaries set, revenue, retention, completion, etc.
-        </p>
         {formData.outcomes.map((outcome, idx) => (
           <Textarea
             key={idx}
@@ -426,8 +452,8 @@ export default function Onboarding6500() {
       </CardContent>
     </Card>,
 
-    // CARD 12 - TIME INVESTMENT (CLIENT WORK)
-    <Card key="card-12">
+    // CARD 11 - TIME INVESTMENT (CLIENT WORK)
+    <Card key="card-11">
       <CardHeader>
         <CardTitle>Time Investment — Client Work</CardTitle>
       </CardHeader>
@@ -444,8 +470,8 @@ export default function Onboarding6500() {
       </CardContent>
     </Card>,
 
-    // CARD 13 - TIME INVESTMENT (ADMIN)
-    <Card key="card-13">
+    // CARD 12 - TIME INVESTMENT (ADMIN)
+    <Card key="card-12">
       <CardHeader>
         <CardTitle>Time Investment — Admin & Operations</CardTitle>
       </CardHeader>
@@ -462,8 +488,8 @@ export default function Onboarding6500() {
       </CardContent>
     </Card>,
 
-    // CARD 14 - DELIVERY FORMAT
-    <Card key="card-14">
+    // CARD 13 - DELIVERY FORMAT
+    <Card key="card-13">
       <CardHeader>
         <CardTitle>Delivery Format</CardTitle>
       </CardHeader>
@@ -484,8 +510,8 @@ export default function Onboarding6500() {
       </CardContent>
     </Card>,
 
-    // CARD 15 - TOOLS IN USE
-    <Card key="card-15">
+    // CARD 14 - TOOLS IN USE
+    <Card key="card-14">
       <CardHeader>
         <CardTitle>Tools in Use</CardTitle>
       </CardHeader>
@@ -542,39 +568,36 @@ export default function Onboarding6500() {
       </CardContent>
     </Card>,
 
-    // CARD 16 - INTELLECTUAL PROPERTY & CONFIDENTIALITY
-    <Card key="card-16">
+    // CARD 15 - INTELLECTUAL PROPERTY & CONFIDENTIALITY
+    <Card key="card-15">
       <CardHeader>
-        <CardTitle>Intellectual Property & Confidentiality</CardTitle>
+        <CardTitle>Intellectual Property & Confidentiality Acknowledgment</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="space-y-4">
-          <div className="flex items-start space-x-3">
-            <Checkbox 
-              checked={formData.ipAcknowledgement}
-              onCheckedChange={(checked) => setFormData(prev => ({ ...prev, ipAcknowledgement: checked }))}
-              id="ip-ack"
-            />
-            <Label htmlFor="ip-ack" className="text-sm leading-relaxed">
-              I understand that all materials, frameworks, prompts, and system logic provided inside this Sprint are proprietary and for my business use only.
-            </Label>
-          </div>
-          <div className="flex items-start space-x-3">
-            <Checkbox 
-              checked={formData.clientIpAcknowledgement}
-              onCheckedChange={(checked) => setFormData(prev => ({ ...prev, clientIpAcknowledgement: checked }))}
-              id="client-ip-ack"
-            />
-            <Label htmlFor="client-ip-ack" className="text-sm leading-relaxed">
-              I also understand that any information I submit remains my intellectual property and will be used solely to support my participation in this program.
-            </Label>
-          </div>
+      <CardContent className="space-y-6">
+        <div className="p-4 bg-neutral-50 rounded text-sm leading-relaxed space-y-3">
+          <p>By checking the box below, I acknowledge and agree to the following:</p>
+          <ul className="list-disc pl-5 space-y-2">
+            <li>All materials, frameworks, prompts, templates, processes, and system logic provided by Sarah Wilkes / Heartset Design Co. / Authority Infrastructure™ as part of this sprint are proprietary and protected intellectual property.</li>
+            <li>I am granted a limited, non-transferable license to use these materials solely within my own business for implementation purposes. I agree not to copy, distribute, resell, teach, publish, or repurpose these materials outside of my personal business use.</li>
+            <li>Any information, responses, or materials I submit during this sprint remain my intellectual property and will be used only to support my participation in this program.</li>
+            <li>I understand that this sprint focuses on organizing, validating, and executing existing work, not creating new ideas, custom development, or bespoke strategy.</li>
+          </ul>
+        </div>
+        <div className="flex items-start space-x-3">
+          <Checkbox 
+            checked={formData.ipAcknowledgement}
+            onCheckedChange={(checked) => setFormData(prev => ({ ...prev, ipAcknowledgement: checked }))}
+            id="ip-ack"
+          />
+          <Label htmlFor="ip-ack" className="text-sm leading-relaxed font-medium">
+            I acknowledge and agree to the terms above
+          </Label>
         </div>
       </CardContent>
     </Card>,
 
-    // CARD 17 - SCOPE CONFIRMATION
-    <Card key="card-17">
+    // CARD 16 - SCOPE CONFIRMATION
+    <Card key="card-16">
       <CardHeader>
         <CardTitle>Scope Confirmation</CardTitle>
       </CardHeader>
@@ -586,7 +609,7 @@ export default function Onboarding6500() {
             id="exec-ack"
           />
           <Label htmlFor="exec-ack" className="text-sm leading-relaxed">
-            I understand this Sprint focuses on organizing, validating, and executing existing work — not creating new ideas or custom development.
+            I understand this Sprint focuses on organizing, validating, and executing existing work, not creating new ideas or custom development.
           </Label>
         </div>
       </CardContent>

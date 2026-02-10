@@ -49,46 +49,46 @@
  */
 import Account from './pages/Account';
 import AdminDashboard from './pages/AdminDashboard';
+import AdminTierManagement from './pages/AdminTierManagement';
 import Apply from './pages/Apply';
+import Apply10000 from './pages/Apply10000';
 import Assignments from './pages/Assignments';
 import BookSession from './pages/BookSession';
 import Contact from './pages/Contact';
 import FocusGroup from './pages/FocusGroup';
 import Home from './pages/Home';
 import OfficeHours from './pages/OfficeHours';
+import Onboarding10000 from './pages/Onboarding10000';
+import Onboarding25000 from './pages/Onboarding25000';
+import Onboarding6500 from './pages/Onboarding6500';
 import OperatingManual from './pages/OperatingManual';
 import Referral from './pages/Referral';
 import Survey from './pages/Survey';
 import VideoAdmin from './pages/VideoAdmin';
 import VideoLibrary from './pages/VideoLibrary';
-import Onboarding6500 from './pages/Onboarding6500';
-import Apply10000 from './pages/Apply10000';
-import Onboarding10000 from './pages/Onboarding10000';
-import Onboarding25000 from './pages/Onboarding25000';
-import AdminTierManagement from './pages/AdminTierManagement';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
     "Account": Account,
     "AdminDashboard": AdminDashboard,
+    "AdminTierManagement": AdminTierManagement,
     "Apply": Apply,
+    "Apply10000": Apply10000,
     "Assignments": Assignments,
     "BookSession": BookSession,
     "Contact": Contact,
     "FocusGroup": FocusGroup,
     "Home": Home,
     "OfficeHours": OfficeHours,
+    "Onboarding10000": Onboarding10000,
+    "Onboarding25000": Onboarding25000,
+    "Onboarding6500": Onboarding6500,
     "OperatingManual": OperatingManual,
     "Referral": Referral,
     "Survey": Survey,
     "VideoAdmin": VideoAdmin,
     "VideoLibrary": VideoLibrary,
-    "Onboarding6500": Onboarding6500,
-    "Apply10000": Apply10000,
-    "Onboarding10000": Onboarding10000,
-    "Onboarding25000": Onboarding25000,
-    "AdminTierManagement": AdminTierManagement,
 }
 
 export const pagesConfig = {
