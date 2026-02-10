@@ -7,7 +7,8 @@ import { Calendar, Clock, PlayCircle, FileText, CheckSquare, Users, TrendingUp, 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import AddTaskDialog from "@/components/admin/AddTaskDialog";
 
 // Marketing sections
 import HeroSection from "@/components/home/HeroSection";
@@ -24,12 +25,8 @@ import Footer from "@/components/home/Footer";
 export default function Home() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [checklist, setChecklist] = useState([
-    { id: 1, text: "Review Week One Submissions", done: false },
-    { id: 2, text: "Send Sprint Welcome Emails", done: false },
-    { id: 3, text: "Approve Pro Bono Clients", done: false },
-    { id: 4, text: "Review Dashboard", done: false },
-  ]);
+  
+  const queryClient = useQueryClient();
 
   React.useEffect(() => {
     const loadUser = async () => {
@@ -124,27 +121,42 @@ export default function Home() {
               {/* Block 1: Today's Admin Focus */}
               <Card className="border-black/10">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <CheckSquare className="w-5 h-5" />
-                    Today's Admin Focus
+                  <CardTitle className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <CheckSquare className="w-5 h-5" />
+                      Today's Admin Focus
+                    </div>
+                    <AddTaskDialog onTaskCreated={() => queryClient.invalidateQueries({ queryKey: ['adminTasks'] })} />
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
-                    {checklist.map((item) => (
-                      <div key={item.id} className="flex items-center gap-3">
-                        <Checkbox
-                          checked={item.done}
-                          onCheckedChange={() => toggleChecklist(item.id)}
-                        />
-                        <label 
-                          className={`text-sm cursor-pointer ${item.done ? 'line-through text-black/40' : 'text-black/70'}`}
-                          onClick={() => toggleChecklist(item.id)}
-                        >
-                          {item.text}
-                        </label>
-                      </div>
-                    ))}
+                    {adminTasks.length === 0 ? (
+                      <p className="text-sm text-black/40 text-center py-4">No tasks yet. Add your first task!</p>
+                    ) : (
+                      adminTasks.map((task) => (
+                        <div key={task.id} className="flex items-center gap-3 group">
+                          <Checkbox
+                            checked={task.done}
+                            onCheckedChange={() => toggleTask(task.id, task.done)}
+                          />
+                          <label 
+                            className={`text-sm cursor-pointer flex-1 ${task.done ? 'line-through text-black/40' : 'text-black/70'}`}
+                            onClick={() => toggleTask(task.id, task.done)}
+                          >
+                            {task.text}
+                          </label>
+                          <button
+                            onClick={() => deleteTask(task.id)}
+                            className="opacity-0 group-hover:opacity-100 text-black/40 hover:text-red-600 transition-opacity"
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                        </div>
+                      ))
+                    )}
                   </div>
                 </CardContent>
               </Card>
