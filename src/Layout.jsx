@@ -155,7 +155,7 @@ export default function Layout({ children }) {
                       Operating Manual
                     </Link>
                     <Link
-                      to={createPageUrl("AdminHome")}
+                      to={createPageUrl("AdminContentManagement")}
                       className={`text-sm px-4 py-2 transition-colors duration-200 ${isTransparent ? 'bg-white text-black hover:bg-white/90' : 'bg-black text-white hover:bg-black/80'}`}
                     >
                       Admin
@@ -260,7 +260,7 @@ export default function Layout({ children }) {
                         Operating Manual
                       </Link>
                       <Link
-                        to={createPageUrl("AdminHome")}
+                        to={createPageUrl("AdminContentManagement")}
                         onClick={() => setMobileMenuOpen(false)}
                         className={`text-sm px-4 py-2 transition-colors duration-200 text-center ${isTransparent ? 'bg-white text-black hover:bg-white/90' : 'bg-black text-white hover:bg-black/80'}`}
                       >
