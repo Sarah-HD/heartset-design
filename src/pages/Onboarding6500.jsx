@@ -591,7 +591,7 @@ export default function Onboarding6500() {
         <div className="p-4 bg-neutral-50 rounded text-sm leading-relaxed space-y-3">
           <p>By checking the box below, I acknowledge and agree to the following:</p>
           <ul className="list-disc pl-5 space-y-2">
-            <li>All materials, frameworks, prompts, templates, processes, and system logic provided by Sarah Wilkes / Heartset Design Co. / Authority Infrastructure™ as part of this sprint are proprietary and protected intellectual property.</li>
+            <li>All materials, frameworks, prompts, templates, processes, and system logic provided by Sarah Wilkes / Heartset LLC / Authority Infrastructure™ as part of this sprint are proprietary and protected intellectual property.</li>
             <li>I am granted a limited, non-transferable license to use these materials solely within my own business for implementation purposes. I agree not to copy, distribute, resell, teach, publish, or repurpose these materials outside of my personal business use.</li>
             <li>Any information, responses, or materials I submit during this sprint remain my intellectual property and will be used only to support my participation in this program.</li>
             <li>I understand that this sprint focuses on organizing, validating, and executing existing work, not creating new ideas, custom development, or bespoke strategy.</li>
