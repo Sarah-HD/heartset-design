@@ -26,7 +26,7 @@ export default function Onboarding6500() {
     highestPrice: "",
     hasLowerTier: null,
     capacityLimits: [],
-    credentials: "",
+    credentials: ["", "", "", ""],
     outcomes: ["", "", ""],
     weeklyClientHours: "",
     weeklyAdminHours: "",
@@ -76,7 +76,7 @@ export default function Onboarding6500() {
       highestPrice: parseFloat(formData.highestPrice) || 0,
       hasLowerTier: formData.hasLowerTier,
       capacityLimits: formData.capacityLimits,
-      credentials: formData.credentials || undefined,
+      credentials: formData.credentials.filter(c => c.trim() !== "").join("; ") || undefined,
       outcomes: formData.outcomes.filter(o => o.trim() !== ""),
       weeklyClientHours: formData.weeklyClientHours || undefined,
       weeklyAdminHours: formData.weeklyAdminHours || undefined,
@@ -306,7 +306,7 @@ export default function Onboarding6500() {
             placeholder="Role, situation, or life context (e.g. solo founders, educators, women post-divorce)"
             className="mt-2"
           />
-          <p className="text-sm text-black/60 mt-2">Describe who they are — not who you want them to be.</p>
+          <p className="text-sm text-black/60 mt-2">Describe who they are, not who you want them to be.</p>
         </div>
       </CardContent>
     </Card>,
@@ -314,7 +314,19 @@ export default function Onboarding6500() {
     // CARD 5 - WHERE THEY EXIST
     <Card key="card-5">
       <CardHeader>
-        <CardTitle>Where They Exist</CardTitle>
+        <CardTitle className="flex items-center gap-2">
+          Where They Exist
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Info className="w-4 h-4 text-black/40 cursor-help" />
+              </TooltipTrigger>
+              <TooltipContent className="max-w-xs">
+                <p className="text-sm">Examples: LinkedIn + associations, Conferences, Online groups, Companies or institutions</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div>
@@ -325,9 +337,6 @@ export default function Onboarding6500() {
             placeholder="Platforms, organizations, communities, events"
             className="mt-2"
           />
-          <p className="text-sm text-black/60 mt-2">
-            Examples: LinkedIn + associations, Conferences, Online groups, Companies or institutions
-          </p>
         </div>
       </CardContent>
     </Card>,
@@ -403,16 +412,21 @@ export default function Onboarding6500() {
         <CardTitle>Authority Signals</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div>
-          <Label>Relevant credentials, certifications, licenses, or formal training</Label>
-          <Textarea
-            value={formData.credentials}
-            onChange={(e) => setFormData(prev => ({ ...prev, credentials: e.target.value }))}
-            placeholder="List what is active or completed"
+        <Label>Relevant credentials, certifications, licenses, or formal training</Label>
+        <p className="text-sm text-black/60">List what is active or completed</p>
+        {formData.credentials.map((cred, idx) => (
+          <Input
+            key={idx}
+            value={cred}
+            onChange={(e) => {
+              const newCreds = [...formData.credentials];
+              newCreds[idx] = e.target.value;
+              setFormData(prev => ({ ...prev, credentials: newCreds }));
+            }}
+            placeholder={`Credential ${idx + 1}`}
             className="mt-2"
-            rows={4}
           />
-        </div>
+        ))}
       </CardContent>
     </Card>,
 
@@ -455,7 +469,7 @@ export default function Onboarding6500() {
     // CARD 11 - TIME INVESTMENT (CLIENT WORK)
     <Card key="card-11">
       <CardHeader>
-        <CardTitle>Time Investment — Client Work</CardTitle>
+        <CardTitle>Time Investment: Client Work</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div>
@@ -473,7 +487,7 @@ export default function Onboarding6500() {
     // CARD 12 - TIME INVESTMENT (ADMIN)
     <Card key="card-12">
       <CardHeader>
-        <CardTitle>Time Investment — Admin & Operations</CardTitle>
+        <CardTitle>Time Investment: Admin & Operations</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div>
