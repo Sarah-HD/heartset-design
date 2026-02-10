@@ -15,11 +15,11 @@ export default function Onboarding6500() {
   const [submitted, setSubmitted] = useState(false);
   const [currentCard, setCurrentCard] = useState(0);
   const [formData, setFormData] = useState({
+    linkedIn: "",
     hasMethod: null,
     methodName: "",
-    methodComponents: ["", "", "", "", "", ""],
+    methodComponents: ["", "", "", "", "", "", "", ""],
     existingAssets: [],
-    assetNames: "",
     primaryAudience: "",
     audienceLocation: "",
     highestPrice: "",
@@ -27,10 +27,16 @@ export default function Onboarding6500() {
     capacityLimits: [],
     credentials: "",
     outcomes: ["", "", ""],
-    weeklyHours: "",
+    weeklyClientHours: "",
+    weeklyAdminHours: "",
     deliveryFormat: [],
-    techStack: "",
+    toolWebsite: "",
+    toolDocuments: "",
+    toolEmail: "",
+    toolScheduling: "",
+    toolForms: "",
     ipAcknowledgement: false,
+    clientIpAcknowledgement: false,
     executionAcknowledgement: false
   });
 
@@ -61,10 +67,29 @@ export default function Onboarding6500() {
   const submitMutation = useMutation({
     mutationFn: () => base44.entities.SprintOnboarding.create({
       userEmail: user.email,
-      ...formData,
-      highestPrice: parseFloat(formData.highestPrice) || 0,
+      linkedIn: formData.linkedIn || undefined,
+      hasMethod: formData.hasMethod,
+      methodName: formData.methodName || undefined,
       methodComponents: formData.methodComponents.filter(c => c.trim() !== ""),
-      outcomes: formData.outcomes.filter(o => o.trim() !== "")
+      existingAssets: formData.existingAssets,
+      primaryAudience: formData.primaryAudience || undefined,
+      audienceLocation: formData.audienceLocation || undefined,
+      highestPrice: parseFloat(formData.highestPrice) || 0,
+      hasLowerTier: formData.hasLowerTier,
+      capacityLimits: formData.capacityLimits,
+      credentials: formData.credentials || undefined,
+      outcomes: formData.outcomes.filter(o => o.trim() !== ""),
+      weeklyClientHours: formData.weeklyClientHours || undefined,
+      weeklyAdminHours: formData.weeklyAdminHours || undefined,
+      deliveryFormat: formData.deliveryFormat,
+      toolWebsite: formData.toolWebsite || undefined,
+      toolDocuments: formData.toolDocuments || undefined,
+      toolEmail: formData.toolEmail || undefined,
+      toolScheduling: formData.toolScheduling || undefined,
+      toolForms: formData.toolForms || undefined,
+      ipAcknowledgement: formData.ipAcknowledgement,
+      clientIpAcknowledgement: formData.clientIpAcknowledgement,
+      executionAcknowledgement: formData.executionAcknowledgement
     }),
     onSuccess: () => {
       setSubmitted(true);
@@ -72,7 +97,7 @@ export default function Onboarding6500() {
   });
 
   const handleSubmit = () => {
-    if (!formData.ipAcknowledgement || !formData.executionAcknowledgement) {
+    if (!formData.ipAcknowledgement || !formData.clientIpAcknowledgement || !formData.executionAcknowledgement) {
       alert("Please acknowledge all required terms.");
       return;
     }
@@ -118,7 +143,7 @@ export default function Onboarding6500() {
     }));
   };
 
-  const totalCards = 17;
+  const totalCards = 19;
 
   if (!user) {
     return (
@@ -147,8 +172,26 @@ export default function Onboarding6500() {
   }
 
   const cards = [
-    // CARD 0 - METHOD SNAPSHOT
+    // CARD 0 - LINKEDIN (OPTIONAL)
     <Card key="card-0">
+      <CardHeader>
+        <CardTitle>LinkedIn Profile (Optional)</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <div>
+          <Label>LinkedIn profile URL</Label>
+          <Input 
+            value={formData.linkedIn}
+            onChange={(e) => setFormData(prev => ({ ...prev, linkedIn: e.target.value }))}
+            placeholder="https://www.linkedin.com/in/yourprofile"
+            className="mt-2"
+          />
+        </div>
+      </CardContent>
+    </Card>,
+
+    // CARD 1 - METHOD SNAPSHOT
+    <Card key="card-1">
       <CardHeader>
         <CardTitle>Method Snapshot</CardTitle>
       </CardHeader>
@@ -171,8 +214,8 @@ export default function Onboarding6500() {
       </CardContent>
     </Card>,
 
-    // CARD 1 - METHOD NAME
-    <Card key="card-1">
+    // CARD 2 - METHOD NAME
+    <Card key="card-2">
       <CardHeader>
         <CardTitle>Method Name (Optional)</CardTitle>
       </CardHeader>
@@ -189,14 +232,14 @@ export default function Onboarding6500() {
       </CardContent>
     </Card>,
 
-    // CARD 2 - METHOD COMPONENTS
-    <Card key="card-2">
+    // CARD 3 - METHOD COMPONENTS
+    <Card key="card-3">
       <CardHeader>
         <CardTitle>Method Components</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <Label>List the main parts, phases, or components of your method (names only)</Label>
-        <p className="text-sm text-black/60">Leave blank if not applicable</p>
+        <Label>List the main parts, phases, or components of how you work (names only)</Label>
+        <p className="text-sm text-black/60">These can be steps, phases, or recurring elements. Names only — no explanations.</p>
         {formData.methodComponents.map((comp, idx) => (
           <Input
             key={idx}
@@ -206,60 +249,28 @@ export default function Onboarding6500() {
               newComps[idx] = e.target.value;
               setFormData(prev => ({ ...prev, methodComponents: newComps }));
             }}
-            placeholder={`Component ${idx + 1}${idx > 2 ? ' (optional)' : ''}`}
+            placeholder={`Component ${idx + 1}`}
             className="mt-2"
           />
         ))}
       </CardContent>
     </Card>,
 
-    // CARD 3 - EXISTING ASSETS
-    <Card key="card-3">
+    // CARD 4 - EXISTING ASSETS
+    <Card key="card-4">
       <CardHeader>
         <CardTitle>Existing Assets</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <Label>Which of the following currently exist in any form?</Label>
-        <p className="text-sm text-black/60">Select all that apply</p>
-        <div className="mt-3 space-y-2">
-          {[
-            "Course",
-            "Program",
-            "Workshop",
-            "Workbook / Guide",
-            "E-book or digital material",
-            "Coaching / Consulting service",
-            "Training / Speaking material",
-            "None yet (delivery is mostly live or informal)"
-          ].map(asset => (
-            <div key={asset} className="flex items-center space-x-2">
-              <Checkbox 
-                checked={formData.existingAssets.includes(asset)}
-                onCheckedChange={() => handleAssetToggle(asset)}
-              />
-              <Label>{asset}</Label>
-            </div>
-          ))}
-        </div>
-      </CardContent>
-    </Card>,
-
-    // CARD 4 - ASSET NAMES
-    <Card key="card-4">
-      <CardHeader>
-        <CardTitle>Asset Names</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div>
-          <Label>List names or working titles of any existing assets</Label>
-          <Textarea
-            value={formData.assetNames}
-            onChange={(e) => setFormData(prev => ({ ...prev, assetNames: e.target.value }))}
-            placeholder="Internal names or drafts are fine"
-            className="mt-2"
-            rows={4}
-          />
-        </div>
+        <Label>List any existing assets you currently have (titles only)</Label>
+        <p className="text-sm text-black/60">Drafts and unfinished materials count.</p>
+        <Textarea
+          value={formData.existingAssets.join('\n')}
+          onChange={(e) => setFormData(prev => ({ ...prev, existingAssets: e.target.value.split('\n').filter(a => a.trim()) }))}
+          placeholder="One per line"
+          className="mt-2"
+          rows={5}
+        />
       </CardContent>
     </Card>,
 
@@ -274,9 +285,10 @@ export default function Onboarding6500() {
           <Input
             value={formData.primaryAudience}
             onChange={(e) => setFormData(prev => ({ ...prev, primaryAudience: e.target.value }))}
-            placeholder="Role, profession, or situation (factual)"
+            placeholder="Role, situation, or life context (e.g. solo founders, educators, women post-divorce)"
             className="mt-2"
           />
+          <p className="text-sm text-black/60 mt-2">Describe who they are — not who you want them to be.</p>
         </div>
       </CardContent>
     </Card>,
@@ -392,9 +404,10 @@ export default function Onboarding6500() {
         <CardTitle>Client Outcomes</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <Label>List up to three real outcomes you have helped clients achieve</Label>
+        <Label>List up to three outcomes you've helped clients achieve</Label>
         <p className="text-sm text-black/60">
-          These can be results you've seen, changes clients reported, or milestones they reached.
+          Outcomes can be behavioral (what changed) or numerical (counts, timelines, results).<br/>
+          Examples: decisions made, habits changed, boundaries set, revenue, retention, completion, etc.
         </p>
         {formData.outcomes.map((outcome, idx) => (
           <Textarea
@@ -413,26 +426,44 @@ export default function Onboarding6500() {
       </CardContent>
     </Card>,
 
-    // CARD 12 - TIME INVESTMENT
+    // CARD 12 - TIME INVESTMENT (CLIENT WORK)
     <Card key="card-12">
       <CardHeader>
-        <CardTitle>Time Investment</CardTitle>
+        <CardTitle>Time Investment — Client Work</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div>
-          <Label>About how many hours per week are you actively delivering client work?</Label>
+          <Label>How many hours per week are you actively delivering client work?</Label>
           <Input
-            value={formData.weeklyHours}
-            onChange={(e) => setFormData(prev => ({ ...prev, weeklyHours: e.target.value }))}
-            placeholder="Number or range"
+            value={formData.weeklyClientHours}
+            onChange={(e) => setFormData(prev => ({ ...prev, weeklyClientHours: e.target.value }))}
+            placeholder="e.g. 5–10, ~12, varies"
             className="mt-2"
           />
         </div>
       </CardContent>
     </Card>,
 
-    // CARD 13 - DELIVERY FORMAT
+    // CARD 13 - TIME INVESTMENT (ADMIN)
     <Card key="card-13">
+      <CardHeader>
+        <CardTitle>Time Investment — Admin & Operations</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <div>
+          <Label>How many hours per week are spent on admin / operations?</Label>
+          <Input
+            value={formData.weeklyAdminHours}
+            onChange={(e) => setFormData(prev => ({ ...prev, weeklyAdminHours: e.target.value }))}
+            placeholder="e.g. 3–5, ~8, not sure"
+            className="mt-2"
+          />
+        </div>
+      </CardContent>
+    </Card>,
+
+    // CARD 14 - DELIVERY FORMAT
+    <Card key="card-14">
       <CardHeader>
         <CardTitle>Delivery Format</CardTitle>
       </CardHeader>
@@ -440,7 +471,7 @@ export default function Onboarding6500() {
         <Label>How do you currently deliver your work?</Label>
         <p className="text-sm text-black/60">Select all that apply</p>
         <div className="mt-3 space-y-2">
-          {["1:1", "Group", "Asynchronous / digital", "Mixed"].map(format => (
+          {["1:1", "Group", "Asynchronous / Self-paced", "Live workshops", "Mixed"].map(format => (
             <div key={format} className="flex items-center space-x-2">
               <Checkbox 
                 checked={formData.deliveryFormat.includes(format)}
@@ -453,52 +484,97 @@ export default function Onboarding6500() {
       </CardContent>
     </Card>,
 
-    // CARD 14 - TOOLS IN USE
-    <Card key="card-14">
+    // CARD 15 - TOOLS IN USE
+    <Card key="card-15">
       <CardHeader>
         <CardTitle>Tools in Use</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div>
-          <Label>What tools do you currently use to deliver or manage your work?</Label>
-          <Input
-            value={formData.techStack}
-            onChange={(e) => setFormData(prev => ({ ...prev, techStack: e.target.value }))}
-            placeholder="Website, documents, email, scheduling, forms (e.g., Wix, Google Docs, Calendly)"
-            className="mt-2"
-          />
+        <Label>What tools do you currently use to deliver your work?</Label>
+        <p className="text-sm text-black/60">List only what you actively use. "None" is a valid answer.</p>
+        <div className="space-y-3 mt-4">
+          <div>
+            <Label className="text-sm text-black/60">Website / Platform</Label>
+            <Input
+              value={formData.toolWebsite}
+              onChange={(e) => setFormData(prev => ({ ...prev, toolWebsite: e.target.value }))}
+              placeholder="Enter name or 'none'"
+              className="mt-1"
+            />
+          </div>
+          <div>
+            <Label className="text-sm text-black/60">Documents / Workbooks</Label>
+            <Input
+              value={formData.toolDocuments}
+              onChange={(e) => setFormData(prev => ({ ...prev, toolDocuments: e.target.value }))}
+              placeholder="Google Docs, PDFs, etc."
+              className="mt-1"
+            />
+          </div>
+          <div>
+            <Label className="text-sm text-black/60">Email</Label>
+            <Input
+              value={formData.toolEmail}
+              onChange={(e) => setFormData(prev => ({ ...prev, toolEmail: e.target.value }))}
+              placeholder="Flodesk, Gmail, etc."
+              className="mt-1"
+            />
+          </div>
+          <div>
+            <Label className="text-sm text-black/60">Scheduling</Label>
+            <Input
+              value={formData.toolScheduling}
+              onChange={(e) => setFormData(prev => ({ ...prev, toolScheduling: e.target.value }))}
+              placeholder="Calendly, Wix, etc."
+              className="mt-1"
+            />
+          </div>
+          <div>
+            <Label className="text-sm text-black/60">Forms / Intake</Label>
+            <Input
+              value={formData.toolForms}
+              onChange={(e) => setFormData(prev => ({ ...prev, toolForms: e.target.value }))}
+              placeholder="Google Forms, Typeform, etc."
+              className="mt-1"
+            />
+          </div>
         </div>
       </CardContent>
     </Card>,
 
-    // CARD 15 - MUTUAL CONFIDENTIALITY
-    <Card key="card-15">
+    // CARD 16 - INTELLECTUAL PROPERTY & CONFIDENTIALITY
+    <Card key="card-16">
       <CardHeader>
-        <CardTitle>Mutual Confidentiality (Important)</CardTitle>
+        <CardTitle>Intellectual Property & Confidentiality</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="p-4 bg-neutral-50 rounded text-sm space-y-4">
-          <p>
-            I understand that this onboarding collects information solely to support program delivery. 
-            My intellectual property remains my own, and any system materials, frameworks, or tools 
-            provided inside the Authority Infrastructure™ Sprint are proprietary and for my business use only.
-          </p>
-        </div>
-        <div className="flex items-start space-x-3">
-          <Checkbox 
-            checked={formData.ipAcknowledgement}
-            onCheckedChange={(checked) => setFormData(prev => ({ ...prev, ipAcknowledgement: checked }))}
-            id="ip-ack"
-          />
-          <Label htmlFor="ip-ack" className="text-sm leading-relaxed">
-            I acknowledge and agree to the Confidentiality & Intellectual Property terms above.
-          </Label>
+        <div className="space-y-4">
+          <div className="flex items-start space-x-3">
+            <Checkbox 
+              checked={formData.ipAcknowledgement}
+              onCheckedChange={(checked) => setFormData(prev => ({ ...prev, ipAcknowledgement: checked }))}
+              id="ip-ack"
+            />
+            <Label htmlFor="ip-ack" className="text-sm leading-relaxed">
+              I understand that all materials, frameworks, prompts, and system logic provided inside this Sprint are proprietary and for my business use only.
+            </Label>
+          </div>
+          <div className="flex items-start space-x-3">
+            <Checkbox 
+              checked={formData.clientIpAcknowledgement}
+              onCheckedChange={(checked) => setFormData(prev => ({ ...prev, clientIpAcknowledgement: checked }))}
+              id="client-ip-ack"
+            />
+            <Label htmlFor="client-ip-ack" className="text-sm leading-relaxed">
+              I also understand that any information I submit remains my intellectual property and will be used solely to support my participation in this program.
+            </Label>
+          </div>
         </div>
       </CardContent>
     </Card>,
 
-    // CARD 16 - SCOPE CONFIRMATION
-    <Card key="card-16">
+    // CARD 17 - SCOPE CONFIRMATION
+    <Card key="card-17">
       <CardHeader>
         <CardTitle>Scope Confirmation</CardTitle>
       </CardHeader>
