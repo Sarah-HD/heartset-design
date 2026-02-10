@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { UserPlus, Users, FileText, ArrowLeft } from "lucide-react";
+import { UserPlus, Users, FileText, ArrowLeft, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 
@@ -27,6 +27,8 @@ export default function AdminTierManagement() {
     isBypass: false,
     adminNotes: ""
   });
+  const [testEmail, setTestEmail] = useState("");
+  const [showTestForm, setShowTestForm] = useState(false);
 
   const queryClient = useQueryClient();
 
@@ -142,6 +144,21 @@ export default function AdminTierManagement() {
     }
   });
 
+  const sendTestEmailsMutation = useMutation({
+    mutationFn: async ({ testEmail }) => {
+      const response = await base44.functions.invoke('sendTestEmailSequence', { testEmail });
+      return response.data;
+    },
+    onSuccess: () => {
+      alert('All 5 test emails sent successfully!');
+      setShowTestForm(false);
+      setTestEmail("");
+    },
+    onError: (error) => {
+      alert('Failed to send test emails: ' + error.message);
+    }
+  });
+
   const handleAddAssignment = (e) => {
     e.preventDefault();
     addAssignmentMutation.mutate(newAssignment);
@@ -200,6 +217,10 @@ export default function AdminTierManagement() {
               Tier Management
             </h1>
             <div className="flex gap-2">
+              <Button onClick={() => setShowTestForm(!showTestForm)} variant="outline" className="border-green-600 text-green-600 hover:bg-green-50">
+                <Mail className="w-4 h-4 mr-2" />
+                Test Emails
+              </Button>
               <Button onClick={() => setShowInviteForm(!showInviteForm)} variant="outline" className="border-black">
                 <UserPlus className="w-4 h-4 mr-2" />
                 Invite User
@@ -210,6 +231,41 @@ export default function AdminTierManagement() {
               </Button>
             </div>
           </div>
+
+          {showTestForm && (
+            <Card className="mb-8 border-green-600 border-2">
+              <CardHeader>
+                <CardTitle>Test Email Sequence</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={(e) => { e.preventDefault(); sendTestEmailsMutation.mutate({ testEmail }); }} className="space-y-4">
+                  <div>
+                    <Label>Test Email Address</Label>
+                    <Input
+                      type="email"
+                      value={testEmail}
+                      onChange={(e) => setTestEmail(e.target.value)}
+                      placeholder="your@email.com"
+                      required
+                      className="mt-2"
+                    />
+                    <p className="text-xs text-black/60 mt-2">
+                      This will send all 5 automated emails to the specified address for testing purposes.
+                    </p>
+                  </div>
+
+                  <div className="flex gap-2">
+                    <Button type="submit" className="bg-green-600 hover:bg-green-700" disabled={sendTestEmailsMutation.isPending}>
+                      {sendTestEmailsMutation.isPending ? "Sending..." : "Send All Test Emails"}
+                    </Button>
+                    <Button type="button" variant="outline" onClick={() => setShowTestForm(false)}>
+                      Cancel
+                    </Button>
+                  </div>
+                </form>
+              </CardContent>
+            </Card>
+          )}
 
           {showInviteForm && (
             <Card className="mb-8 border-black/20 border-2">
