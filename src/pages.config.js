@@ -67,6 +67,7 @@ import Survey from './pages/Survey';
 import VideoAdmin from './pages/VideoAdmin';
 import VideoLibrary from './pages/VideoLibrary';
 import AdminHome from './pages/AdminHome';
+import AdminContentManagement from './pages/AdminContentManagement';
 import __Layout from './Layout.jsx';
 
 
@@ -91,6 +92,7 @@ export const PAGES = {
     "VideoAdmin": VideoAdmin,
     "VideoLibrary": VideoLibrary,
     "AdminHome": AdminHome,
+    "AdminContentManagement": AdminContentManagement,
 }
 
 export const pagesConfig = {
