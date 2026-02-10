@@ -24,9 +24,14 @@ export default function Layout({ children }) {
   const isFocusGroup = user?.cohort_type === 'focus_group' || !user?.cohort_type;
   const showFullProgram = user?.cohort_type === 'sprint' || user?.cohort_type === 'advisory';
   
+  const [adminViewMode, setAdminViewMode] = React.useState('admin'); // 'admin' or 'user'
+  
   // Transparent nav with white text for unauthenticated Home page
   const isHomePage = location.pathname === '/' || location.pathname === '/Home';
   const isTransparent = isHomePage && !user;
+  
+  const isAdminUser = user?.role === 'admin';
+  const showingUserView = isAdminUser && adminViewMode === 'user';
   return (
     <>
       <style>{`
@@ -91,12 +96,14 @@ export default function Layout({ children }) {
             >
               Home
             </Link>
-            <Link
-              to={createPageUrl("Contact")}
-              className={`text-sm transition-colors duration-200 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
-            >
-              Contact
-            </Link>
+            {(!isAdminUser || showingUserView) && (
+              <Link
+                to={createPageUrl("Contact")}
+                className={`text-sm transition-colors duration-200 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
+              >
+                Contact
+              </Link>
+            )}
             {user && (
               <>
                 <Link
@@ -137,20 +144,30 @@ export default function Layout({ children }) {
                 Sign In
               </button>
             )}
-            {user?.role === 'admin' && (
+            {isAdminUser && (
               <>
-                <Link
-                  to={createPageUrl("OperatingManual")}
-                  className={`text-sm transition-colors duration-200 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
+                {!showingUserView && (
+                  <>
+                    <Link
+                      to={createPageUrl("OperatingManual")}
+                      className={`text-sm transition-colors duration-200 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
+                    >
+                      Operating Manual
+                    </Link>
+                    <Link
+                      to={createPageUrl("AdminDashboard")}
+                      className={`text-sm px-4 py-2 transition-colors duration-200 ${isTransparent ? 'bg-white text-black hover:bg-white/90' : 'bg-black text-white hover:bg-black/80'}`}
+                    >
+                      Admin
+                    </Link>
+                  </>
+                )}
+                <button
+                  onClick={() => setAdminViewMode(adminViewMode === 'admin' ? 'user' : 'admin')}
+                  className={`text-sm px-4 py-2 transition-colors duration-200 border ${isTransparent ? 'border-white/20 text-white hover:bg-white/10' : 'border-black/20 text-black hover:bg-black/5'}`}
                 >
-                  Operating Manual
-                </Link>
-                <Link
-                  to={createPageUrl("AdminDashboard")}
-                  className={`text-sm px-4 py-2 transition-colors duration-200 ${isTransparent ? 'bg-white text-black hover:bg-white/90' : 'bg-black text-white hover:bg-black/80'}`}
-                >
-                  Admin
-                </Link>
+                  {adminViewMode === 'admin' ? 'User View' : 'Admin View'}
+                </button>
               </>
             )}
           </div>
@@ -175,13 +192,15 @@ export default function Layout({ children }) {
               >
                 Home
               </Link>
-              <Link
-                to={createPageUrl("Contact")}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`text-sm transition-colors duration-200 py-2 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
-              >
-                Contact
-              </Link>
+              {(!isAdminUser || showingUserView) && (
+                <Link
+                  to={createPageUrl("Contact")}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`text-sm transition-colors duration-200 py-2 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
+                >
+                  Contact
+                </Link>
+              )}
               {user && (
                 <>
                   <Link
@@ -229,22 +248,35 @@ export default function Layout({ children }) {
                   Sign In
                 </button>
               )}
-              {user?.role === 'admin' && (
+              {isAdminUser && (
                 <>
-                  <Link
-                    to={createPageUrl("OperatingManual")}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`text-sm transition-colors duration-200 py-2 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
+                  {!showingUserView && (
+                    <>
+                      <Link
+                        to={createPageUrl("OperatingManual")}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={`text-sm transition-colors duration-200 py-2 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
+                      >
+                        Operating Manual
+                      </Link>
+                      <Link
+                        to={createPageUrl("AdminDashboard")}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={`text-sm px-4 py-2 transition-colors duration-200 text-center ${isTransparent ? 'bg-white text-black hover:bg-white/90' : 'bg-black text-white hover:bg-black/80'}`}
+                      >
+                        Admin
+                      </Link>
+                    </>
+                  )}
+                  <button
+                    onClick={() => {
+                      setAdminViewMode(adminViewMode === 'admin' ? 'user' : 'admin');
+                      setMobileMenuOpen(false);
+                    }}
+                    className={`text-sm px-4 py-2 transition-colors duration-200 text-center border ${isTransparent ? 'border-white/20 text-white hover:bg-white/10' : 'border-black/20 text-black hover:bg-black/5'}`}
                   >
-                    Operating Manual
-                  </Link>
-                  <Link
-                    to={createPageUrl("AdminDashboard")}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`text-sm px-4 py-2 transition-colors duration-200 text-center ${isTransparent ? 'bg-white text-black hover:bg-white/90' : 'bg-black text-white hover:bg-black/80'}`}
-                  >
-                    Admin
-                  </Link>
+                    {adminViewMode === 'admin' ? 'User View' : 'Admin View'}
+                  </button>
                 </>
               )}
             </div>

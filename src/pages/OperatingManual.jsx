@@ -246,7 +246,7 @@ function ManualContent({ activeSection }) {
       key={activeSection}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="prose prose-sm max-w-none"
+      className="prose prose-sm max-w-none prose-headings:font-medium prose-h2:text-2xl prose-h2:mb-6 prose-h2:mt-8 prose-h3:text-xl prose-h3:mb-4 prose-h3:mt-6 prose-h3:font-semibold prose-h4:text-base prose-h4:mb-3 prose-h4:mt-4 prose-h4:font-semibold prose-p:leading-relaxed prose-p:mb-4 prose-li:my-1.5 prose-ul:my-3 prose-ol:my-3"
     >
       {content[activeSection]}
     </motion.div>
@@ -260,11 +260,11 @@ function Part1Content() {
         <h2 style={{ fontFamily: "'Playfair Display', serif" }}>Part 1: Strategic Foundation & System Intent</h2>
       </div>
 
-      <section>
-        <h3>1.0 Command Intent</h3>
-        <p>Authority Infrastructure™ is a systems-engineering methodology designed to convert individual expertise into institutional assets. The system eliminates dependence on personality-driven selling, emotional labor, improvisational delivery, and founder-centric execution.</p>
+      <section className="space-y-4">
+        <h3 className="font-bold">1.0 Command Intent</h3>
+        <p><strong>Authority Infrastructure™</strong> is a systems-engineering methodology designed to convert individual expertise into institutional assets. The system eliminates dependence on personality-driven selling, emotional labor, improvisational delivery, and founder-centric execution.</p>
         <p>The system installs decision infrastructure that operates independently of constant founder involvement. This manual governs how expertise is:</p>
-        <ul>
+        <ul className="ml-6 space-y-1">
           <li>Identified</li>
           <li>Extracted</li>
           <li>Formalized</li>
@@ -275,21 +275,21 @@ function Part1Content() {
         <p>The objective is not personal transformation; the objective is the installation of an operating system that produces repeatable outcomes without increasing founder labor.</p>
       </section>
 
-      <section>
-        <h3>1.1 System Definition</h3>
+      <section className="space-y-4">
+        <h3 className="font-bold">1.1 System Definition</h3>
         <p>Authority Infrastructure™ replaces traditional coaching and consulting models with architectural engineering principles.</p>
         <p>The founder operates as a <strong>Systems Architect</strong>, not a teacher, motivator, or service provider.</p>
       </section>
 
-      <section>
-        <h3>1.2 Governance Cycle</h3>
+      <section className="space-y-4">
+        <h3 className="font-bold">1.2 Governance Cycle</h3>
         <p>Authority Infrastructure™ governs expertise through six enforced actions. Each action is a bounded system behavior. No action occurs out of sequence.</p>
       </section>
 
-      <section>
-        <h3>1.3 Core Methodological Pillars</h3>
+      <section className="space-y-4">
+        <h3 className="font-bold">1.3 Core Methodological Pillars</h3>
         <p>All activity must comply with these pillars. Deviation constitutes system failure.</p>
-        <ul>
+        <ul className="ml-6 space-y-2">
           <li><strong>Pillar 1: Asset Inventory over Ideation.</strong> No new ideas are generated early. Authority is a balance-sheet asset, not a creative exercise.</li>
           <li><strong>Pillar 2: Placement over Persuasion.</strong> Authority is positioned inside established institutional ecosystems where purchasing already occurs.</li>
           <li><strong>Pillar 3: Math over Motivation.</strong> Hope-based marketing is eliminated. Revenue is modeled using conservative assumptions.</li>
@@ -297,46 +297,52 @@ function Part1Content() {
         </ul>
       </section>
 
-      <section>
-        <h3>1.4 Structural Discipline</h3>
+      <section className="space-y-6">
+        <h3 className="font-bold">1.4 Structural Discipline</h3>
         
-        <h4>1.4.1 Prohibition on Brainstorming</h4>
-        <p>Brainstorming is prohibited in early-stage environments. It creates intellectual property leakage and dependency on founder interpretation.</p>
+        <div className="space-y-3">
+          <h4 className="font-bold">1.4.1 Prohibition on Brainstorming</h4>
+          <p>Brainstorming is prohibited in early-stage environments. It creates intellectual property leakage and dependency on founder interpretation.</p>
+        </div>
 
-        <h4>1.4.2 Structured Ideation (Paid Boundary)</h4>
-        <p>Structured ideation (extending frameworks or designing adjacent assets) is a controlled, compensated activity.</p>
-        <ul>
-          <li>$10,000 Advisory: Framework refinement</li>
-          <li>$25,000 Infrastructure: System design</li>
-          <li>No ideation occurs in Focus Groups or Sprints</li>
-        </ul>
+        <div className="space-y-3">
+          <h4 className="font-bold">1.4.2 Structured Ideation (Paid Boundary)</h4>
+          <p>Structured ideation (extending frameworks or designing adjacent assets) is a controlled, compensated activity.</p>
+          <ul className="ml-6 space-y-1">
+            <li>$10,000 Advisory: Framework refinement</li>
+            <li>$25,000 Infrastructure: System design</li>
+            <li>No ideation occurs in Focus Groups or Sprints</li>
+          </ul>
+        </div>
 
-        <h4>1.4.3 Efficiency Mandates</h4>
-        <ul>
-          <li><strong>Time Containment:</strong> Live sessions capped at 30 minutes</li>
-          <li><strong>Asynchronous-First:</strong> Minimum 90% of delivery is asynchronous</li>
-        </ul>
+        <div className="space-y-3">
+          <h4 className="font-bold">1.4.3 Efficiency Mandates</h4>
+          <ul className="ml-6 space-y-1">
+            <li><strong>Time Containment:</strong> Live sessions capped at 30 minutes</li>
+            <li><strong>Asynchronous-First:</strong> Minimum 90% of delivery is asynchronous</li>
+          </ul>
+        </div>
       </section>
 
-      <section>
-        <h3>1.5 Proprietary Gating Mechanism</h3>
-        <h4>Section 0: Access Gate</h4>
+      <section className="space-y-4">
+        <h3 className="font-bold">1.5 Proprietary Gating Mechanism</h3>
+        <h4 className="font-bold">Section 0: Access Gate</h4>
         <p>Section 0 is a behavioral control located exclusively as the first field of the post-live Intelligence Survey.</p>
-        <ul>
+        <ul className="ml-6 space-y-2">
           <li><strong>Mechanism:</strong> Requires a live-issued access code shared only during the final minutes of the Day 4 Live Session</li>
           <li><strong>Function:</strong> Governs data entry, offer visibility, and advisory eligibility</li>
           <li><strong>Penalty:</strong> Failure to pass Section 0 automatically disqualifies the participant from further pathways</li>
         </ul>
       </section>
 
-      <section>
-        <h3>1.6 Revenue Architecture</h3>
+      <section className="space-y-4">
+        <h3 className="font-bold">1.6 Revenue Architecture</h3>
         <p>The system operates through verified escalation, not forced sequencing.</p>
         <p><strong>System Escalation Rule:</strong> Participants do not choose tiers. The system routes them based on asset maturity and execution proof.</p>
       </section>
 
-      <section>
-        <h3>1.7 Target User Outcome</h3>
+      <section className="space-y-4">
+        <h3 className="font-bold">1.7 Target User Outcome</h3>
         <p>Upon completion, participants transition from execution (coaches/consultants) to infrastructure control (System Owners/Operators). The system inverts the labor curve: labor remains constant while authority and revenue compound.</p>
       </section>
     </div>
@@ -348,27 +354,27 @@ function Part2Content() {
     <div className="space-y-8">
       <div>
         <h2 style={{ fontFamily: "'Playfair Display', serif" }}>Part 2: Operational Execution & Gating Scripts</h2>
-        <p>Part 2 defines the tactical execution of the Strategic Foundation. It provides the specific mechanics for the Focus Group, the enforcement of Section 0, and the logic required to route participants into the $6,500 Sprint or the $10,000/$25,000 Advisory tiers.</p>
+        <p className="mt-4">Part 2 defines the tactical execution of the Strategic Foundation. It provides the specific mechanics for the Focus Group, the enforcement of Section 0, and the logic required to route participants into the $6,500 Sprint or the $10,000/$25,000 Advisory tiers.</p>
       </div>
 
-      <section>
-        <h3>2.1 Focus Group Structure (Days 1–3)</h3>
+      <section className="space-y-4">
+        <h3 className="font-bold">2.1 Focus Group Structure (Days 1–3)</h3>
         <p>The Focus Group is an <strong>Extraction Environment</strong>. The founder's role is to audit, not to teach.</p>
-        <h4>Daily Execution Protocol</h4>
-        <ul>
+        <h4 className="font-bold">Daily Execution Protocol</h4>
+        <ul className="ml-6 space-y-2">
           <li><strong>Asset Auditing:</strong> Participants submit existing methodologies. The founder identifies which assets have "Institutional Weight" (repeatable logic) vs. "Service Weight" (manual labor)</li>
           <li><strong>The "No-New-Ideas" Filter:</strong> If a participant suggests a new concept, the response is: "We are currently in the Extraction phase. We only work with assets that have a history of execution. Save that for a future Advisory tier."</li>
           <li><strong>Constraint Enforcement:</strong> All interactions are asynchronous. Live thinking is a system violation</li>
         </ul>
       </section>
 
-      <section>
-        <h3>2.2 The Day 4 Live Reflection Session</h3>
+      <section className="space-y-4">
+        <h3 className="font-bold">2.2 The Day 4 Live Reflection Session</h3>
         <p>This is the <strong>Decision Confirmation</strong> event. It is not a Q&A session; it is a verification of readiness.</p>
-        <ul>
+        <ul className="ml-6 space-y-2">
           <li><strong>Duration:</strong> 30 Minutes (Hard Stop)</li>
           <li><strong>Agenda:</strong>
-            <ol>
+            <ol className="ml-4 mt-2 space-y-1">
               <li>Summary of extracted assets across the group</li>
               <li>Clarification of the "Formalization" requirement for the Sprint</li>
               <li>Announcement of Section 0</li>
@@ -377,43 +383,49 @@ function Part2Content() {
         </ul>
       </section>
 
-      <section>
-        <h3>2.3 Section 0: Data Integrity Control</h3>
+      <section className="space-y-4">
+        <h3 className="font-bold">2.3 Section 0: Data Integrity Control</h3>
         <p>Section 0 is the "Proof of Presence" filter.</p>
-        <ul>
+        <ul className="ml-6 space-y-2">
           <li><strong>Input Field:</strong> "Enter the Live Session Verification Code."</li>
           <li><strong>Validation Logic:</strong> If Input ≠ [LIVE_CODE_XXXX], the survey terminates immediately</li>
           <li><strong>Messaging upon failure:</strong> "Access Denied. Authority Infrastructure requires strict adherence to sequence. Without the verification code, your data cannot be routed."</li>
         </ul>
       </section>
 
-      <section>
-        <h3>2.4 Intelligence Survey Routing Logic</h3>
+      <section className="space-y-6">
+        <h3 className="font-bold">2.4 Intelligence Survey Routing Logic</h3>
         <p>The survey replaces the sales call. It uses data to determine the participant's trajectory.</p>
         
-        <h4>Path A: The $6,500 Implementation Sprint</h4>
-        <p><strong>Trigger:</strong> Participant has extracted assets but lacks a formal, repeatable structure or a non-founder-dependent delivery model.</p>
+        <div className="space-y-3">
+          <h4 className="font-bold">Path A: The $6,500 Implementation Sprint</h4>
+          <p><strong>Trigger:</strong> Participant has extracted assets but lacks a formal, repeatable structure or a non-founder-dependent delivery model.</p>
+        </div>
 
-        <h4>Path B: The $10,000 Advisory (Sprint Bypass)</h4>
-        <p><strong>Trigger:</strong> Participant demonstrates verified, pre-existing frameworks and a tiered offer suite that only requires refinement or scaling logic.</p>
+        <div className="space-y-3">
+          <h4 className="font-bold">Path B: The $10,000 Advisory (Sprint Bypass)</h4>
+          <p><strong>Trigger:</strong> Participant demonstrates verified, pre-existing frameworks and a tiered offer suite that only requires refinement or scaling logic.</p>
+        </div>
 
-        <h4>Path C: Disqualification</h4>
-        <p><strong>Trigger:</strong> Participant is in "Ideation Mode," lacks professional experience to extract, or failed the Section 0 gate.</p>
+        <div className="space-y-3">
+          <h4 className="font-bold">Path C: Disqualification</h4>
+          <p><strong>Trigger:</strong> Participant is in "Ideation Mode," lacks professional experience to extract, or failed the Section 0 gate.</p>
+        </div>
       </section>
 
-      <section>
-        <h3>2.5 Authority Defense Scripts</h3>
+      <section className="space-y-4">
+        <h3 className="font-bold">2.5 Authority Defense Scripts</h3>
         <p>Use these scripts to maintain structural discipline when participants push for "Brainstorming" or "Customization."</p>
-        <ul>
+        <ul className="ml-6 space-y-2">
           <li><strong>To stop live ideation:</strong> "That is a 'What If' question. This system operates on 'What Is.' We will stick to the extracted data."</li>
           <li><strong>To deny customization:</strong> "Customization is a labor-heavy service. This is an Infrastructure build. We are building the system to handle the work, not the founder."</li>
           <li><strong>To redirect "How-To" questions:</strong> "The 'How' is embedded in the Formalization phase. If you are in the Sprint, you will receive the sequence. We do not discuss implementation during extraction."</li>
         </ul>
       </section>
 
-      <section>
-        <h3>2.6 Revenue Escalation & Capacity Management</h3>
-        <ul>
+      <section className="space-y-4">
+        <h3 className="font-bold">2.6 Revenue Escalation & Capacity Management</h3>
+        <ul className="ml-6 space-y-2">
           <li><strong>Sprint Capacity:</strong> Hard cap of 5. No exceptions. Scarcity is a byproduct of the infrastructure, not a marketing tactic</li>
           <li><strong>The $25,000 Trigger:</strong> Move to this conversation only after the framework is refined ($10k tier) and the participant requires the Base44 platform installation</li>
         </ul>
@@ -429,10 +441,10 @@ function Part3Content() {
         <h2 style={{ fontFamily: "'Playfair Display', serif" }}>Part 3: Intelligence System, Routing Logic & Enforcement</h2>
       </div>
 
-      <section>
-        <h3>3.0 Purpose of Part 3</h3>
+      <section className="space-y-4">
+        <h3 className="font-bold">3.0 Purpose of Part 3</h3>
         <p>Part 3 defines how Authority Infrastructure™:</p>
-        <ul>
+        <ul className="ml-6 space-y-1">
           <li>captures proprietary intelligence</li>
           <li>enforces boundaries without conversation</li>
           <li>routes participants without selling</li>
@@ -443,11 +455,11 @@ function Part3Content() {
         <p>No human discretion is required beyond enforcement.</p>
       </section>
 
-      <section>
-        <h3>3.1 The Intelligence System</h3>
+      <section className="space-y-4">
+        <h3 className="font-bold">3.1 The Intelligence System</h3>
         <p>The Intelligence System is the decision engine that replaces sales conversations, qualification calls, and subjective judgment.</p>
         <p>It consists of:</p>
-        <ul>
+        <ul className="ml-6 space-y-1">
           <li>the Focus Group Intake Form</li>
           <li>the Post-Live Intelligence Survey</li>
           <li>the Routing Rules</li>
@@ -456,48 +468,54 @@ function Part3Content() {
         <p>The system observes behavior. Behavior determines access.</p>
       </section>
 
-      <section>
-        <h3>3.2 Data Collection Layers</h3>
+      <section className="space-y-4">
+        <h3 className="font-bold">3.2 Data Collection Layers</h3>
         <p>Authority Infrastructure™ collects data in three controlled layers. Each layer increases signal quality.</p>
       </section>
 
-      <section>
-        <h3>3.7 Enforcement Protocols</h3>
+      <section className="space-y-6">
+        <h3 className="font-bold">3.7 Enforcement Protocols</h3>
         <p>Authority Infrastructure™ enforces structure through absence, not argument.</p>
         
-        <h4>3.7.1 Brainstorming Attempts</h4>
-        <p>If a participant attempts ideation outside paid scope:</p>
-        <p><strong>Response:</strong></p>
-        <ul>
-          <li>No engagement</li>
-          <li>Redirect to assigned reflection</li>
-          <li>Or silence</li>
-        </ul>
-        <p>Explanation is not provided.</p>
+        <div className="space-y-3">
+          <h4 className="font-bold">3.7.1 Brainstorming Attempts</h4>
+          <p>If a participant attempts ideation outside paid scope:</p>
+          <p><strong>Response:</strong></p>
+          <ul className="ml-6 space-y-1">
+            <li>No engagement</li>
+            <li>Redirect to assigned reflection</li>
+            <li>Or silence</li>
+          </ul>
+          <p>Explanation is not provided.</p>
+        </div>
 
-        <h4>3.7.2 Scope Expansion Attempts</h4>
-        <p>If a participant requests customization beyond system boundaries:</p>
-        <p><strong>Response:</strong></p>
-        <ul>
-          <li>Refer to system rules</li>
-          <li>No exceptions</li>
-          <li>No justification</li>
-        </ul>
+        <div className="space-y-3">
+          <h4 className="font-bold">3.7.2 Scope Expansion Attempts</h4>
+          <p>If a participant requests customization beyond system boundaries:</p>
+          <p><strong>Response:</strong></p>
+          <ul className="ml-6 space-y-1">
+            <li>Refer to system rules</li>
+            <li>No exceptions</li>
+            <li>No justification</li>
+          </ul>
+        </div>
 
-        <h4>3.7.3 Emotional Processing Attempts</h4>
-        <p>If a participant seeks reassurance, motivation, or validation:</p>
-        <p><strong>Response:</strong></p>
-        <ul>
-          <li>Redirect to assignment</li>
-          <li>Or allow disengagement</li>
-        </ul>
-        <p>Emotional labor is not part of the system.</p>
+        <div className="space-y-3">
+          <h4 className="font-bold">3.7.3 Emotional Processing Attempts</h4>
+          <p>If a participant seeks reassurance, motivation, or validation:</p>
+          <p><strong>Response:</strong></p>
+          <ul className="ml-6 space-y-1">
+            <li>Redirect to assignment</li>
+            <li>Or allow disengagement</li>
+          </ul>
+          <p>Emotional labor is not part of the system.</p>
+        </div>
       </section>
 
-      <section>
-        <h3>3.10 Founder Role Clarity</h3>
+      <section className="space-y-4">
+        <h3 className="font-bold">3.10 Founder Role Clarity</h3>
         <p>The founder does not:</p>
-        <ul>
+        <ul className="ml-6 space-y-1">
           <li>sell</li>
           <li>convince</li>
           <li>rescue</li>
@@ -505,7 +523,7 @@ function Part3Content() {
           <li>ideate for free</li>
         </ul>
         <p>The founder:</p>
-        <ul>
+        <ul className="ml-6 space-y-1">
           <li>maintains structure</li>
           <li>enforces boundaries</li>
           <li>protects the system</li>
@@ -514,10 +532,10 @@ function Part3Content() {
         <p>Any action that compromises these functions is prohibited.</p>
       </section>
 
-      <section>
-        <h3>3.11 Failure Conditions</h3>
+      <section className="space-y-4">
+        <h3 className="font-bold">3.11 Failure Conditions</h3>
         <p>The following invalidate participation:</p>
-        <ul>
+        <ul className="ml-6 space-y-1">
           <li>refusal to follow instructions</li>
           <li>repeated attempts to brainstorm</li>
           <li>pressure for exceptions</li>
@@ -537,11 +555,11 @@ function Part4Content() {
         <h2 style={{ fontFamily: "'Playfair Display', serif" }}>Part 4: Eligibility, Escalation & System Integrity Controls</h2>
       </div>
 
-      <section>
-        <h3>4.0 Purpose of Part 4</h3>
+      <section className="space-y-4">
+        <h3 className="font-bold">4.0 Purpose of Part 4</h3>
         <p>Part 4 governs who is allowed to move where, when exceptions are permitted, and how system integrity is protected as revenue tiers increase.</p>
         <p>This section exists to:</p>
-        <ul>
+        <ul className="ml-6 space-y-1">
           <li>prevent underqualified participation</li>
           <li>eliminate emotional decision-making</li>
           <li>protect high-ticket capacity</li>
@@ -551,75 +569,87 @@ function Part4Content() {
         <p>No delivery occurs in this section. Only control logic.</p>
       </section>
 
-      <section>
-        <h3>4.1 Eligibility Classes</h3>
+      <section className="space-y-6">
+        <h3 className="font-bold">4.1 Eligibility Classes</h3>
         <p>All participants are classified into one of four eligibility classes based on evidence, not intent.</p>
         
-        <h4>Class A — Pre-Validated Operators</h4>
-        <p><strong>Criteria:</strong></p>
-        <ul>
-          <li>Documented revenue history</li>
-          <li>Existing frameworks or methodologies</li>
-          <li>Prior delivery evidence</li>
-          <li>Demonstrated operational discipline</li>
-        </ul>
-        <p><strong>Privileges:</strong></p>
-        <ul>
-          <li>May bypass the $6,500 Sprint</li>
-          <li>Eligible to apply directly for $10,000 Advisory</li>
-          <li>May be invited to $25,000 Infrastructure Installation</li>
-        </ul>
+        <div className="space-y-3">
+          <h4 className="font-bold">Class A — Pre-Validated Operators</h4>
+          <p><strong>Criteria:</strong></p>
+          <ul className="ml-6 space-y-1">
+            <li>Documented revenue history</li>
+            <li>Existing frameworks or methodologies</li>
+            <li>Prior delivery evidence</li>
+            <li>Demonstrated operational discipline</li>
+          </ul>
+          <p><strong>Privileges:</strong></p>
+          <ul className="ml-6 space-y-1">
+            <li>May bypass the $6,500 Sprint</li>
+            <li>Eligible to apply directly for $10,000 Advisory</li>
+            <li>May be invited to $25,000 Infrastructure Installation</li>
+          </ul>
+        </div>
 
-        <h4>Class B — Practicing Professionals</h4>
-        <p><strong>Privileges:</strong></p>
-        <ul>
-          <li>Eligible for $6,500 Sprint</li>
-          <li>Eligible for $10,000 Advisory after Sprint validation</li>
-          <li>Not eligible for $25,000 without system readiness</li>
-        </ul>
+        <div className="space-y-3">
+          <h4 className="font-bold">Class B — Practicing Professionals</h4>
+          <p><strong>Privileges:</strong></p>
+          <ul className="ml-6 space-y-1">
+            <li>Eligible for $6,500 Sprint</li>
+            <li>Eligible for $10,000 Advisory after Sprint validation</li>
+            <li>Not eligible for $25,000 without system readiness</li>
+          </ul>
+        </div>
 
-        <h4>Class C — Early-Stage Experts</h4>
-        <p><strong>Privileges:</strong></p>
-        <ul>
-          <li>Focus Group participation only</li>
-          <li>No Sprint or Advisory access</li>
-        </ul>
+        <div className="space-y-3">
+          <h4 className="font-bold">Class C — Early-Stage Experts</h4>
+          <p><strong>Privileges:</strong></p>
+          <ul className="ml-6 space-y-1">
+            <li>Focus Group participation only</li>
+            <li>No Sprint or Advisory access</li>
+          </ul>
+        </div>
 
-        <h4>Class D — Non-Compliant Participants</h4>
-        <p><strong>Privileges:</strong> None</p>
+        <div className="space-y-3">
+          <h4 className="font-bold">Class D — Non-Compliant Participants</h4>
+          <p><strong>Privileges:</strong> None</p>
+        </div>
       </section>
 
-      <section>
-        <h3>4.3 Brainstorming vs Structured Ideation (Formal Definition)</h3>
+      <section className="space-y-6">
+        <h3 className="font-bold">4.3 Brainstorming vs Structured Ideation (Formal Definition)</h3>
         
-        <h4>Brainstorming (Prohibited)</h4>
-        <p>Brainstorming is:</p>
-        <ul>
-          <li>Open-ended idea generation</li>
-          <li>Speculative exploration</li>
-          <li>Free intellectual extraction</li>
-          <li>Collaborative invention without compensation</li>
-        </ul>
+        <div className="space-y-3">
+          <h4 className="font-bold">Brainstorming (Prohibited)</h4>
+          <p>Brainstorming is:</p>
+          <ul className="ml-6 space-y-1">
+            <li>Open-ended idea generation</li>
+            <li>Speculative exploration</li>
+            <li>Free intellectual extraction</li>
+            <li>Collaborative invention without compensation</li>
+          </ul>
+        </div>
 
-        <h4>Structured Ideation (Permitted at Paid Levels)</h4>
-        <p>Structured ideation is:</p>
-        <ul>
-          <li>Constrained</li>
-          <li>Goal-bound</li>
-          <li>Based on existing material</li>
-          <li>Executed within paid containers</li>
-        </ul>
-        <p>Structured ideation occurs only in:</p>
-        <ul>
-          <li>$10,000 Advisory (refinement)</li>
-          <li>$25,000 Infrastructure Installation (system design)</li>
-        </ul>
+        <div className="space-y-3">
+          <h4 className="font-bold">Structured Ideation (Permitted at Paid Levels)</h4>
+          <p>Structured ideation is:</p>
+          <ul className="ml-6 space-y-1">
+            <li>Constrained</li>
+            <li>Goal-bound</li>
+            <li>Based on existing material</li>
+            <li>Executed within paid containers</li>
+          </ul>
+          <p>Structured ideation occurs only in:</p>
+          <ul className="ml-6 space-y-1">
+            <li>$10,000 Advisory (refinement)</li>
+            <li>$25,000 Infrastructure Installation (system design)</li>
+          </ul>
+        </div>
       </section>
 
-      <section>
-        <h3>4.7 System Violations & Removal</h3>
+      <section className="space-y-4">
+        <h3 className="font-bold">4.7 System Violations & Removal</h3>
         <p>Immediate disqualification occurs for:</p>
-        <ul>
+        <ul className="ml-6 space-y-1">
           <li>Boundary violations</li>
           <li>IP extraction attempts</li>
           <li>Repeated non-compliance</li>
@@ -627,7 +657,7 @@ function Part4Content() {
           <li>Instruction avoidance</li>
         </ul>
         <p><strong>Removal requires:</strong></p>
-        <ul>
+        <ul className="ml-6 space-y-1">
           <li>No explanation</li>
           <li>No refund</li>
           <li>No remediation</li>
@@ -635,12 +665,12 @@ function Part4Content() {
         <p>System integrity overrides participant preference.</p>
       </section>
 
-      <section>
-        <h3>4.8 Final Governance Statement</h3>
+      <section className="space-y-4">
+        <h3 className="font-bold">4.8 Final Governance Statement</h3>
         <p>Authority Infrastructure™ is not a coaching ecosystem.</p>
         <p>It is an institutional operating system.</p>
         <p>Participation is earned through:</p>
-        <ul>
+        <ul className="ml-6 space-y-1">
           <li>Compliance</li>
           <li>Execution</li>
           <li>Readiness</li>
@@ -649,8 +679,8 @@ function Part4Content() {
         <p><strong>The system does not adapt to individuals. Individuals adapt to the system.</strong></p>
       </section>
 
-      <section>
-        <h3>4.16 Final Enforcement Statement</h3>
+      <section className="space-y-4">
+        <h3 className="font-bold">4.16 Final Enforcement Statement</h3>
         <p>Escalation is not a reward. It is a verification outcome.</p>
         <p>No participant advances based on confidence, credentials, or claims alone.</p>
         <p><strong>Only evidence, compliance, and consistency determine access.</strong></p>
