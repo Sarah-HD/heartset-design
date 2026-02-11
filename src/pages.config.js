@@ -68,6 +68,7 @@ import Referral from './pages/Referral';
 import Survey from './pages/Survey';
 import VideoAdmin from './pages/VideoAdmin';
 import VideoLibrary from './pages/VideoLibrary';
+import Sprint6500 from './pages/Sprint6500';
 import __Layout from './Layout.jsx';
 
 
@@ -93,6 +94,7 @@ export const PAGES = {
     "Survey": Survey,
     "VideoAdmin": VideoAdmin,
     "VideoLibrary": VideoLibrary,
+    "Sprint6500": Sprint6500,
 }
 
 export const pagesConfig = {
