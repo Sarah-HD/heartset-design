@@ -426,18 +426,80 @@ export default function FocusGroupIntakeForm() {
                 )}
 
                 <div className="pt-6 border-t border-black/10">
-                  <Label htmlFor="peerReferrals" className="mb-3 block">
+                  <Label className="mb-3 block">
                     Do you know 1–2 colleagues who would genuinely benefit? (optional)
                   </Label>
                   <p className="text-sm text-black/50 font-light mb-4">
-                    Growth is always stronger with trusted peers. We'll reach out respectfully, no spam.
+                    We'll reach out respectfully with a personal note. No spam, ever.
                   </p>
-                  <Textarea
-                    id="peerReferrals"
-                    placeholder="Name, email, and optional relationship (e.g., 'Jane Doe, jane@example.com, former colleague')"
-                    {...register("peerReferrals")}
-                    rows={3}
-                  />
+                  
+                  <div className="space-y-6">
+                    {/* Referral 1 */}
+                    <div className="space-y-3 p-4 bg-neutral-50 rounded border border-black/5">
+                      <p className="text-sm font-medium text-black/70">Colleague #1</p>
+                      <div className="space-y-3">
+                        <div className="space-y-2">
+                          <Label htmlFor="referral1Name">Name</Label>
+                          <Input
+                            id="referral1Name"
+                            placeholder="Jane Doe"
+                            {...register("referral1Name")}
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="referral1Linkedin">LinkedIn Profile URL</Label>
+                          <Input
+                            id="referral1Linkedin"
+                            type="url"
+                            placeholder="https://linkedin.com/in/..."
+                            {...register("referral1Linkedin")}
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="referral1Email">Email</Label>
+                          <Input
+                            id="referral1Email"
+                            type="email"
+                            placeholder="jane@example.com"
+                            {...register("referral1Email")}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Referral 2 */}
+                    <div className="space-y-3 p-4 bg-neutral-50 rounded border border-black/5">
+                      <p className="text-sm font-medium text-black/70">Colleague #2</p>
+                      <div className="space-y-3">
+                        <div className="space-y-2">
+                          <Label htmlFor="referral2Name">Name</Label>
+                          <Input
+                            id="referral2Name"
+                            placeholder="John Smith"
+                            {...register("referral2Name")}
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="referral2Linkedin">LinkedIn Profile URL</Label>
+                          <Input
+                            id="referral2Linkedin"
+                            type="url"
+                            placeholder="https://linkedin.com/in/..."
+                            {...register("referral2Linkedin")}
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="referral2Email">Email</Label>
+                          <Input
+                            id="referral2Email"
+                            type="email"
+                            placeholder="john@example.com"
+                            {...register("referral2Email")}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </StepCard>
