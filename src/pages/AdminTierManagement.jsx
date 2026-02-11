@@ -436,54 +436,68 @@ export default function AdminTierManagement() {
               {tierAssignments.length === 0 ? (
                 <p className="text-black/40 text-center py-12">No tier assignments yet.</p>
               ) : (
-                tierAssignments.map((assignment) => (
-                  <Card key={assignment.id}>
-                    <CardContent className="p-6">
-                      <div className="flex justify-between items-start">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-3">
-                            <h3 className="font-medium">{assignment.userEmail}</h3>
-                            {getTierBadge(assignment.tier)}
-                            {getStatusBadge(assignment.status)}
-                            {assignment.isProBono && <Badge variant="outline">Pro Bono</Badge>}
-                            {assignment.isBypass && <Badge variant="outline">Bypass</Badge>}
+                tierAssignments.map((assignment) => {
+                  const linkedOnboarding = sprintOnboardings.find(o => o.userEmail === assignment.userEmail);
+                  const effectiveSolution = linkedOnboarding?.adminOverride !== 'none' 
+                    ? linkedOnboarding?.adminOverride 
+                    : linkedOnboarding?.recommendedSolution;
+                  
+                  return (
+                    <Card key={assignment.id}>
+                      <CardContent className="p-6">
+                        <div className="flex justify-between items-start">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-3 mb-3">
+                              <h3 className="font-medium">{assignment.userEmail}</h3>
+                              {getTierBadge(assignment.tier)}
+                              {getStatusBadge(assignment.status)}
+                              {assignment.isProBono && <Badge variant="outline">Pro Bono</Badge>}
+                              {assignment.isBypass && <Badge variant="outline">Bypass</Badge>}
+                            </div>
+                            {effectiveSolution && (
+                              <div className="mb-2">
+                                <Badge variant="outline" className="text-xs">
+                                  Recommended: {effectiveSolution.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                                </Badge>
+                              </div>
+                            )}
+                            {assignment.adminNotes && (
+                              <p className="text-sm text-black/60 mb-3">{assignment.adminNotes}</p>
+                            )}
+                            <p className="text-xs text-black/40">
+                              Created: {new Date(assignment.created_date).toLocaleString()}
+                            </p>
                           </div>
-                          {assignment.adminNotes && (
-                            <p className="text-sm text-black/60 mb-3">{assignment.adminNotes}</p>
-                          )}
-                          <p className="text-xs text-black/40">
-                            Created: {new Date(assignment.created_date).toLocaleString()}
-                          </p>
-                        </div>
-                        <div className="flex gap-2">
-                          <Button
-                            size="sm"
-                            onClick={() => sendSOWMutation.mutate({ 
-                              userEmail: assignment.userEmail,
-                              tierAssignmentId: assignment.id
-                            })}
-                            disabled={sendSOWMutation.isPending}
-                            className="bg-black hover:bg-black/80"
-                          >
-                            {sendSOWMutation.isPending ? 'Sending...' : 'Send SOW'}
-                          </Button>
-                          {assignment.status !== 'active' && (
+                          <div className="flex gap-2">
                             <Button
                               size="sm"
-                              variant="outline"
-                              onClick={() => updateStatusMutation.mutate({ 
-                                id: assignment.id, 
-                                status: assignment.status === 'assigned' ? 'onboarding_complete' : 'active' 
+                              onClick={() => sendSOWMutation.mutate({ 
+                                userEmail: assignment.userEmail,
+                                tierAssignmentId: assignment.id
                               })}
+                              disabled={sendSOWMutation.isPending}
+                              className="bg-black hover:bg-black/80"
                             >
-                              Mark as {assignment.status === 'assigned' ? 'Complete' : 'Active'}
+                              {sendSOWMutation.isPending ? 'Sending...' : 'Send SOW'}
                             </Button>
-                          )}
+                            {assignment.status !== 'active' && (
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => updateStatusMutation.mutate({ 
+                                  id: assignment.id, 
+                                  status: assignment.status === 'assigned' ? 'onboarding_complete' : 'active' 
+                                })}
+                              >
+                                Mark as {assignment.status === 'assigned' ? 'Complete' : 'Active'}
+                              </Button>
+                            )}
+                          </div>
                         </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))
+                      </CardContent>
+                    </Card>
+                  );
+                })
               )}
             </TabsContent>
 

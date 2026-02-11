@@ -10,11 +10,15 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { CheckCircle2, ArrowLeft, ArrowRight, Info } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import SolutionResults from "@/components/onboarding/SolutionResults";
 
 export default function Onboarding6500() {
   const [user, setUser] = useState(null);
   const [submitted, setSubmitted] = useState(false);
   const [currentCard, setCurrentCard] = useState(0);
+  const [onboardingId, setOnboardingId] = useState(null);
+  const [recommendation, setRecommendation] = useState(null);
+  const [evaluating, setEvaluating] = useState(false);
   const [formData, setFormData] = useState({
     hasMethod: null,
     methodName: "",
@@ -65,33 +69,54 @@ export default function Onboarding6500() {
   }, [existingOnboarding]);
 
   const submitMutation = useMutation({
-    mutationFn: () => base44.entities.SprintOnboarding.create({
-      userEmail: user.email,
-      hasMethod: formData.hasMethod,
-      methodName: formData.noMethodName ? undefined : (formData.methodName || undefined),
-      methodComponents: formData.methodComponents.filter(c => c.trim() !== ""),
-      existingAssets: formData.existingAssets,
-      primaryAudience: formData.primaryAudience || undefined,
-      audienceLocation: formData.audienceLocation || undefined,
-      highestPrice: parseFloat(formData.highestPrice) || 0,
-      hasLowerTier: formData.hasLowerTier,
-      capacityLimits: formData.capacityLimits,
-      credentials: formData.credentials.filter(c => c.trim() !== "").join("; ") || undefined,
-      outcomes: formData.outcomes.filter(o => o.trim() !== ""),
-      weeklyClientHours: formData.weeklyClientHours || undefined,
-      weeklyAdminHours: formData.weeklyAdminHours || undefined,
-      deliveryFormat: formData.deliveryFormat,
-      toolWebsite: formData.toolWebsite || undefined,
-      toolDocuments: formData.toolDocuments || undefined,
-      toolEmail: formData.toolEmail || undefined,
-      toolScheduling: formData.toolScheduling || undefined,
-      toolForms: formData.toolForms || undefined,
-      ipAcknowledgement: formData.ipAcknowledgement,
-      clientIpAcknowledgement: true,
-      executionAcknowledgement: formData.executionAcknowledgement
-    }),
-    onSuccess: () => {
-      setSubmitted(true);
+    mutationFn: async () => {
+      const result = await base44.entities.SprintOnboarding.create({
+        userEmail: user.email,
+        hasMethod: formData.hasMethod,
+        methodName: formData.noMethodName ? undefined : (formData.methodName || undefined),
+        methodComponents: formData.methodComponents.filter(c => c.trim() !== ""),
+        existingAssets: formData.existingAssets,
+        primaryAudience: formData.primaryAudience || undefined,
+        audienceLocation: formData.audienceLocation || undefined,
+        highestPrice: parseFloat(formData.highestPrice) || 0,
+        hasLowerTier: formData.hasLowerTier,
+        capacityLimits: formData.capacityLimits,
+        credentials: formData.credentials.filter(c => c.trim() !== "").join("; ") || undefined,
+        outcomes: formData.outcomes.filter(o => o.trim() !== ""),
+        weeklyClientHours: formData.weeklyClientHours || undefined,
+        weeklyAdminHours: formData.weeklyAdminHours || undefined,
+        deliveryFormat: formData.deliveryFormat,
+        toolWebsite: formData.toolWebsite || undefined,
+        toolDocuments: formData.toolDocuments || undefined,
+        toolEmail: formData.toolEmail || undefined,
+        toolScheduling: formData.toolScheduling || undefined,
+        toolForms: formData.toolForms || undefined,
+        ipAcknowledgement: formData.ipAcknowledgement,
+        clientIpAcknowledgement: true,
+        executionAcknowledgement: formData.executionAcknowledgement
+      });
+      return result;
+    },
+    onSuccess: async (result) => {
+      setOnboardingId(result.id);
+      setEvaluating(true);
+      
+      try {
+        const evalResponse = await base44.functions.invoke('evaluateSolutionRecommendation', {
+          onboardingId: result.id
+        });
+        
+        if (evalResponse.data.success) {
+          setRecommendation(evalResponse.data.recommendation);
+          setSubmitted(true);
+        }
+      } catch (error) {
+        console.error('Evaluation error:', error);
+        setRecommendation('sprint_6500'); // Default fallback
+        setSubmitted(true);
+      } finally {
+        setEvaluating(false);
+      }
     },
   });
 
@@ -152,22 +177,19 @@ export default function Onboarding6500() {
     );
   }
 
-  if (submitted) {
+  if (evaluating) {
     return (
-      <div className="min-h-screen bg-white">
-        <div className="px-6 md:px-16 lg:px-24 py-16 md:py-24">
-          <div className="max-w-2xl mx-auto text-center">
-            <CheckCircle2 className="w-16 h-16 mx-auto mb-6 text-green-600" />
-            <h1 className="text-3xl mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
-              Onboarding Complete
-            </h1>
-            <p className="text-black/60">
-              Your $6,500 Implementation Sprint onboarding has been submitted. You'll receive further instructions via email.
-            </p>
-          </div>
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-black/20 border-t-black rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-black/60">Evaluating your responses...</p>
         </div>
       </div>
     );
+  }
+
+  if (submitted && recommendation) {
+    return <SolutionResults recommendation={recommendation} onboardingId={onboardingId} userEmail={user.email} />;
   }
 
   const cards = [
