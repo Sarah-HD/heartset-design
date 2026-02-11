@@ -65,11 +65,11 @@ import Onboarding25000 from './pages/Onboarding25000';
 import Onboarding6500 from './pages/Onboarding6500';
 import OperatingManual from './pages/OperatingManual';
 import Referral from './pages/Referral';
+import Sprint6500 from './pages/Sprint6500';
+import SprintEnrollment from './pages/SprintEnrollment';
 import Survey from './pages/Survey';
 import VideoAdmin from './pages/VideoAdmin';
 import VideoLibrary from './pages/VideoLibrary';
-import Sprint6500 from './pages/Sprint6500';
-import SprintEnrollment from './pages/SprintEnrollment';
 import __Layout from './Layout.jsx';
 
 
@@ -92,11 +92,11 @@ export const PAGES = {
     "Onboarding6500": Onboarding6500,
     "OperatingManual": OperatingManual,
     "Referral": Referral,
+    "Sprint6500": Sprint6500,
+    "SprintEnrollment": SprintEnrollment,
     "Survey": Survey,
     "VideoAdmin": VideoAdmin,
     "VideoLibrary": VideoLibrary,
-    "Sprint6500": Sprint6500,
-    "SprintEnrollment": SprintEnrollment,
 }
 
 export const pagesConfig = {
