@@ -9,24 +9,8 @@ export default function SolutionResults({ recommendation, onboardingId, userEmai
   const [loading, setLoading] = useState(false);
   const [paymentUrl, setPaymentUrl] = useState(null);
 
-  const handleProceedToSprint = async () => {
-    setLoading(true);
-    try {
-      const response = await base44.functions.invoke('createSquarePaymentLink', {
-        userEmail,
-        tier: 'sprint_6500',
-        tierAssignmentId: onboardingId
-      });
-
-      if (response.data.success && response.data.paymentUrl) {
-        window.location.href = response.data.paymentUrl;
-      }
-    } catch (error) {
-      console.error('Payment link error:', error);
-      alert('Unable to create payment link. Please contact support.');
-    } finally {
-      setLoading(false);
-    }
+  const handleProceedToSprint = () => {
+    window.location.href = `/SprintEnrollment?onboardingId=${onboardingId}`;
   };
 
   const solutions = {
@@ -36,7 +20,7 @@ export default function SolutionResults({ recommendation, onboardingId, userEmai
       icon: CheckCircle,
       color: "text-blue-600",
       bgColor: "bg-blue-50",
-      ctaText: "Proceed to Implementation Sprint",
+      ctaText: "Continue to Enrollment",
       ctaAction: handleProceedToSprint
     },
     custom_advanced: {
