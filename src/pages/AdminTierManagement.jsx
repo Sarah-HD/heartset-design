@@ -84,6 +84,12 @@ export default function AdminTierManagement() {
     enabled: !!user,
   });
 
+  const { data: directEntryRequests = [] } = useQuery({
+    queryKey: ['directEntryRequests'],
+    queryFn: () => base44.entities.DirectEntryRequest.list('-created_date'),
+    enabled: !!user,
+  });
+
   const addAssignmentMutation = useMutation({
     mutationFn: (data) => base44.entities.TierAssignment.create(data),
     onSuccess: () => {
@@ -157,6 +163,14 @@ export default function AdminTierManagement() {
     onError: (error) => {
       alert('Failed to send test emails: ' + error.message);
     }
+  });
+
+  const updateDirectEntryMutation = useMutation({
+    mutationFn: ({ id, status, adminNotes }) => 
+      base44.entities.DirectEntryRequest.update(id, { status, adminNotes }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['directEntryRequests'] });
+    },
   });
 
   const handleAddAssignment = (e) => {
@@ -404,6 +418,10 @@ export default function AdminTierManagement() {
                 <Users className="w-4 h-4 mr-2" />
                 Tier Assignments
               </TabsTrigger>
+              <TabsTrigger value="directEntry">
+                <FileText className="w-4 h-4 mr-2" />
+                Direct Entry Requests
+              </TabsTrigger>
               <TabsTrigger value="applications">
                 <FileText className="w-4 h-4 mr-2" />
                 Advisory Applications
@@ -462,6 +480,92 @@ export default function AdminTierManagement() {
                             </Button>
                           )}
                         </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))
+              )}
+            </TabsContent>
+
+            <TabsContent value="directEntry" className="space-y-4">
+              {directEntryRequests.length === 0 ? (
+                <p className="text-black/40 text-center py-12">No direct entry requests yet.</p>
+              ) : (
+                directEntryRequests.map((request) => (
+                  <Card key={request.id}>
+                    <CardContent className="p-6">
+                      <div className="flex justify-between items-start mb-4">
+                        <div>
+                          <h3 className="font-medium mb-2">{request.fullName}</h3>
+                          <p className="text-sm text-black/60 mb-2">{request.userEmail}</p>
+                          {getStatusBadge(request.status)}
+                        </div>
+                        <div className="flex gap-2">
+                          {request.status === 'pending' && (
+                            <>
+                              <Button
+                                size="sm"
+                                onClick={() => updateDirectEntryMutation.mutate({ 
+                                  id: request.id, 
+                                  status: 'approved',
+                                  adminNotes: 'Approved for direct entry'
+                                })}
+                                className="bg-green-600 hover:bg-green-700"
+                              >
+                                Approve
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => updateDirectEntryMutation.mutate({ 
+                                  id: request.id, 
+                                  status: 'routed_to_focus_group',
+                                  adminNotes: 'Routed to Focus Group'
+                                })}
+                              >
+                                Route to FG
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => updateDirectEntryMutation.mutate({ 
+                                  id: request.id, 
+                                  status: 'declined',
+                                  adminNotes: 'Declined'
+                                })}
+                              >
+                                Decline
+                              </Button>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                      <div className="space-y-3 text-sm">
+                        {request.linkedinUrl && (
+                          <div>
+                            <p className="font-medium text-black/60">LinkedIn/Website:</p>
+                            <a href={request.linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                              {request.linkedinUrl}
+                            </a>
+                          </div>
+                        )}
+                        <div>
+                          <p className="font-medium text-black/60">Highest Price Point:</p>
+                          <p className="text-black/80">${request.highestPrice?.toLocaleString()}</p>
+                        </div>
+                        <div>
+                          <p className="font-medium text-black/60">Method/Offer Description:</p>
+                          <p className="text-black/80">{request.methodDescription}</p>
+                        </div>
+                        {request.adminNotes && (
+                          <div>
+                            <p className="font-medium text-black/60">Admin Notes:</p>
+                            <p className="text-black/80">{request.adminNotes}</p>
+                          </div>
+                        )}
+                        <p className="text-xs text-black/40">
+                          Submitted: {new Date(request.created_date).toLocaleString()}
+                        </p>
                       </div>
                     </CardContent>
                   </Card>
