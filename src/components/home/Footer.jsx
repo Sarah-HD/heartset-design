@@ -38,7 +38,7 @@ export default function Footer() {
         </div>
         
         <div className="mt-16 pt-8 border-t border-white/10">
-          <p className="text-xs text-white/30">
+          <p className="text-xs text-white/60">
             © {new Date().getFullYear()} Heartset Design. All rights reserved.
           </p>
         </div>

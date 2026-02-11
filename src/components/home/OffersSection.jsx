@@ -7,92 +7,135 @@ export default function OffersSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   
-  const tiers = [
-    {
-      tier: "Cohort-Based Engagement",
-      title: "Authority Infrastructure™",
-      price: "$6,500",
-      description: "Delivered through a credentialed focus group validating real-world authority systems."
-    },
-    {
-      tier: "Private Engagement",
-      title: "Authority Infrastructure™: Strategic Architecture",
-      price: "Application Only",
-      description: "Private strategy · Research-aligned · Application only"
-    },
-    {
-      tier: "Built-for-You",
-      title: "Authority Infrastructure™: Implementation",
-      price: "Scope Defined After Review",
-      description: "Custom systems · Institutional readiness · Scope defined after review"
-    }
-  ];
-  
   return (
     <section ref={ref} className="py-32 md:py-48 px-6 md:px-16 lg:px-24 bg-black text-white">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.8 }}
           className="mb-20 text-center"
         >
-          <p className="text-xs tracking-[0.3em] uppercase text-white/40 mb-6">
-            Pathways
-          </p>
           <h2 
-            className="text-3xl md:text-4xl lg:text-5xl leading-tight"
+            className="text-3xl md:text-4xl lg:text-5xl leading-tight mb-4"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
-            Authority Infrastructure™ Pathways
+            Authority Infrastructure™ Implementation Sprint
           </h2>
+          <p className="text-lg md:text-xl text-white/70 font-light max-w-3xl mx-auto">
+            A structured 28-day execution sprint for operators with existing expertise.
+          </p>
         </motion.div>
         
-        <div className="grid md:grid-cols-3 gap-8 md:gap-4 lg:gap-8">
-          {tiers.map((tier, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.2 + index * 0.15, duration: 0.7 }}
-              className="group border border-white/10 p-8 md:p-10 hover:border-white/30 transition-all duration-500 relative"
-            >
-              <p className="text-xs tracking-[0.2em] uppercase text-white/40 mb-8">
-                {tier.tier}
-              </p>
-              <h3 
-                className="text-xl md:text-2xl mb-4 leading-tight"
-                style={{ fontFamily: "'Playfair Display', serif" }}
-              >
-                {tier.title}
-              </h3>
-              <p className="text-3xl md:text-4xl mb-6 font-light">
-                {tier.price}
-              </p>
-              <p className="text-sm text-white/50 font-light">
-                {tier.description}
-              </p>
-              
-              {/* Hover accent */}
-              <div className="absolute bottom-0 left-0 w-0 h-px bg-white group-hover:w-full transition-all duration-700" />
-            </motion.div>
-          ))}
-        </div>
-        
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.8, duration: 0.8 }}
-          className="mt-16 text-center"
-        >
-          <Link
-            to={createPageUrl("Apply")}
-            className="group inline-flex items-center gap-3 bg-white text-black px-10 py-5 text-sm tracking-wide hover:bg-white/90 transition-all duration-300"
+        <div className="space-y-16">
+          {/* Who This Is For */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.2, duration: 0.7 }}
           >
-            <span>Apply for Authority Infrastructure™</span>
-            <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
-          </Link>
-        </motion.div>
+            <h3 className="text-2xl font-semibold mb-6" style={{ fontFamily: "'Playfair Display', serif" }}>Who This Is For</h3>
+            <p className="text-white/70 leading-relaxed">
+              This sprint is designed for professionals who already have experience, methods, or assets and need to organize, validate, and route them into a functional system.
+            </p>
+            <p className="text-white/70 leading-relaxed mt-4">
+              This is not a beginner program and does not involve brainstorming or idea generation.
+            </p>
+          </motion.div>
+
+          {/* What Happens Inside */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.3, duration: 0.7 }}
+          >
+            <h3 className="text-2xl font-semibold mb-6" style={{ fontFamily: "'Playfair Display', serif" }}>What Happens Inside</h3>
+            <ul className="space-y-4 text-white/70 leading-relaxed">
+              <li className="flex items-start gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-white/40 mt-2 flex-shrink-0"></span>
+                <span>Organizing existing methods and assets</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-white/40 mt-2 flex-shrink-0"></span>
+                <span>Validating demand and delivery reality</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-white/40 mt-2 flex-shrink-0"></span>
+                <span>Establishing routing logic for offers and next steps</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-white/40 mt-2 flex-shrink-0"></span>
+                <span>All work is execution-based and time-contained.</span>
+              </li>
+            </ul>
+          </motion.div>
+
+          {/* How Entry Works */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.4, duration: 0.7 }}
+          >
+            <h3 className="text-2xl font-semibold mb-6" style={{ fontFamily: "'Playfair Display', serif" }}>How Entry Works</h3>
+            <div className="grid md:grid-cols-2 gap-8">
+              <div>
+                <h4 className="text-xl font-medium mb-3" style={{ fontFamily: "'Playfair Display', serif" }}>Standard Entry</h4>
+                <p className="text-white/70 leading-relaxed">
+                  Most participants enter through the Authority Infrastructure™ Focus Group. The Focus Group determines readiness and appropriate next steps.
+                </p>
+                <Link
+                  to={createPageUrl("FocusGroup")}
+                  className="mt-6 inline-flex items-center gap-2 bg-white text-black px-6 py-3 text-sm tracking-wide hover:bg-white/90 transition-all duration-300"
+                >
+                  Join the Focus Group →
+                </Link>
+              </div>
+              <div>
+                <h4 className="text-xl font-medium mb-3" style={{ fontFamily: "'Playfair Display', serif" }}>Direct Entry (Restricted)</h4>
+                <p className="text-white/70 leading-relaxed">
+                  In limited cases, experienced operators may qualify for direct entry into the Sprint. Direct entry is not public and requires verification.
+                </p>
+                <Link
+                  to={createPageUrl("Apply")}
+                  className="mt-6 inline-flex items-center gap-2 bg-white text-black px-6 py-3 text-sm tracking-wide hover:bg-white/90 transition-all duration-300"
+                >
+                  Request Direct Entry →
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* What This Is Not */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.5, duration: 0.7 }}
+          >
+            <h3 className="text-2xl font-semibold mb-6" style={{ fontFamily: "'Playfair Display', serif" }}>What This Is Not</h3>
+            <ul className="space-y-4 text-white/70 leading-relaxed">
+              <li className="flex items-start gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-white/40 mt-2 flex-shrink-0"></span>
+                <span>Not a custom build or done-for-you service</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-white/40 mt-2 flex-shrink-0"></span>
+                <span>Not strategy creation from scratch</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-white/40 mt-2 flex-shrink-0"></span>
+                <span>Not mindset coaching or emotional support</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-white/40 mt-2 flex-shrink-0"></span>
+                <span>Not tech setup or platform management</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-white/40 mt-2 flex-shrink-0"></span>
+                <span>Participation requires independent execution.</span>
+              </li>
+            </ul>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
