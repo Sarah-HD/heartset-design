@@ -70,6 +70,7 @@ import SprintEnrollment from './pages/SprintEnrollment';
 import Survey from './pages/Survey';
 import VideoAdmin from './pages/VideoAdmin';
 import VideoLibrary from './pages/VideoLibrary';
+import Week1Video from './pages/Week1Video';
 import __Layout from './Layout.jsx';
 
 
@@ -97,6 +98,7 @@ export const PAGES = {
     "Survey": Survey,
     "VideoAdmin": VideoAdmin,
     "VideoLibrary": VideoLibrary,
+    "Week1Video": Week1Video,
 }
 
 export const pagesConfig = {
