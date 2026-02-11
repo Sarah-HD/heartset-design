@@ -30,7 +30,7 @@ Deno.serve(async (req) => {
         recurrence: ["RRULE:FREQ=MONTHLY;BYDAY=1MO"]
       };
     } else {
-      // Quarterly review - every 90 days
+      // Quarterly review - every 90 days 
       const startDate = new Date();
       startDate.setDate(startDate.getDate() + 90);
       const endDate = new Date(startDate);
