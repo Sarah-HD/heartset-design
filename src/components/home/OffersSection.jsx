@@ -31,7 +31,7 @@ export default function OffersSection() {
                 VALIDATION SPRINT
               </p>
               <h2 
-                className="text-2xl md:text-3xl mb-4 leading-tight"
+                className="text-xl md:text-3xl mb-4 leading-tight"
                 style={{ fontFamily: "'Playfair Display', serif" }}
               >
                 Authority Infrastructure™
