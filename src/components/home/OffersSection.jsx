@@ -26,11 +26,11 @@ export default function OffersSection() {
           </h1>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {/* Validation Sprint */}
-            <div className="bg-black border border-white/20 text-white group relative">
-              <div className="p-8">
-                <p className="text-xs font-medium text-white/60 tracking-widest uppercase mb-4" style={{ letterSpacing: '0.15em' }}>
-                  VALIDATION SPRINT
+            {/* Cohort-Based Engagement */}
+            <Card className="bg-black border border-white/20 text-white">
+              <CardContent className="p-8">
+                <p className="text-xs font-medium text-white/60 tracking-widest uppercase mb-4">
+                  COHORT-BASED ENGAGEMENT
                 </p>
                 <h2 
                   className="text-2xl md:text-3xl mb-4 leading-tight"
@@ -38,7 +38,7 @@ export default function OffersSection() {
                 >
                   Authority Infrastructure™
                 </h2>
-                <p className="text-3xl md:text-4xl mb-6 font-light">
+                <p className="text-3xl md:text-4xl mb-6 font-light" style={{ fontFamily: "'Playfair Display', serif" }}>
                   $6,950
                 </p>
                 <p className="text-base text-white/60 font-light leading-relaxed mb-8">
@@ -50,45 +50,40 @@ export default function OffersSection() {
                 >
                   Learn More →
                 </Link>
-              </div>
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-            </div>
+              </CardContent>
+            </Card>
 
             {/* Private Advisory */}
-            <div className="bg-black border border-white/20 text-white group relative">
-              <div className="p-8">
-                <p className="text-xs font-medium text-white/60 tracking-widest uppercase mb-4" style={{ letterSpacing: '0.15em' }}>
-                  PRIVATE ENGAGEMENT
+            <Card className="bg-black border border-white/20 text-white">
+              <CardContent className="p-8">
+                <p className="text-xs font-medium text-white/60 tracking-widest uppercase mb-4">
+                  PRIVATE ADVISORY
                 </p>
                 <h2 
                   className="text-2xl md:text-3xl mb-4 leading-tight"
                   style={{ fontFamily: "'Playfair Display', serif" }}
                 >
-                  Private Advisory
+                  Strategic Refinement
                 </h2>
-                <p className="text-3xl md:text-4xl mb-6 font-light">
-                  $10,000
+                <p className="text-3xl md:text-4xl mb-6 font-light" style={{ fontFamily: "'Playfair Display', serif" }}>
+                  By Application
                 </p>
-                <p className="text-base text-white/60 font-light leading-relaxed mb-2">
-                  For operators who have already validated demand and are ready to refine, scale, and institutionalize their authority system.
-                </p>
-                <p className="text-sm text-white/40 font-light mb-8">
-                  Application required.
+                <p className="text-base text-white/60 font-light leading-relaxed mb-8">
+                  For established professionals with existing frameworks seeking strategic refinement and market positioning.
                 </p>
                 <Link
                   to={createPageUrl("Apply10000")}
-                  className="inline-block bg-white text-black px-6 py-2 text-sm tracking-wide hover:bg-white/90 transition-colors duration-300"
+                  className="text-white/60 hover:text-white text-sm tracking-wide transition-colors duration-300"
                 >
                   Apply Now →
                 </Link>
-              </div>
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-            </div>
+              </CardContent>
+            </Card>
 
             {/* Full Infrastructure Build */}
-            <div className="bg-black border border-white/20 text-white group relative">
-              <div className="p-8">
-                <p className="text-xs font-medium text-white/60 tracking-widest uppercase mb-4" style={{ letterSpacing: '0.15em' }}>
+            <Card className="bg-black border border-white/20 text-white">
+              <CardContent className="p-8">
+                <p className="text-xs font-medium text-white/60 tracking-widest uppercase mb-4">
                   FULL INFRASTRUCTURE
                 </p>
                 <h2 
@@ -97,14 +92,11 @@ export default function OffersSection() {
                 >
                   Complete System Build
                 </h2>
-                <p className="text-3xl md:text-4xl mb-6 font-light">
+                <p className="text-3xl md:text-4xl mb-6 font-light" style={{ fontFamily: "'Playfair Display', serif" }}>
                   Custom Scope
                 </p>
-                <p className="text-base text-white/60 font-light leading-relaxed mb-2">
-                  End-to-end authority infrastructure design and implementation — including offer architecture, automation, positioning systems, and technical execution.
-                </p>
-                <p className="text-sm text-white/40 font-light mb-8">
-                  For professionals building long-term authority assets.
+                <p className="text-base text-white/60 font-light leading-relaxed mb-8">
+                  Comprehensive infrastructure development for professionals ready to scale their authority platform with full technical implementation.
                 </p>
                 <Link
                   to={createPageUrl("Apply")}
@@ -112,9 +104,8 @@ export default function OffersSection() {
                 >
                   Inquire →
                 </Link>
-              </div>
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-            </div>
+              </CardContent>
+            </Card>
           </div>
         </motion.div>
       </div>
