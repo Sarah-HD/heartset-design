@@ -66,14 +66,17 @@ export default function OffersSection() {
                   Strategic Refinement
                 </h2>
                 <p className="text-3xl md:text-4xl mb-6 font-light" style={{ fontFamily: "'Playfair Display', serif" }}>
-                  By Application
+                  $10,000
                 </p>
-                <p className="text-base text-white/60 font-light leading-relaxed mb-8">
-                  For established professionals with existing frameworks seeking strategic refinement and market positioning.
+                <p className="text-base text-white/60 font-light leading-relaxed mb-2">
+                  For operators who have already validated demand and are ready to refine, scale, and institutionalize their authority system.
+                </p>
+                <p className="text-sm text-white/40 font-light mb-8">
+                  Application required.
                 </p>
                 <Link
-                  to={createPageUrl("Apply10000")}
-                  className="text-white/60 hover:text-white text-sm tracking-wide transition-colors duration-300"
+                  to={createPageUrl("Apply")}
+                  className="inline-block bg-white text-black px-6 py-2 text-sm tracking-wide hover:bg-white/90 transition-colors duration-300"
                 >
                   Apply Now →
                 </Link>
@@ -93,16 +96,19 @@ export default function OffersSection() {
                   Complete System Build
                 </h2>
                 <p className="text-3xl md:text-4xl mb-6 font-light" style={{ fontFamily: "'Playfair Display', serif" }}>
-                  Custom Scope
+                  Waitlist
                 </p>
-                <p className="text-base text-white/60 font-light leading-relaxed mb-8">
-                  Comprehensive infrastructure development for professionals ready to scale their authority platform with full technical implementation.
+                <p className="text-base text-white/60 font-light leading-relaxed mb-2">
+                  End-to-end authority infrastructure design and implementation — including offer architecture, automation, positioning systems, and technical execution.
+                </p>
+                <p className="text-sm text-white/40 font-light mb-8">
+                  For professionals building long-term authority assets.
                 </p>
                 <Link
                   to={createPageUrl("Apply")}
                   className="text-white/60 hover:text-white text-sm tracking-wide transition-colors duration-300"
                 >
-                  Inquire →
+                  Join Waitlist →
                 </Link>
               </CardContent>
             </Card>
