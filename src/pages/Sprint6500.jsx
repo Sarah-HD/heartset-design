@@ -19,19 +19,14 @@ export default function Sprint6500() {
           >
             Authority Infrastructure™
             <br />
-            28-Day Validation Sprint
+            Implementation Sprint
           </h1>
           <p className="text-xl md:text-2xl text-black/60 font-light leading-relaxed max-w-3xl mx-auto">
-            Build. Validate. Convert.
+            A focused 28-day build cycle designed to organize, structure, and operationalize your existing expertise.
           </p>
           <p className="text-lg md:text-xl text-black/40 font-light mt-6 max-w-2xl mx-auto">
-            A structured 28-day execution sprint delivered through a live credentialed focus group.
+            This is a contained execution environment for professionals who are ready to formalize what already exists.
           </p>
-          <div className="mt-12">
-            <p className="text-3xl font-light" style={{ fontFamily: "'Playfair Display', serif" }}>
-              $6,950
-            </p>
-          </div>
         </div>
       </div>
 
