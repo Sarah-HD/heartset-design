@@ -69,8 +69,11 @@ export default function OffersSection() {
                 <p className="text-3xl md:text-4xl mb-6 font-light">
                   $10,000
                 </p>
-                <p className="text-base text-white/60 font-light leading-relaxed mb-8">
-                  For established professionals with existing frameworks seeking strategic refinement and market positioning.
+                <p className="text-base text-white/60 font-light leading-relaxed mb-2">
+                  For operators who have already validated demand and are ready to refine, scale, and institutionalize their authority system.
+                </p>
+                <p className="text-sm text-white/40 font-light mb-8">
+                  Application required.
                 </p>
                 <Link
                   to={createPageUrl("Apply10000")}
@@ -97,8 +100,11 @@ export default function OffersSection() {
                 <p className="text-3xl md:text-4xl mb-6 font-light">
                   Custom Scope
                 </p>
-                <p className="text-base text-white/60 font-light leading-relaxed mb-8">
-                  Comprehensive infrastructure development for professionals ready to scale their authority platform with full technical implementation.
+                <p className="text-base text-white/60 font-light leading-relaxed mb-2">
+                  End-to-end authority infrastructure design and implementation — including offer architecture, automation, positioning systems, and technical execution.
+                </p>
+                <p className="text-sm text-white/40 font-light mb-8">
+                  For professionals building long-term authority assets.
                 </p>
                 <Link
                   to={createPageUrl("Apply")}
