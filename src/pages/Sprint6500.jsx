@@ -2,119 +2,214 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import DirectEntryRequestForm from "@/components/forms/DirectEntryRequestForm";
 
 export default function Sprint6500() {
   const [showDirectEntryForm, setShowDirectEntryForm] = useState(false);
 
+  const scrollToPathways = () => {
+    const pathwaysSection = document.getElementById('pathways');
+    if (pathwaysSection) {
+      pathwaysSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero - Centered */}
-      <div className="border-b border-black/10">
-        <div className="max-w-4xl mx-auto px-6 md:px-16 py-24 md:py-32 text-center">
+      {/* SECTION 1: HERO */}
+      <div className="border-b border-black/20">
+        <div className="max-w-5xl mx-auto px-6 md:px-16 lg:px-24 py-20 md:py-32">
           <h1 
             className="text-4xl md:text-5xl lg:text-6xl leading-tight mb-8"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
             Authority Infrastructure™
             <br />
-            28-Day Validation Sprint
+            Implementation Sprint
           </h1>
-          <p className="text-xl md:text-2xl text-black/60 font-light leading-relaxed max-w-3xl mx-auto">
-            Build. Validate. Convert.
+          <p className="text-xl md:text-2xl text-black/70 font-light leading-relaxed max-w-3xl mb-16">
+            A 28-day execution cycle that formalizes your expertise into institutional infrastructure—without increasing personal labor.
           </p>
-          <p className="text-lg md:text-xl text-black/40 font-light mt-6 max-w-2xl mx-auto">
-            A structured 28-day execution sprint delivered through a live credentialed focus group.
-          </p>
-          <div className="mt-12">
-            <p className="text-3xl font-light" style={{ fontFamily: "'Playfair Display', serif" }}>
-              $6,950
+
+          {/* The Stature Gap */}
+          <div className="mb-16">
+            <h2 
+              className="text-3xl md:text-4xl mb-8"
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
+              The Stature Gap
+            </h2>
+            <p className="text-lg text-black/60 font-light leading-relaxed mb-8">
+              Your expertise has outpaced your current infrastructure. When this gap exists, growth depends on personal effort instead of structural leverage.
             </p>
+            <div className="space-y-5">
+              <div className="flex items-start gap-4">
+                <div className="w-1.5 h-1.5 bg-black mt-2.5 flex-shrink-0"></div>
+                <div>
+                  <p className="font-medium text-black/80 mb-1">Fragile Momentum:</p>
+                  <p className="text-black/60 font-light">Growth slows the moment your output slows.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="w-1.5 h-1.5 bg-black mt-2.5 flex-shrink-0"></div>
+                <div>
+                  <p className="font-medium text-black/80 mb-1">The Capacity Ceiling:</p>
+                  <p className="text-black/60 font-light">You have reached the limit of your manual bandwidth. You cannot take more clients without sacrificing your quality of life.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="w-1.5 h-1.5 bg-black mt-2.5 flex-shrink-0"></div>
+                <div>
+                  <p className="font-medium text-black/80 mb-1">Infrastructure Gap:</p>
+                  <p className="text-black/60 font-light">You have a practice, but not yet a machine. At your level, that inefficiency compounds.</p>
+                </div>
+              </div>
+            </div>
           </div>
+
+          <button
+            onClick={scrollToPathways}
+            className="bg-black text-white px-8 py-4 text-sm tracking-wide hover:bg-black/90 transition-colors duration-300 inline-flex items-center gap-3"
+          >
+            <span>Explore Entry Options</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
         </div>
       </div>
 
-      {/* Who This Is For */}
-      <div className="border-b border-black/10">
-        <div className="max-w-4xl mx-auto px-6 md:px-16 py-20 md:py-28">
+      {/* SECTION 2: Operational Containment */}
+      <div className="border-b border-black/20 bg-neutral-50">
+        <div className="max-w-5xl mx-auto px-6 md:px-16 lg:px-24 py-20 md:py-28">
           <h2 
             className="text-3xl md:text-4xl mb-12"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
-            Who This Is For
+            The Commitment Structure
           </h2>
-          <p className="text-lg text-black/60 font-light leading-relaxed mb-8">
-            This sprint is designed for operators who:
+          <p className="text-lg text-black/60 font-light leading-relaxed mb-12">
+            This sprint is structured for professionals operating at full capacity. We respect your bandwidth and focus exclusively on high-leverage installation.
           </p>
-          <div className="space-y-6 text-lg text-black/60 font-light leading-relaxed">
-            <div className="flex items-start gap-4">
-              <span className="w-2 h-2 rounded-full bg-black/30 mt-2.5 flex-shrink-0"></span>
-              <span>Already have experience, offers, or client work</span>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-white border border-black/10 p-8">
+              <p className="font-medium text-black/80 mb-2">Time Requirement:</p>
+              <p className="text-black/60 font-light">3–5 focused hours per week.</p>
             </div>
-            <div className="flex items-start gap-4">
-              <span className="w-2 h-2 rounded-full bg-black/30 mt-2.5 flex-shrink-0"></span>
-              <span>Have a method (formal or informal)</span>
+            <div className="bg-white border border-black/10 p-8">
+              <p className="font-medium text-black/80 mb-2">Execution Style:</p>
+              <p className="text-black/60 font-light">Asynchronous modules. Build on your own schedule.</p>
             </div>
-            <div className="flex items-start gap-4">
-              <span className="w-2 h-2 rounded-full bg-black/30 mt-2.5 flex-shrink-0"></span>
-              <span>Are ready to structure and refine their delivery</span>
+            <div className="bg-white border border-black/10 p-8">
+              <p className="font-medium text-black/80 mb-2">Direct Support:</p>
+              <p className="text-black/60 font-light">Weekly Live Office Hours (Wednesdays, 2–3 PM).</p>
             </div>
-            <div className="flex items-start gap-4">
-              <span className="w-2 h-2 rounded-full bg-black/30 mt-2.5 flex-shrink-0"></span>
-              <span>Want clarity in how their work flows and routes</span>
+            <div className="bg-white border border-black/10 p-8">
+              <p className="font-medium text-black/80 mb-2">Engineering for Completion:</p>
+              <p className="text-black/60 font-light">Every task is a direct step toward a functional, documented Blueprint.</p>
             </div>
           </div>
-          <p className="text-lg text-black/40 font-light leading-relaxed mt-10 italic">
-            This is not about inventing something new.<br />
-            It's about structuring what's already there.
-          </p>
         </div>
       </div>
 
-      {/* What Happens Inside */}
-      <div className="border-b border-black/10">
-        <div className="max-w-4xl mx-auto px-6 md:px-16 py-20 md:py-28">
+      {/* SECTION 3: Method Origin */}
+      <div className="border-b border-black/20">
+        <div className="max-w-5xl mx-auto px-6 md:px-16 lg:px-24 py-20 md:py-28">
+          <div className="bg-neutral-50 border-l-2 border-black/20 pl-8 py-8">
+            <h2 
+              className="text-3xl md:text-4xl mb-8"
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
+              Proven Execution
+            </h2>
+            <p className="text-lg text-black/60 font-light leading-relaxed mb-8">
+              This protocol was developed through direct implementation across high-stakes sales and advisory environments. It is a refined execution sequence tested with real market assets:
+            </p>
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="w-1.5 h-1.5 bg-black/60 mt-2.5 flex-shrink-0"></div>
+                <p className="text-black/70 font-light">8+ Months of Live Market Testing</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-1.5 h-1.5 bg-black/60 mt-2.5 flex-shrink-0"></div>
+                <p className="text-black/70 font-light">Direct Implementation in Insurance and Consulting Environments</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-1.5 h-1.5 bg-black/60 mt-2.5 flex-shrink-0"></div>
+                <p className="text-black/70 font-light">Iterative Installation with High-Net-Worth Advisory Assets</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-1.5 h-1.5 bg-black/60 mt-2.5 flex-shrink-0"></div>
+                <p className="text-black/70 font-light">Outcome-Focused Engineering (Not Theory)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* SECTION 4: The Tangible Output */}
+      <div className="border-b border-black/20 bg-black text-white">
+        <div className="max-w-5xl mx-auto px-6 md:px-16 lg:px-24 py-20 md:py-28">
           <h2 
-            className="text-3xl md:text-4xl mb-12"
+            className="text-3xl md:text-4xl mb-8"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
-            What Happens Inside
+            The Tangible Output
           </h2>
-          <p className="text-lg text-black/60 font-light leading-relaxed mb-8">
-            Over 28 days, you will:
+          <p className="text-xl text-white/70 font-light leading-relaxed mb-12">
+            By Day 28, you will not be "thinking differently." You will have documentation and deployment in place.
           </p>
-          <div className="space-y-6 text-lg text-black/60 font-light leading-relaxed">
-            <div className="flex items-start gap-4">
-              <span className="w-2 h-2 rounded-full bg-black/30 mt-2.5 flex-shrink-0"></span>
-              <span>Clarify and formalize your method</span>
+          <div className="space-y-8">
+            <div className="border-l-2 border-white/30 pl-6">
+              <p className="font-medium text-white mb-2">A Formalized Authority Blueprint:</p>
+              <p className="text-white/60 font-light">Your intellectual property extracted into a repeatable protocol.</p>
             </div>
-            <div className="flex items-start gap-4">
-              <span className="w-2 h-2 rounded-full bg-black/30 mt-2.5 flex-shrink-0"></span>
-              <span>Organize current assets and delivery structure</span>
+            <div className="border-l-2 border-white/30 pl-6">
+              <p className="font-medium text-white mb-2">A Live Validation Engine:</p>
+              <p className="text-white/60 font-light">A system for testing market demand using real-world outreach.</p>
             </div>
-            <div className="flex items-start gap-4">
-              <span className="w-2 h-2 rounded-full bg-black/30 mt-2.5 flex-shrink-0"></span>
-              <span>Align pricing and positioning with reality</span>
+            <div className="border-l-2 border-white/30 pl-6">
+              <p className="font-medium text-white mb-2">A Scalable Offer Architecture:</p>
+              <p className="text-white/60 font-light">A suite of offers designed to grow without increasing your delivery hours.</p>
             </div>
-            <div className="flex items-start gap-4">
-              <span className="w-2 h-2 rounded-full bg-black/30 mt-2.5 flex-shrink-0"></span>
-              <span>Establish routing logic for offers and next steps</span>
-            </div>
-            <div className="flex items-start gap-4">
-              <span className="w-2 h-2 rounded-full bg-black/30 mt-2.5 flex-shrink-0"></span>
-              <span>Build a cleaner execution pathway</span>
+            <div className="border-l-2 border-white/30 pl-6">
+              <p className="font-medium text-white mb-2">A Structured Routing Logic:</p>
+              <p className="text-white/60 font-light">The data-driven pathway that fixes structural marketing leaks.</p>
             </div>
           </div>
-          <p className="text-lg text-black/40 font-light leading-relaxed mt-10">
-            The sprint is structured, contained, and time-bound.
-          </p>
         </div>
       </div>
 
-      {/* Entry Pathways */}
-      <div className="border-b border-black/10 bg-neutral-50">
-        <div className="max-w-4xl mx-auto px-6 md:px-16 py-20 md:py-28">
+      {/* SECTION 5: Entry Criteria */}
+      <div className="border-b border-black/20">
+        <div className="max-w-5xl mx-auto px-6 md:px-16 lg:px-24 py-20 md:py-28">
+          <h2 
+            className="text-3xl md:text-4xl mb-8"
+            style={{ fontFamily: "'Playfair Display', serif" }}
+          >
+            Institutional Alignment
+          </h2>
+          <p className="text-lg text-black/60 font-light leading-relaxed mb-12">
+            This cycle assumes existing revenue and proven expertise. It is specifically for:
+          </p>
+          <div className="space-y-6">
+            <div className="flex items-start gap-4">
+              <div className="w-1.5 h-1.5 bg-black mt-2.5 flex-shrink-0"></div>
+              <p className="text-lg text-black/70 font-light">Tenured Professionals & Master Coaches with established IP.</p>
+            </div>
+            <div className="flex items-start gap-4">
+              <div className="w-1.5 h-1.5 bg-black mt-2.5 flex-shrink-0"></div>
+              <p className="text-lg text-black/70 font-light">Operators with Existing Revenue who have reached a manual capacity ceiling.</p>
+            </div>
+            <div className="flex items-start gap-4">
+              <div className="w-1.5 h-1.5 bg-black mt-2.5 flex-shrink-0"></div>
+              <p className="text-lg text-black/70 font-light">High-Performers ready to execute a system installation within a 28-day window.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* SECTION 6: Entry Pathways */}
+      <div id="pathways" className="border-b border-black/20 bg-neutral-50">
+        <div className="max-w-5xl mx-auto px-6 md:px-16 lg:px-24 py-20 md:py-28">
           <h2 
             className="text-3xl md:text-4xl mb-16"
             style={{ fontFamily: "'Playfair Display', serif" }}
@@ -122,104 +217,96 @@ export default function Sprint6500() {
             Entry Pathways
           </h2>
 
-          <div className="grid md:grid-cols-2 gap-12">
-            {/* Standard Entry */}
-            <div className="bg-white border border-black/10 p-10">
-              <h3 className="text-2xl font-medium mb-6" style={{ fontFamily: "'Playfair Display', serif" }}>
-                Standard Entry
-              </h3>
+          <div className="grid md:grid-cols-2 gap-12 mb-16">
+            {/* Option 1: The Validation Focus Group */}
+            <div className="bg-white border-2 border-black/20 p-10">
+              <div className="mb-8">
+                <p className="text-sm font-medium tracking-wider text-black/50 mb-4">OPTION 1</p>
+                <h3 className="text-2xl md:text-3xl font-medium mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
+                  The Validation Focus Group
+                </h3>
+                <p className="text-sm font-medium text-black/60 mb-6">Recommended Path.</p>
+              </div>
               <p className="text-lg text-black/60 font-light leading-relaxed mb-6">
-                Most participants enter through the Authority Infrastructure™ Focus Group.
+                Enter the diagnostic cycle to validate market demand and identify structural leaks before full installation.
               </p>
-              <p className="text-lg text-black/60 font-light leading-relaxed mb-8">
-                The Focus Group helps determine readiness and alignment.
+              <p className="text-lg text-black/60 font-light leading-relaxed mb-10">
+                The Focus Group is a structured diagnostic environment. Most operators begin here.
               </p>
               <Link to={createPageUrl("FocusGroup")}>
-                <Button className="bg-black text-white hover:bg-black/90 gap-2 w-full md:w-auto">
-                  Join the Focus Group
+                <button className="bg-black text-white px-8 py-4 text-sm tracking-wide hover:bg-black/90 transition-colors duration-300 w-full inline-flex items-center justify-center gap-3">
+                  <span>Join the Focus Group</span>
                   <ArrowRight className="w-4 h-4" />
-                </Button>
+                </button>
               </Link>
             </div>
 
-            {/* Direct Entry */}
+            {/* Option 2: Direct Sprint Entry */}
             <div className="bg-white border border-black/10 p-10">
-              <h3 className="text-2xl font-medium mb-6" style={{ fontFamily: "'Playfair Display', serif" }}>
-                Direct Entry
-              </h3>
-              <p className="text-lg text-black/60 font-light leading-relaxed mb-6">
-                In select cases, experienced operators may qualify for direct entry into the Sprint.
+              <div className="mb-8">
+                <p className="text-sm font-medium tracking-wider text-black/40 mb-4">OPTION 2</p>
+                <h3 className="text-2xl md:text-3xl font-medium mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
+                  Direct Sprint Entry
+                </h3>
+              </div>
+              <p className="text-lg text-black/60 font-light leading-relaxed mb-10">
+                For experienced operators generating consistent revenue who require immediate precision refinement.
               </p>
-              <p className="text-lg text-black/60 font-light leading-relaxed mb-8">
-                This pathway is available for those with demonstrated experience and structured assets.
-              </p>
-              <Button 
+              <button 
                 onClick={() => setShowDirectEntryForm(!showDirectEntryForm)}
-                variant="outline"
-                className="gap-2 w-full md:w-auto"
+                className="border-2 border-black/20 text-black px-8 py-4 text-sm tracking-wide hover:bg-black/5 transition-colors duration-300 w-full inline-flex items-center justify-center gap-3"
               >
-                {showDirectEntryForm ? "Hide Form" : "Request Direct Entry"}
+                <span>{showDirectEntryForm ? "Hide Form" : "Apply for Direct Sprint Entry"}</span>
                 <ArrowRight className="w-4 h-4" />
-              </Button>
+              </button>
             </div>
           </div>
+
+          {/* Direct Entry Form */}
+          {showDirectEntryForm && (
+            <div className="bg-white border border-black/10 p-10 md:p-16">
+              <DirectEntryRequestForm />
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Direct Entry Form */}
-      {showDirectEntryForm && (
-        <div className="border-b border-black/10 bg-white">
-          <div className="max-w-3xl mx-auto px-6 md:px-16 py-20 md:py-28">
-            <DirectEntryRequestForm />
-          </div>
-        </div>
-      )}
-
-      {/* Scope */}
-      <div className="border-b border-black/10">
-        <div className="max-w-4xl mx-auto px-6 md:px-16 py-20 md:py-28">
+      {/* SECTION 7: Final Alignment */}
+      <div className="border-b border-black/20 bg-black text-white">
+        <div className="max-w-5xl mx-auto px-6 md:px-16 lg:px-24 py-20 md:py-28 text-center">
           <h2 
-            className="text-3xl md:text-4xl mb-12"
+            className="text-3xl md:text-4xl mb-8"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
-            Scope
+            Limited Enrollment Cycle
           </h2>
-          <p className="text-lg text-black/60 font-light leading-relaxed mb-10">
-            This sprint focuses on structured implementation and refinement.
+          <p className="text-xl text-white/70 font-light leading-relaxed mb-12 max-w-2xl mx-auto">
+            When infrastructure is installed, growth becomes structural. If your expertise has outgrown your backend, this is the correction point.
           </p>
-          <p className="text-lg text-black/60 font-light leading-relaxed mb-8">
-            It does not include:
-          </p>
-          <div className="space-y-6 text-lg text-black/50 font-light leading-relaxed">
-            <div className="flex items-start gap-4">
-              <span className="w-2 h-2 rounded-full bg-black/20 mt-2.5 flex-shrink-0"></span>
-              <span>Custom system builds</span>
-            </div>
-            <div className="flex items-start gap-4">
-              <span className="w-2 h-2 rounded-full bg-black/20 mt-2.5 flex-shrink-0"></span>
-              <span>Done-for-you execution</span>
-            </div>
-            <div className="flex items-start gap-4">
-              <span className="w-2 h-2 rounded-full bg-black/20 mt-2.5 flex-shrink-0"></span>
-              <span>Ongoing advisory retainers</span>
-            </div>
-            <div className="flex items-start gap-4">
-              <span className="w-2 h-2 rounded-full bg-black/20 mt-2.5 flex-shrink-0"></span>
-              <span>Therapy, mindset, or emotional processing work</span>
-            </div>
-          </div>
-          <p className="text-lg text-black/40 font-light leading-relaxed mt-10">
-            Participants are expected to execute independently within the structure provided.
-          </p>
+          <button
+            onClick={scrollToPathways}
+            className="bg-white text-black px-10 py-4 text-sm tracking-wide hover:bg-white/90 transition-colors duration-300 inline-flex items-center gap-3"
+          >
+            <span>Begin Implementation</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
         </div>
       </div>
 
       {/* Footer */}
-      <div className="bg-black text-white">
-        <div className="max-w-4xl mx-auto px-6 md:px-16 py-12 text-center">
-          <p className="text-sm font-light text-white/60">
-            © {new Date().getFullYear()} Heartset Design
-          </p>
+      <div className="bg-white">
+        <div className="max-w-5xl mx-auto px-6 md:px-16 lg:px-24 py-12">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-center md:text-left">
+            <p 
+              className="text-lg text-black"
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
+              Heartset Design
+            </p>
+            <p className="text-sm text-black/40">
+              © {new Date().getFullYear()} All rights reserved.
+            </p>
+          </div>
         </div>
       </div>
     </div>
