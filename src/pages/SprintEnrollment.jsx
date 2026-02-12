@@ -62,15 +62,15 @@ export default function SprintEnrollment() {
               Authority Infrastructure™
             </h1>
             <p className="text-xl text-black/60">
-              Implementation Sprint
+              28-Day Validation Sprint
             </p>
           </div>
 
           {/* Main Card */}
           <Card className="border-2 border-black/10 mb-8">
             <CardHeader className="text-center border-b border-black/5">
-              <CardTitle className="text-2xl mb-2">28-Day Implementation Sprint</CardTitle>
-              <p className="text-3xl font-bold">$6,500</p>
+              <CardTitle className="text-2xl mb-2">28-Day Validation Sprint</CardTitle>
+              <p className="text-3xl font-bold">$6,950</p>
             </CardHeader>
             <CardContent className="pt-8 space-y-8">
               {/* What's Included */}
