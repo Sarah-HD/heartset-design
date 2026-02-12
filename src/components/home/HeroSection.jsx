@@ -72,10 +72,10 @@ export default function HeroSection() {
           className="flex flex-col sm:flex-row gap-4 sm:gap-8 items-start"
         >
           <Link
-            to={createPageUrl("Apply")}
+            to={createPageUrl("Sprint6500")}
             className="group inline-flex items-center gap-3 bg-white text-black px-8 py-3 text-sm tracking-wider hover:bg-white/90 transition-all duration-300"
           >
-            <span>Apply for Authority Infrastructure™</span>
+            <span>Join the Validation Sprint</span>
             <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
           </Link>
           
