@@ -25,87 +25,72 @@ export default function OffersSection() {
             Pathways
           </h1>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Cohort-Based Engagement */}
-            <Card className="bg-black border border-white/20 text-white">
-              <CardContent className="p-8">
-                <p className="text-xs font-medium text-white/60 tracking-widest uppercase mb-4">
-                  COHORT-BASED ENGAGEMENT
-                </p>
-                <h2 
-                  className="text-2xl md:text-3xl mb-4 leading-tight"
-                  style={{ fontFamily: "'Playfair Display', serif" }}
-                >
-                  Authority Infrastructure™
-                </h2>
-                <p className="text-3xl md:text-4xl mb-6 font-light" style={{ fontFamily: "'Playfair Display', serif" }}>
-                  $6,950
-                </p>
-                <p className="text-base text-white/60 font-light leading-relaxed mb-8">
-                  Delivered through a credentialed focus group designed to validate and convert your existing expertise into a structured authority system.
-                </p>
-                <Link
-                  to={createPageUrl("Sprint6500")}
-                  className="text-white/60 hover:text-white text-sm tracking-wide transition-colors duration-300"
-                >
-                  Learn More →
-                </Link>
-              </CardContent>
-            </Card>
+          <div className="grid md:grid-cols-3 gap-12">
+            {/* Sprint - $6,950 */}
+            <div>
+              <h2 
+                className="text-3xl md:text-4xl mb-3 leading-tight pb-3 border-b-2 border-white inline-block"
+                style={{ fontFamily: "'Playfair Display', serif" }}
+              >
+                $6,950
+              </h2>
+              <p className="text-2xl md:text-3xl mt-6 mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
+                Authority Infrastructure™
+              </p>
+              <p className="text-base text-white/60 font-light leading-relaxed mb-6">
+                Delivered through a credentialed focus group designed to validate and convert your existing expertise into a structured authority system.
+              </p>
+              <Link
+                to={createPageUrl("Sprint6500")}
+                className="text-white/60 hover:text-white text-sm tracking-wide transition-colors duration-300"
+              >
+                Learn More →
+              </Link>
+            </div>
 
-            {/* Private Advisory */}
-            <Card className="bg-black border border-white/20 text-white">
-              <CardContent className="p-8">
-                <p className="text-xs font-medium text-white/60 tracking-widest uppercase mb-4">
-                  PRIVATE ADVISORY
-                </p>
-                <h2 
-                  className="text-2xl md:text-3xl mb-4 leading-tight"
-                  style={{ fontFamily: "'Playfair Display', serif" }}
-                >
-                  Strategic Refinement
-                </h2>
-                <p className="text-3xl md:text-4xl mb-6 font-light" style={{ fontFamily: "'Playfair Display', serif" }}>
-                  By Application
-                </p>
-                <p className="text-base text-white/60 font-light leading-relaxed mb-8">
-                  For established professionals with existing frameworks seeking strategic refinement and market positioning.
-                </p>
-                <Link
-                  to={createPageUrl("Apply10000")}
-                  className="text-white/60 hover:text-white text-sm tracking-wide transition-colors duration-300"
-                >
-                  Apply Now →
-                </Link>
-              </CardContent>
-            </Card>
+            {/* Advisory - By Application */}
+            <div>
+              <h2 
+                className="text-3xl md:text-4xl mb-3 leading-tight pb-3 border-b-2 border-white inline-block"
+                style={{ fontFamily: "'Playfair Display', serif" }}
+              >
+                By Application
+              </h2>
+              <p className="text-2xl md:text-3xl mt-6 mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
+                Private Advisory
+              </p>
+              <p className="text-base text-white/60 font-light leading-relaxed mb-6">
+                For established professionals with proven frameworks, documented outcomes, and strategic positioning goals.
+              </p>
+              <Link
+                to={createPageUrl("Apply10000")}
+                className="text-white/60 hover:text-white text-sm tracking-wide transition-colors duration-300"
+              >
+                Apply Now →
+              </Link>
+            </div>
 
-            {/* Full Infrastructure Build */}
-            <Card className="bg-black border border-white/20 text-white">
-              <CardContent className="p-8">
-                <p className="text-xs font-medium text-white/60 tracking-widest uppercase mb-4">
-                  FULL INFRASTRUCTURE
-                </p>
-                <h2 
-                  className="text-2xl md:text-3xl mb-4 leading-tight"
-                  style={{ fontFamily: "'Playfair Display', serif" }}
-                >
-                  Complete System Build
-                </h2>
-                <p className="text-3xl md:text-4xl mb-6 font-light" style={{ fontFamily: "'Playfair Display', serif" }}>
-                  Custom Scope
-                </p>
-                <p className="text-base text-white/60 font-light leading-relaxed mb-8">
-                  Comprehensive infrastructure development for professionals ready to scale their authority platform with full technical implementation.
-                </p>
-                <Link
-                  to={createPageUrl("Apply")}
-                  className="text-white/60 hover:text-white text-sm tracking-wide transition-colors duration-300"
-                >
-                  Inquire →
-                </Link>
-              </CardContent>
-            </Card>
+            {/* Infrastructure - Custom Scope */}
+            <div>
+              <h2 
+                className="text-3xl md:text-4xl mb-3 leading-tight pb-3 border-b-2 border-white inline-block"
+                style={{ fontFamily: "'Playfair Display', serif" }}
+              >
+                Custom Scope
+              </h2>
+              <p className="text-2xl md:text-3xl mt-6 mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
+                Full Infrastructure
+              </p>
+              <p className="text-base text-white/60 font-light leading-relaxed mb-6">
+                Comprehensive system architecture for established practitioners ready to operationalize their entire authority platform.
+              </p>
+              <Link
+                to={createPageUrl("Apply")}
+                className="text-white/60 hover:text-white text-sm tracking-wide transition-colors duration-300"
+              >
+                Inquire →
+              </Link>
+            </div>
           </div>
         </motion.div>
       </div>
