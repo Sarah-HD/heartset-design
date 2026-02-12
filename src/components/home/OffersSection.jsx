@@ -23,9 +23,12 @@ export default function OffersSection() {
             Authority Infrastructure™
           </h1>
           <p className="text-xl md:text-2xl text-white/60 font-light leading-relaxed max-w-3xl mx-auto">
-            A structured approach to organizing, validating, and operationalizing professional expertise.
+            A 28-day authority validation sprint for operators ready to structure, test, and convert their existing expertise.
           </p>
-          <div className="mt-16">
+          <div className="mt-12">
+            <p className="text-3xl md:text-4xl mb-8 font-light" style={{ fontFamily: "'Playfair Display', serif" }}>
+              $6,950
+            </p>
             <Link
               to={createPageUrl("Sprint6500")}
               className="inline-flex items-center gap-2 bg-white text-black px-8 py-4 text-sm tracking-wide hover:bg-white/90 transition-all duration-300"

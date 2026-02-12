@@ -8,8 +8,8 @@ const squareClient = new Client({
 
 const TIER_PRICING = {
   'sprint_6500': {
-    amount: 650000, // $6,500 in cents
-    name: 'Authority Infrastructure™ Implementation Sprint',
+    amount: 695000, // $6,950 in cents
+    name: 'Authority Infrastructure™ 28-Day Validation Sprint',
     description: '28-day structured execution sprint'
   },
   'advisory_10000': {
