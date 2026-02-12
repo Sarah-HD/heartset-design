@@ -26,7 +26,7 @@ export default function OffersSection() {
 
           <div className="grid md:grid-cols-3 gap-8">
             {/* Cohort-Based Engagement */}
-            <div className="bg-black border border-white/10 text-white p-8 group hover:border-white/30 transition-all duration-300">
+            <div className="relative bg-black border border-white/10 text-white p-8 group transition-all duration-300 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1px] after:bg-white after:scale-x-0 after:transition-transform after:duration-300 hover:after:scale-x-100">
               <p className="text-xs font-medium text-white/60 tracking-widest uppercase mb-4">
                 COHORT-BASED ENGAGEMENT
               </p>
@@ -44,14 +44,14 @@ export default function OffersSection() {
               </p>
               <Link
                 to={createPageUrl("Sprint6500")}
-                className="inline-block text-white/60 hover:text-white text-sm tracking-wide transition-colors duration-300 border-b border-transparent hover:border-white pb-1"
+                className="text-white/60 hover:text-white text-sm tracking-wide transition-colors duration-300"
               >
                 Learn More →
               </Link>
             </div>
 
             {/* Private Advisory */}
-            <div className="bg-black border border-white/10 text-white p-8 group hover:border-white/30 transition-all duration-300">
+            <div className="relative bg-black border border-white/10 text-white p-8 group transition-all duration-300 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1px] after:bg-white after:scale-x-0 after:transition-transform after:duration-300 hover:after:scale-x-100">
               <p className="text-xs font-medium text-white/60 tracking-widest uppercase mb-4">
                 PRIVATE ADVISORY
               </p>
@@ -79,7 +79,7 @@ export default function OffersSection() {
             </div>
 
             {/* Full Infrastructure Build */}
-            <div className="bg-black border border-white/10 text-white p-8 group hover:border-white/30 transition-all duration-300">
+            <div className="relative bg-black border border-white/10 text-white p-8 group transition-all duration-300 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1px] after:bg-white after:scale-x-0 after:transition-transform after:duration-300 hover:after:scale-x-100">
               <p className="text-xs font-medium text-white/60 tracking-widest uppercase mb-4">
                 FULL INFRASTRUCTURE
               </p>
@@ -100,7 +100,7 @@ export default function OffersSection() {
               </p>
               <Link
                 to={createPageUrl("Apply")}
-                className="inline-block text-white/60 hover:text-white text-sm tracking-wide transition-colors duration-300 border-b border-transparent hover:border-white pb-1"
+                className="text-white/60 hover:text-white text-sm tracking-wide transition-colors duration-300"
               >
                 Join Waitlist →
               </Link>
