@@ -22,20 +22,18 @@ export default function OffersSection() {
           >
             Authority Infrastructure™
           </h1>
-          <p className="text-xl md:text-2xl text-white/60 font-light leading-relaxed max-w-3xl mx-auto">
-            A 28-day authority validation sprint for operators ready to structure, test, and convert their existing expertise.
+          <p className="text-2xl md:text-3xl mb-6 font-light" style={{ fontFamily: "'Playfair Display', serif" }}>
+            $6,950
           </p>
-          <div className="mt-12">
-            <p className="text-3xl md:text-4xl mb-8 font-light" style={{ fontFamily: "'Playfair Display', serif" }}>
-              $6,950
-            </p>
-            <Link
-              to={createPageUrl("Sprint6500")}
-              className="inline-flex items-center gap-2 bg-white text-black px-8 py-4 text-sm tracking-wide hover:bg-white/90 transition-all duration-300"
-            >
-              Learn More →
-            </Link>
-          </div>
+          <p className="text-lg md:text-xl text-white/60 font-light leading-relaxed max-w-3xl mx-auto mb-12">
+            Delivered through a credentialed focus group designed to validate and convert your existing expertise into a structured authority system.
+          </p>
+          <Link
+            to={createPageUrl("Sprint6500")}
+            className="text-white/60 hover:text-white text-sm tracking-wide transition-colors duration-300"
+          >
+            Learn More →
+          </Link>
         </motion.div>
       </div>
     </section>
