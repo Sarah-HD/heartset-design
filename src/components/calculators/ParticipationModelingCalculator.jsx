@@ -26,14 +26,16 @@ export default function ParticipationModelingCalculator() {
   const [lowPrice, setLowPrice] = useState(1500);
   const [fixedCosts, setFixedCosts] = useState(2000);
 
-  // Calculations
-  const P0 = Math.round(outreachVolume * (participationRate / 100));
-  const R1 = Math.round(P0 * (referralParticipation / 100) * referralSlots * (referralConversion / 100));
+  // Calculations (conservative rounding: round down participants and sales)
+  const P0 = Math.floor(outreachVolume * (participationRate / 100));
+  const R1 = Math.floor(P0 * (referralParticipation / 100) * referralSlots * (referralConversion / 100));
   const TR = P0 + R1;
 
-  const coreSales = Math.round(TR * (coreConversion / 100));
-  const midSales = Math.round((TR - coreSales) * (midConversion / 100));
-  const lowSales = TR - coreSales - midSales;
+  const coreSales = Math.floor(TR * (coreConversion / 100));
+  const remainingAfterCore = TR - coreSales;
+  const midSales = Math.floor(remainingAfterCore * (midConversion / 100));
+  const remainingAfterMid = remainingAfterCore - midSales;
+  const lowSales = Math.floor(remainingAfterMid * (lowConversion / 100));
 
   const revenue = (coreSales * corePrice) + (midSales * midPrice) + (lowSales * lowPrice);
   const netProfit = revenue - fixedCosts;
