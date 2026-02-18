@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Info, Save, CheckCircle2 } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Info, Save, CheckCircle2, Download, Mic, Copy, Sparkles } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const questions = {
@@ -180,6 +181,12 @@ const questions = {
         label: "The Breaking Point",
         prompt: "If you doubled your prices tomorrow, what would break first?",
         tooltip: null
+      },
+      {
+        id: "5.8",
+        label: "Offer Outcome Definition",
+        prompt: "For each tier (Core/Mid/Low), define: Timeframe, Business Metric, Emotional State achieved.",
+        tooltip: "Example: '90 days, $50K in new sales, feels confident in sales process.' Be specific and measurable."
       }
     ]
   },
@@ -225,7 +232,7 @@ const questions = {
     ]
   },
   tab7: {
-    title: "Intent & Execution",
+    title: "Revenue Target & Contact Definition",
     questions: [
       {
         id: "7.1",
@@ -238,6 +245,24 @@ const questions = {
         label: "The 30-Day Bound",
         prompt: "What are you willing to execute vs. what are you not willing to do?",
         tooltip: "This is your 'Operating Constraint.' If you aren't willing to do live sales calls, we need to know that now so we can engineer the 'Routing Logic' to handle the work for you."
+      },
+      {
+        id: "7.3",
+        label: "Revenue Sprint Target",
+        prompt: "What is your revenue goal for the next 90 days? Be specific with the dollar amount.",
+        tooltip: "This anchors your outreach volume and contact targeting. Don't inflate—be realistic based on your capacity."
+      },
+      {
+        id: "7.4",
+        label: "Reverse Outreach Calculation",
+        prompt: "Based on your revenue target, how many Core sales do you need? How large does your room need to be? How much outreach is required?",
+        tooltip: "Use the Participation Modeling Calculator in 'Reverse Target' mode to calculate these numbers. This is your execution roadmap."
+      },
+      {
+        id: "7.5",
+        label: "100 Contact Criteria Definition",
+        prompt: "Define your ideal contact profile across these filters:\n\nA. Revenue Reality: Can they afford your Core offer? What revenue range?\nB. Authority Fit: Do they have decision-making power? What title/role?\nC. Platform: Where do they gather? (LinkedIn, industry events, communities)\nD. Hard Qualification Filters: Industry, geography, company size, tech stack, certification requirements.",
+        tooltip: "This is not 'niching'—it's qualification logic. You're defining WHO can participate, WHO can afford it, and WHERE to find them."
       }
     ]
   }
@@ -248,6 +273,14 @@ export default function Week1HomeworkCards() {
   const [responses, setResponses] = useState({});
   const [savedQuestions, setSavedQuestions] = useState(new Set());
   const [savingQuestions, setSavingQuestions] = useState(new Set());
+  const [qualificationFilters, setQualificationFilters] = useState({
+    industry: false,
+    geography: false,
+    companySize: false,
+    techStack: false,
+    certification: false,
+    revenue: false
+  });
 
   React.useEffect(() => {
     const loadUser = async () => {
@@ -296,57 +329,208 @@ export default function Week1HomeworkCards() {
     }
   };
 
-  const renderQuestion = (question, tabKey) => (
-    <Card key={question.id} className="mb-4">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-lg">
-          {question.id} {question.label}
-          {question.tooltip && (
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Info className="w-4 h-4 text-black/40 cursor-help" />
-                </TooltipTrigger>
-                <TooltipContent className="max-w-sm bg-black text-white p-4">
-                  <p className="text-sm font-light leading-relaxed">{question.tooltip}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          )}
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-3">
-        <p className="text-sm text-black/60 font-light">{question.prompt}</p>
-        <Textarea
-          placeholder="Use speech-to-text (microphone icon on your keyboard) or type your answer here..."
-          value={responses[question.id] || ""}
-          onChange={(e) => setResponses(prev => ({ ...prev, [question.id]: e.target.value }))}
-          rows={6}
-          className="font-light"
-        />
-        <div className="flex justify-end">
-          <Button
-            onClick={() => handleSave(question.id, tabKey)}
-            disabled={!responses[question.id] || savingQuestions.has(question.id) || savedQuestions.has(question.id)}
-            className="bg-black text-white hover:bg-black/90"
-            size="sm"
-          >
-            {savedQuestions.has(question.id) ? (
-              <>
-                <CheckCircle2 className="w-4 h-4 mr-2" />
-                Saved
-              </>
-            ) : (
-              <>
-                <Save className="w-4 h-4 mr-2" />
-                {savingQuestions.has(question.id) ? "Saving..." : "Save Answer"}
-              </>
+  const handleExportBlank = () => {
+    let markdown = "# Week 1 Operational Manual - Blank Template\n\n";
+    
+    Object.entries(questions).forEach(([key, tab]) => {
+      markdown += `## ${tab.title}\n\n`;
+      tab.questions.forEach(q => {
+        markdown += `### ${q.id} ${q.label}\n`;
+        markdown += `${q.prompt}\n\n`;
+        markdown += `**Your Answer:**\n\n---\n\n`;
+      });
+    });
+
+    const blob = new Blob([markdown], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Week1-Blank-Template.md';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const handleExportFilled = () => {
+    let markdown = "# Week 1 Operational Manual - My Answers\n\n";
+    
+    Object.entries(questions).forEach(([key, tab]) => {
+      markdown += `## ${tab.title}\n\n`;
+      tab.questions.forEach(q => {
+        markdown += `### ${q.id} ${q.label}\n`;
+        markdown += `${q.prompt}\n\n`;
+        markdown += `**Your Answer:**\n${responses[q.id] || '[Not answered yet]'}\n\n---\n\n`;
+      });
+    });
+
+    const blob = new Blob([markdown], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Week1-Filled-Template.md';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const handleCopyProspectPrompt = () => {
+    const promptText = `Based on my business profile, help me refine my LinkedIn prospect search criteria:
+
+Revenue Target: ${responses['7.3'] || '[Not specified]'}
+Core Offer Price: ${responses['5.5'] || '[Not specified]'}
+Target Client: ${responses['2.2'] || '[Not specified]'}
+
+Please extract and refine:
+1. Specific job titles that match decision-making authority
+2. Industries that align with this problem
+3. Company size range (by revenue or employee count)
+4. Geographic focus (if any)
+5. Any technical or certification requirements
+
+Output the refined criteria as a structured list I can use for LinkedIn Sales Navigator or prospecting tools.`;
+
+    navigator.clipboard.writeText(promptText);
+    alert("Prompt copied! Paste into ChatGPT or Claude to refine your targeting.");
+  };
+
+  const renderQuestion = (question, tabKey) => {
+    // Special rendering for 7.5 (100 Contact Criteria)
+    if (question.id === '7.5') {
+      return (
+        <Card key={question.id} className="mb-4">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-lg">
+              {question.id} {question.label}
+              {question.tooltip && (
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Info className="w-4 h-4 text-black/40 cursor-help" />
+                    </TooltipTrigger>
+                    <TooltipContent className="max-w-sm bg-black text-white p-4">
+                      <p className="text-sm font-light leading-relaxed">{question.tooltip}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              )}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <p className="text-sm text-black/60 font-light whitespace-pre-line">{question.prompt}</p>
+            
+            <div className="bg-neutral-50 border border-black/10 p-4 space-y-3">
+              <p className="text-xs font-medium text-black/70">D. Hard Qualification Filters (Check all that apply):</p>
+              <div className="space-y-2">
+                {Object.entries(qualificationFilters).map(([key, checked]) => (
+                  <div key={key} className="flex items-center gap-2">
+                    <Checkbox
+                      checked={checked}
+                      onCheckedChange={(val) => setQualificationFilters(prev => ({ ...prev, [key]: val }))}
+                    />
+                    <label className="text-sm text-black/70 capitalize">{key.replace(/([A-Z])/g, ' $1')}</label>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <Textarea
+              placeholder="Define your A, B, C filters here..."
+              value={responses[question.id] || ""}
+              onChange={(e) => setResponses(prev => ({ ...prev, [question.id]: e.target.value }))}
+              rows={8}
+              className="font-light"
+            />
+
+            <div className="bg-blue-50 border border-blue-200 p-4 space-y-3">
+              <p className="text-sm font-medium text-blue-900">AI Refinement Tool (Optional)</p>
+              <p className="text-xs text-blue-800 font-light">Copy this prompt and paste it into ChatGPT or Claude to refine your targeting criteria based on your answers above.</p>
+              <Button
+                onClick={handleCopyProspectPrompt}
+                variant="outline"
+                size="sm"
+                className="w-full border-blue-300 text-blue-900 hover:bg-blue-100"
+              >
+                <Copy className="w-4 h-4 mr-2" />
+                Copy Prospect Intelligence Prompt
+              </Button>
+            </div>
+
+            <div className="flex justify-end gap-2">
+              <Button
+                onClick={() => handleSave(question.id, tabKey)}
+                disabled={!responses[question.id] || savingQuestions.has(question.id) || savedQuestions.has(question.id)}
+                className="bg-black text-white hover:bg-black/90"
+                size="sm"
+              >
+                {savedQuestions.has(question.id) ? (
+                  <>
+                    <CheckCircle2 className="w-4 h-4 mr-2" />
+                    Saved
+                  </>
+                ) : (
+                  <>
+                    <Save className="w-4 h-4 mr-2" />
+                    {savingQuestions.has(question.id) ? "Saving..." : "Save Answer"}
+                  </>
+                )}
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      );
+    }
+
+    // Default rendering for all other questions
+    return (
+      <Card key={question.id} className="mb-4">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-lg">
+            {question.id} {question.label}
+            {question.tooltip && (
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Info className="w-4 h-4 text-black/40 cursor-help" />
+                  </TooltipTrigger>
+                  <TooltipContent className="max-w-sm bg-black text-white p-4">
+                    <p className="text-sm font-light leading-relaxed">{question.tooltip}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             )}
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
-  );
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <p className="text-sm text-black/60 font-light">{question.prompt}</p>
+          <Textarea
+            placeholder="Use speech-to-text (microphone icon on your keyboard) or type your answer here..."
+            value={responses[question.id] || ""}
+            onChange={(e) => setResponses(prev => ({ ...prev, [question.id]: e.target.value }))}
+            rows={6}
+            className="font-light"
+          />
+          <div className="flex justify-end">
+            <Button
+              onClick={() => handleSave(question.id, tabKey)}
+              disabled={!responses[question.id] || savingQuestions.has(question.id) || savedQuestions.has(question.id)}
+              className="bg-black text-white hover:bg-black/90"
+              size="sm"
+            >
+              {savedQuestions.has(question.id) ? (
+                <>
+                  <CheckCircle2 className="w-4 h-4 mr-2" />
+                  Saved
+                </>
+              ) : (
+                <>
+                  <Save className="w-4 h-4 mr-2" />
+                  {savingQuestions.has(question.id) ? "Saving..." : "Save Answer"}
+                </>
+              )}
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  };
 
   return (
     <div className="w-full bg-neutral-50 border-t border-black/10 py-12">
@@ -356,24 +540,44 @@ export default function Week1HomeworkCards() {
             Week 1 Homework: Operational Manual Template
           </h2>
           <div className="bg-white border border-black/10 p-6 mb-6">
-            <p className="text-sm text-black/60 font-light leading-relaxed mb-3">
+            <p className="text-sm text-black/60 font-light leading-relaxed mb-4">
               <strong>Pro Tip:</strong> Don't type—just talk. Open your Notes app, hit the microphone, and answer these cards. Then, copy and paste that "raw" brain-dump into your Manual.
             </p>
-            <p className="text-sm text-black/60 font-light leading-relaxed">
+            <p className="text-sm text-black/60 font-light leading-relaxed mb-4">
               This is <strong>Extraction</strong>, not creative writing. Speed over perfection.
             </p>
+            <div className="flex flex-wrap gap-2">
+              <Button
+                onClick={handleExportBlank}
+                variant="outline"
+                size="sm"
+                className="border-black/20"
+              >
+                <Download className="w-4 h-4 mr-2" />
+                Download Blank Questions
+              </Button>
+              <Button
+                onClick={handleExportFilled}
+                variant="outline"
+                size="sm"
+                className="border-black/20"
+              >
+                <Download className="w-4 h-4 mr-2" />
+                Export My Answers
+              </Button>
+            </div>
           </div>
         </div>
 
         <Tabs defaultValue="tab1" className="w-full">
           <TabsList className="grid w-full grid-cols-7 mb-8">
-            <TabsTrigger value="tab1">Tab 1</TabsTrigger>
-            <TabsTrigger value="tab2">Tab 2</TabsTrigger>
-            <TabsTrigger value="tab3">Tab 3</TabsTrigger>
-            <TabsTrigger value="tab4">Tab 4</TabsTrigger>
-            <TabsTrigger value="tab5">Tab 5</TabsTrigger>
-            <TabsTrigger value="tab6">Tab 6</TabsTrigger>
-            <TabsTrigger value="tab7">Tab 7</TabsTrigger>
+            <TabsTrigger value="tab1">1. Time</TabsTrigger>
+            <TabsTrigger value="tab2">2. Identity</TabsTrigger>
+            <TabsTrigger value="tab3">3. Method</TabsTrigger>
+            <TabsTrigger value="tab4">4. Assets</TabsTrigger>
+            <TabsTrigger value="tab5">5. Offers</TabsTrigger>
+            <TabsTrigger value="tab6">6. Market</TabsTrigger>
+            <TabsTrigger value="tab7">7. Revenue</TabsTrigger>
           </TabsList>
 
           {Object.entries(questions).map(([key, tab]) => (

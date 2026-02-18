@@ -4,8 +4,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Button } from "@/components/ui/button";
 
 export default function ParticipationModelingCalculator() {
+  // Mode Selection
+  const [calculatorMode, setCalculatorMode] = useState("forward"); // "forward" or "reverse"
+  const [scenarioMode, setScenarioMode] = useState("conservative"); // "conservative", "hybrid", "optimized", "custom"
+  
+  // Reverse Mode Inputs
+  const [revenueTarget, setRevenueTarget] = useState(100000);
+  
   // Outreach Section
   const [outreachVolume, setOutreachVolume] = useState(100);
   const [participationRate, setParticipationRate] = useState(10);
@@ -42,11 +50,117 @@ export default function ParticipationModelingCalculator() {
 
   const totalAllocation = coreConversion + midConversion + lowConversion;
 
+  // Scenario presets
+  React.useEffect(() => {
+    if (scenarioMode === "conservative") {
+      setParticipationRate(8);
+      setReferralParticipation(30);
+      setReferralConversion(25);
+      setCoreConversion(20);
+      setMidConversion(30);
+      setLowConversion(20);
+    } else if (scenarioMode === "hybrid") {
+      setParticipationRate(12);
+      setReferralParticipation(40);
+      setReferralConversion(35);
+      setCoreConversion(25);
+      setMidConversion(35);
+      setLowConversion(25);
+    } else if (scenarioMode === "optimized") {
+      setParticipationRate(15);
+      setReferralParticipation(50);
+      setReferralConversion(45);
+      setCoreConversion(30);
+      setMidConversion(40);
+      setLowConversion(30);
+    }
+  }, [scenarioMode]);
+
+  // Reverse calculations
+  const requiredCoreSales = Math.ceil(revenueTarget / corePrice);
+  const requiredRoomSize = Math.ceil(requiredCoreSales / (coreConversion / 100));
+  const requiredOutreach = Math.ceil(requiredRoomSize / (participationRate / 100));
+
   return (
     <div className="max-w-7xl mx-auto">
+      {/* Mode Toggle */}
+      <div className="mb-8 bg-white border border-black/10 p-6">
+        <div className="flex gap-4 mb-4">
+          <Button
+            onClick={() => setCalculatorMode("forward")}
+            variant={calculatorMode === "forward" ? "default" : "outline"}
+            className={calculatorMode === "forward" ? "bg-black text-white" : ""}
+          >
+            Forward Modeling
+          </Button>
+          <Button
+            onClick={() => setCalculatorMode("reverse")}
+            variant={calculatorMode === "reverse" ? "default" : "outline"}
+            className={calculatorMode === "reverse" ? "bg-black text-white" : ""}
+          >
+            Reverse Target Modeling
+          </Button>
+        </div>
+
+        {calculatorMode === "forward" && (
+          <div className="space-y-2">
+            <Label className="text-sm font-medium text-black/70">Scenario Preset</Label>
+            <div className="flex gap-2">
+              <Button
+                onClick={() => setScenarioMode("conservative")}
+                variant={scenarioMode === "conservative" ? "default" : "outline"}
+                size="sm"
+                className={scenarioMode === "conservative" ? "bg-black text-white" : ""}
+              >
+                Conservative
+              </Button>
+              <Button
+                onClick={() => setScenarioMode("hybrid")}
+                variant={scenarioMode === "hybrid" ? "default" : "outline"}
+                size="sm"
+                className={scenarioMode === "hybrid" ? "bg-black text-white" : ""}
+              >
+                Hybrid
+              </Button>
+              <Button
+                onClick={() => setScenarioMode("optimized")}
+                variant={scenarioMode === "optimized" ? "default" : "outline"}
+                size="sm"
+                className={scenarioMode === "optimized" ? "bg-black text-white" : ""}
+              >
+                Optimized
+              </Button>
+              <Button
+                onClick={() => setScenarioMode("custom")}
+                variant={scenarioMode === "custom" ? "default" : "outline"}
+                size="sm"
+                className={scenarioMode === "custom" ? "bg-black text-white" : ""}
+              >
+                Custom
+              </Button>
+            </div>
+          </div>
+        )}
+      </div>
+
       <div className="grid lg:grid-cols-5 gap-8">
         {/* LEFT PANEL - INPUTS (40%) */}
         <div className="lg:col-span-2 space-y-8">
+          {calculatorMode === "reverse" && (
+            <div className="bg-white border border-black/10 p-6">
+              <h3 className="text-lg font-medium mb-4 pb-3 border-b border-black/5">Revenue Target</h3>
+              <div>
+                <Label className="text-sm font-medium text-black/70 mb-2">Target Revenue ($)</Label>
+                <Input
+                  type="number"
+                  min="0"
+                  value={revenueTarget}
+                  onChange={(e) => setRevenueTarget(Number(e.target.value))}
+                  className="border-black/20"
+                />
+              </div>
+            </div>
+          )}
           {/* Section 1: Outreach */}
           <div className="bg-white border border-black/10 p-6">
             <h3 className="text-lg font-medium mb-4 pb-3 border-b border-black/5">Outreach</h3>
@@ -82,7 +196,7 @@ export default function ParticipationModelingCalculator() {
                         <Info className="w-3.5 h-3.5 text-black/40" />
                       </TooltipTrigger>
                       <TooltipContent className="max-w-xs">
-                        <p className="text-xs">% of outreach that enters the room (not response rate).</p>
+                        <p className="text-xs">% of outreach that enters the room (not response rate). Conservative: 8-10%, Optimized: 15-20%.</p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
@@ -92,17 +206,28 @@ export default function ParticipationModelingCalculator() {
                   min="5"
                   max="20"
                   value={participationRate}
-                  onChange={(e) => setParticipationRate(Number(e.target.value))}
+                  onChange={(e) => {
+                    setParticipationRate(Number(e.target.value));
+                    setScenarioMode("custom");
+                  }}
                   className="border-black/20"
+                  disabled={scenarioMode !== "custom" && calculatorMode === "forward"}
                 />
                 <input
                   type="range"
                   min="5"
                   max="20"
                   value={participationRate}
-                  onChange={(e) => setParticipationRate(Number(e.target.value))}
+                  onChange={(e) => {
+                    setParticipationRate(Number(e.target.value));
+                    setScenarioMode("custom");
+                  }}
                   className="w-full mt-2"
+                  disabled={scenarioMode !== "custom" && calculatorMode === "forward"}
                 />
+                <p className="text-xs text-black/40 mt-1">
+                  {participationRate <= 10 ? "Conservative" : participationRate <= 14 ? "Hybrid" : "Optimized"}
+                </p>
               </div>
             </div>
           </div>
@@ -266,9 +391,47 @@ export default function ParticipationModelingCalculator() {
         {/* RIGHT PANEL - OUTPUTS (60%) */}
         <div className="lg:col-span-3">
           <div className="bg-white border border-black/10 p-8 sticky top-6">
-            <h3 className="text-lg font-medium mb-8 pb-3 border-b border-black/5">Results</h3>
+            <h3 className="text-lg font-medium mb-8 pb-3 border-b border-black/5">
+              {calculatorMode === "forward" ? "Results" : "Reverse Target Results"}
+            </h3>
             
             <div className="space-y-8">
+              {calculatorMode === "reverse" && (
+                <>
+                  <div className="grid md:grid-cols-3 gap-6">
+                    <div>
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <p className="text-xs text-black/40 tracking-wide">REQUIRED CORE SALES</p>
+                      </div>
+                      <p className="text-4xl font-light" style={{ fontFamily: "'Playfair Display', serif" }}>
+                        {requiredCoreSales}
+                      </p>
+                      <p className="text-xs text-black/30 mt-1">At ${corePrice.toLocaleString()}</p>
+                    </div>
+
+                    <div>
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <p className="text-xs text-black/40 tracking-wide">REQUIRED ROOM SIZE</p>
+                      </div>
+                      <p className="text-4xl font-light" style={{ fontFamily: "'Playfair Display', serif" }}>
+                        {requiredRoomSize}
+                      </p>
+                      <p className="text-xs text-black/30 mt-1">{coreConversion}% conversion</p>
+                    </div>
+
+                    <div>
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <p className="text-xs text-black/40 tracking-wide">REQUIRED OUTREACH</p>
+                      </div>
+                      <p className="text-4xl font-light" style={{ fontFamily: "'Playfair Display', serif" }}>
+                        {requiredOutreach}
+                      </p>
+                      <p className="text-xs text-black/30 mt-1">{participationRate}% participation</p>
+                    </div>
+                  </div>
+                  <div className="border-t border-black/5"></div>
+                </>
+              )}
               {/* Participation Metrics */}
               <div className="grid md:grid-cols-3 gap-6">
                 <div>
@@ -433,11 +596,19 @@ export default function ParticipationModelingCalculator() {
 
           {/* Insight Box */}
           <div className="bg-neutral-100 border-l-2 border-black/20 p-6 mt-8">
-            <p className="text-sm text-black/70 font-light leading-relaxed">
-              With {outreachVolume} targeted outreach cycles and a {participationRate}% participation rate, 
-              your engine produces {TR} seats. At your current pricing, this yields ${revenue.toLocaleString()} in 
-              revenue and ${netProfit.toLocaleString()} in net margin before tax.
-            </p>
+            {calculatorMode === "forward" ? (
+              <p className="text-sm text-black/70 font-light leading-relaxed">
+                With {outreachVolume} targeted outreach cycles and a {participationRate}% participation rate, 
+                your engine produces {TR} seats. At your current pricing, this yields ${revenue.toLocaleString()} in 
+                revenue and ${netProfit.toLocaleString()} in net margin before tax.
+              </p>
+            ) : (
+              <p className="text-sm text-black/70 font-light leading-relaxed">
+                To hit your ${revenueTarget.toLocaleString()} revenue target, you need {requiredCoreSales} Core sales. 
+                At {coreConversion}% conversion, that requires {requiredRoomSize} participants in your room, 
+                which means you need {requiredOutreach} targeted outreach contacts at {participationRate}% participation.
+              </p>
+            )}
           </div>
         </div>
       </div>
