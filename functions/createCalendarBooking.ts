@@ -20,6 +20,7 @@ Deno.serve(async (req) => {
     const endDateTime = new Date(startDateTime);
     endDateTime.setMinutes(endDateTime.getMinutes() + 15);
 
+
     // Create calendar event with Google Meet
     const event = {
       summary: sessionType === 'legal-referral' 
