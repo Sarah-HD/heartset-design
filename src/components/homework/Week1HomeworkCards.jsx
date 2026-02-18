@@ -6,7 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { Info, Save, CheckCircle2, Download, Copy, Clock, Upload } from "lucide-react";
+import { Info, Save, CheckCircle2, Download, Copy, Clock, Upload, Mic } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const questions = {
@@ -286,6 +286,7 @@ export default function Week1HomeworkCards() {
   const [pomodoroTime, setPomodoroTime] = useState(25 * 60);
   const [completed, setCompleted] = useState(false);
   const [uploadedFile, setUploadedFile] = useState(null);
+  const [isListening, setIsListening] = useState({});
 
   React.useEffect(() => {
     const loadUser = async () => {
@@ -430,6 +431,44 @@ export default function Week1HomeworkCards() {
     }
   };
 
+  const startSpeechToText = (questionId) => {
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+      alert('Speech recognition not supported in this browser');
+      return;
+    }
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+
+    recognition.onstart = () => {
+      setIsListening(prev => ({ ...prev, [questionId]: true }));
+    };
+
+    recognition.onresult = (event) => {
+      let transcript = '';
+      for (let i = 0; i < event.results.length; i++) {
+        transcript += event.results[i][0].transcript;
+      }
+      setResponses(prev => ({ ...prev, [questionId]: transcript }));
+    };
+
+    recognition.onerror = () => {
+      setIsListening(prev => ({ ...prev, [questionId]: false }));
+    };
+
+    recognition.onend = () => {
+      setIsListening(prev => ({ ...prev, [questionId]: false }));
+    };
+
+    if (isListening[questionId]) {
+      recognition.stop();
+    } else {
+      recognition.start();
+    }
+  };
+
   const handleCopyProspectPrompt = () => {
     const promptText = `Based on my business profile, help me refine my LinkedIn prospect search criteria:
 
@@ -543,29 +582,40 @@ Output the refined criteria as a structured list I can use for LinkedIn Sales Na
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-lg">
             {question.id} {question.label}
-            {question.tooltip && (
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Info className="w-4 h-4 text-black/40 cursor-help" />
-                  </TooltipTrigger>
-                  <TooltipContent className="max-w-sm bg-black text-white p-4">
-                    <p className="text-sm font-light leading-relaxed">{question.tooltip}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            )}
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Info className="w-4 h-4 text-black/40 cursor-help" />
+                </TooltipTrigger>
+                <TooltipContent className="max-w-sm bg-black text-white p-4">
+                  <p className="text-sm font-light leading-relaxed">
+                    {question.tooltip || "Answer this question based on your current business operations and experience."}
+                  </p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
           <p className="text-sm text-black/60 font-light">{question.prompt}</p>
-          <Textarea
-            placeholder="Use speech-to-text (microphone icon on your keyboard) or type your answer here..."
-            value={responses[question.id] || ""}
-            onChange={(e) => setResponses(prev => ({ ...prev, [question.id]: e.target.value }))}
-            rows={6}
-            className="font-light"
-          />
+          <div className="relative">
+            <Textarea
+              placeholder="Type your answer or use speech-to-text..."
+              value={responses[question.id] || ""}
+              onChange={(e) => setResponses(prev => ({ ...prev, [question.id]: e.target.value }))}
+              rows={6}
+              className="font-light pr-12"
+            />
+            <Button
+              type="button"
+              size="sm"
+              variant="ghost"
+              onClick={() => startSpeechToText(question.id)}
+              className={`absolute right-2 top-2 ${isListening[question.id] ? 'text-red-600' : 'text-black/40'}`}
+            >
+              <Mic className="w-4 h-4" />
+            </Button>
+          </div>
           <div className="flex justify-end">
             <Button
               onClick={() => handleSave(question.id, tabKey)}
@@ -657,14 +707,14 @@ Output the refined criteria as a structured list I can use for LinkedIn Sales Na
         </div>
 
         <Tabs defaultValue="tab1" className="w-full">
-          <TabsList className="grid w-full grid-cols-7 mb-8">
-            <TabsTrigger value="tab1">Time & Capacity</TabsTrigger>
-            <TabsTrigger value="tab2">Market Identity</TabsTrigger>
-            <TabsTrigger value="tab3">Method</TabsTrigger>
-            <TabsTrigger value="tab4">Assets</TabsTrigger>
-            <TabsTrigger value="tab5">Delivery</TabsTrigger>
-            <TabsTrigger value="tab6">Market & Tech</TabsTrigger>
-            <TabsTrigger value="tab7">Execution</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-7 gap-1 mb-8">
+            <TabsTrigger value="tab1" className="text-xs px-2">Time & Capacity</TabsTrigger>
+            <TabsTrigger value="tab2" className="text-xs px-2">Market Identity</TabsTrigger>
+            <TabsTrigger value="tab3" className="text-xs px-2">Method</TabsTrigger>
+            <TabsTrigger value="tab4" className="text-xs px-2">Assets</TabsTrigger>
+            <TabsTrigger value="tab5" className="text-xs px-2">Delivery</TabsTrigger>
+            <TabsTrigger value="tab6" className="text-xs px-2">Market & Tech</TabsTrigger>
+            <TabsTrigger value="tab7" className="text-xs px-2">Execution</TabsTrigger>
           </TabsList>
 
           {Object.entries(questions).map(([key, tab]) => (
