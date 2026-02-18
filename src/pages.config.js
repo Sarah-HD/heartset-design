@@ -55,6 +55,7 @@ import AdminTierManagement from './pages/AdminTierManagement';
 import Apply from './pages/Apply';
 import Apply10000 from './pages/Apply10000';
 import Assignments from './pages/Assignments';
+import AuthorityEngine from './pages/AuthorityEngine';
 import BookSession from './pages/BookSession';
 import Contact from './pages/Contact';
 import FocusGroup from './pages/FocusGroup';
@@ -71,7 +72,6 @@ import Survey from './pages/Survey';
 import VideoAdmin from './pages/VideoAdmin';
 import VideoLibrary from './pages/VideoLibrary';
 import Week1Video from './pages/Week1Video';
-import AuthorityEngine from './pages/AuthorityEngine';
 import __Layout from './Layout.jsx';
 
 
@@ -84,6 +84,7 @@ export const PAGES = {
     "Apply": Apply,
     "Apply10000": Apply10000,
     "Assignments": Assignments,
+    "AuthorityEngine": AuthorityEngine,
     "BookSession": BookSession,
     "Contact": Contact,
     "FocusGroup": FocusGroup,
@@ -100,7 +101,6 @@ export const PAGES = {
     "VideoAdmin": VideoAdmin,
     "VideoLibrary": VideoLibrary,
     "Week1Video": Week1Video,
-    "AuthorityEngine": AuthorityEngine,
 }
 
 export const pagesConfig = {

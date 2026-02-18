@@ -5,12 +5,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Info, Save, CheckCircle2, Download, Mic, Copy, Sparkles } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Info, Save, CheckCircle2, Download, Copy, Clock, Upload } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const questions = {
   tab1: {
-    title: "Capacity & Time Reality Audit",
+    title: "Time & Capacity Audit",
     questions: [
       {
         id: "1.1",
@@ -33,7 +34,7 @@ const questions = {
     ]
   },
   tab2: {
-    title: "Operator Identity & Positioning",
+    title: "Market Identity",
     questions: [
       {
         id: "2.1",
@@ -62,7 +63,7 @@ const questions = {
     ]
   },
   tab3: {
-    title: "Method Extraction",
+    title: "Method Structure",
     questions: [
       {
         id: "3.1",
@@ -97,7 +98,7 @@ const questions = {
     ]
   },
   tab4: {
-    title: "Asset Inventory & Evidence",
+    title: "Asset & Proof Inventory",
     questions: [
       {
         id: "4.1",
@@ -138,7 +139,7 @@ const questions = {
     ]
   },
   tab5: {
-    title: "Operational Reality & Offers",
+    title: "Delivery & Offer Stack",
     questions: [
       {
         id: "5.1",
@@ -191,7 +192,7 @@ const questions = {
     ]
   },
   tab6: {
-    title: "Market Validation & Technical Baseline",
+    title: "Market & Tech Baseline",
     questions: [
       {
         id: "6.1",
@@ -232,7 +233,7 @@ const questions = {
     ]
   },
   tab7: {
-    title: "Revenue Target & Contact Definition",
+    title: "Execution Intent",
     questions: [
       {
         id: "7.1",
@@ -281,6 +282,10 @@ export default function Week1HomeworkCards() {
     certification: false,
     revenue: false
   });
+  const [pomodoroActive, setPomodoroActive] = useState(false);
+  const [pomodoroTime, setPomodoroTime] = useState(25 * 60);
+  const [completed, setCompleted] = useState(false);
+  const [uploadedFile, setUploadedFile] = useState(null);
 
   React.useEffect(() => {
     const loadUser = async () => {
@@ -293,6 +298,19 @@ export default function Week1HomeworkCards() {
     };
     loadUser();
   }, []);
+
+  React.useEffect(() => {
+    let interval;
+    if (pomodoroActive && pomodoroTime > 0) {
+      interval = setInterval(() => {
+        setPomodoroTime(prev => prev - 1);
+      }, 1000);
+    } else if (pomodoroTime === 0) {
+      setPomodoroActive(false);
+      setPomodoroTime(25 * 60);
+    }
+    return () => clearInterval(interval);
+  }, [pomodoroActive, pomodoroTime]);
 
   const handleSave = async (questionId, tabKey) => {
     if (!user || !responses[questionId]) return;
@@ -369,6 +387,47 @@ export default function Week1HomeworkCards() {
     a.download = 'Week1-Filled-Template.md';
     a.click();
     URL.revokeObjectURL(url);
+  };
+
+  const handleGenerateBlueprintDraft = () => {
+    let markdown = "# Operational Blueprint Draft\n\n";
+    markdown += "**Generated:** " + new Date().toLocaleDateString() + "\n\n";
+    markdown += "---\n\n";
+    
+    Object.entries(questions).forEach(([key, tab]) => {
+      markdown += `## ${tab.title}\n\n`;
+      tab.questions.forEach(q => {
+        markdown += `### ${q.label}\n`;
+        markdown += `${responses[q.id] || '[Not answered]'}\n\n`;
+      });
+      markdown += "---\n\n";
+    });
+
+    const blob = new Blob([markdown], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Blueprint-Draft.md';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      try {
+        const { file_url } = await base44.integrations.Core.UploadFile({ file });
+        setUploadedFile(file_url);
+      } catch (error) {
+        console.error("Upload failed:", error);
+      }
+    }
   };
 
   const handleCopyProspectPrompt = () => {
@@ -536,17 +595,45 @@ Output the refined criteria as a structured list I can use for LinkedIn Sales Na
     <div className="w-full bg-neutral-50 border-t border-black/10 py-12">
       <div className="max-w-4xl mx-auto px-6">
         <div className="mb-8">
-          <h2 className="text-3xl mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>
-            Week 1 Homework: Operational Manual Template
-          </h2>
+          <div className="flex items-start justify-between mb-4">
+            <h2 className="text-3xl" style={{ fontFamily: "'Playfair Display', serif" }}>
+              Operational Skeleton Builder
+            </h2>
+            <Button
+              onClick={() => {
+                if (pomodoroActive) {
+                  setPomodoroActive(false);
+                } else {
+                  setPomodoroTime(25 * 60);
+                  setPomodoroActive(true);
+                }
+              }}
+              variant="outline"
+              size="sm"
+              className="border-black/20"
+            >
+              <Clock className="w-4 h-4 mr-2" />
+              {pomodoroActive ? formatTime(pomodoroTime) : "Start 25-Min Focus Block"}
+            </Button>
+          </div>
           <div className="bg-white border border-black/10 p-6 mb-6">
-            <p className="text-sm text-black/60 font-light leading-relaxed mb-4">
-              <strong>Pro Tip:</strong> Don't type—just talk. Open your Notes app, hit the microphone, and answer these cards. Then, copy and paste that "raw" brain-dump into your Manual.
+            <h3 className="text-base font-medium mb-3">Execution Protocol</h3>
+            <p className="text-sm text-black/60 font-light leading-relaxed mb-2">
+              Do not overthink.
             </p>
-            <p className="text-sm text-black/60 font-light leading-relaxed mb-4">
-              This is <strong>Extraction</strong>, not creative writing. Speed over perfection.
+            <p className="text-sm text-black/60 font-light leading-relaxed mb-2">
+              Use speech-to-text.
             </p>
-            <div className="flex flex-wrap gap-2">
+            <p className="text-sm text-black/60 font-light leading-relaxed mb-2">
+              Answer fast.
+            </p>
+            <p className="text-sm text-black/60 font-light leading-relaxed mb-2">
+              This is extraction - not performance.
+            </p>
+            <p className="text-sm text-black/70 font-medium leading-relaxed mt-4">
+              We do not store or review your responses.
+            </p>
+            <div className="flex flex-wrap gap-2 mt-4">
               <Button
                 onClick={handleExportBlank}
                 variant="outline"
@@ -557,13 +644,13 @@ Output the refined criteria as a structured list I can use for LinkedIn Sales Na
                 Download Blank Questions
               </Button>
               <Button
-                onClick={handleExportFilled}
-                variant="outline"
+                onClick={handleGenerateBlueprintDraft}
+                variant="default"
                 size="sm"
-                className="border-black/20"
+                className="bg-black text-white hover:bg-black/90"
               >
                 <Download className="w-4 h-4 mr-2" />
-                Export My Answers
+                Generate My Blueprint Draft
               </Button>
             </div>
           </div>
@@ -571,13 +658,13 @@ Output the refined criteria as a structured list I can use for LinkedIn Sales Na
 
         <Tabs defaultValue="tab1" className="w-full">
           <TabsList className="grid w-full grid-cols-7 mb-8">
-            <TabsTrigger value="tab1">1. Time</TabsTrigger>
-            <TabsTrigger value="tab2">2. Identity</TabsTrigger>
-            <TabsTrigger value="tab3">3. Method</TabsTrigger>
-            <TabsTrigger value="tab4">4. Assets</TabsTrigger>
-            <TabsTrigger value="tab5">5. Offers</TabsTrigger>
-            <TabsTrigger value="tab6">6. Market</TabsTrigger>
-            <TabsTrigger value="tab7">7. Revenue</TabsTrigger>
+            <TabsTrigger value="tab1">Time & Capacity</TabsTrigger>
+            <TabsTrigger value="tab2">Market Identity</TabsTrigger>
+            <TabsTrigger value="tab3">Method</TabsTrigger>
+            <TabsTrigger value="tab4">Assets</TabsTrigger>
+            <TabsTrigger value="tab5">Delivery</TabsTrigger>
+            <TabsTrigger value="tab6">Market & Tech</TabsTrigger>
+            <TabsTrigger value="tab7">Execution</TabsTrigger>
           </TabsList>
 
           {Object.entries(questions).map(([key, tab]) => (
@@ -591,6 +678,42 @@ Output the refined criteria as a structured list I can use for LinkedIn Sales Na
             </TabsContent>
           ))}
         </Tabs>
+
+        <div className="bg-white border border-black/10 p-6 mt-8">
+          <h3 className="text-lg font-medium mb-4">Week 1 Completion</h3>
+          <div className="space-y-4">
+            <div className="flex items-start gap-3">
+              <Checkbox
+                checked={completed}
+                onCheckedChange={setCompleted}
+                className="mt-1"
+              />
+              <label className="text-sm text-black/70 font-light">
+                I completed all 7 sections
+              </label>
+            </div>
+            <div>
+              <label className="text-sm text-black/70 font-medium mb-2 block">
+                Upload 1-page summary OR screenshot of your drafted document
+              </label>
+              <Input
+                type="file"
+                accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+                onChange={handleFileUpload}
+                className="border-black/20"
+              />
+              {uploadedFile && (
+                <p className="text-xs text-green-600 mt-2">File uploaded successfully</p>
+              )}
+            </div>
+            <Button
+              disabled={!completed || !uploadedFile}
+              className="bg-black text-white hover:bg-black/90"
+            >
+              Submit Week 1
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   );

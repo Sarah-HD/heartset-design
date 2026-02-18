@@ -27,10 +27,10 @@ export default function Week1Video() {
             className="text-4xl md:text-5xl mb-4"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
-            Week 1: Operational Manual Overview
+            Week 1: Blueprint Lock
           </h1>
           <p className="text-lg text-black/60 font-light leading-relaxed">
-            Watch this overview to understand how to complete your Operational Manual using the speech-to-text method.
+            Define structure before movement.
           </p>
         </div>
 
@@ -41,13 +41,13 @@ export default function Week1Video() {
 
         <div className="bg-neutral-50 border border-black/10 p-6 mb-8">
           <h3 className="text-lg font-medium mb-3" style={{ fontFamily: "'Playfair Display', serif" }}>
-            What You'll Learn
+            This Week You Will:
           </h3>
           <ul className="space-y-2 text-sm text-black/60 font-light">
-            <li>• How to use speech-to-text for rapid extraction</li>
-            <li>• The 7-tab structure of your Operational Manual</li>
-            <li>• How to access your Google Doc template</li>
-            <li>• Why "messy first drafts" are exactly what we need</li>
+            <li>• Extract your operational reality</li>
+            <li>• Identify margin leaks</li>
+            <li>• Define authority positioning</li>
+            <li>• Map structural constraints</li>
           </ul>
         </div>
       </div>
