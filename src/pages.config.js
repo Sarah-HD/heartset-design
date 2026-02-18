@@ -71,6 +71,7 @@ import Survey from './pages/Survey';
 import VideoAdmin from './pages/VideoAdmin';
 import VideoLibrary from './pages/VideoLibrary';
 import Week1Video from './pages/Week1Video';
+import ParticipationModeling from './pages/ParticipationModeling';
 import __Layout from './Layout.jsx';
 
 
@@ -99,6 +100,7 @@ export const PAGES = {
     "VideoAdmin": VideoAdmin,
     "VideoLibrary": VideoLibrary,
     "Week1Video": Week1Video,
+    "ParticipationModeling": ParticipationModeling,
 }
 
 export const pagesConfig = {
