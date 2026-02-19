@@ -760,15 +760,17 @@ Output the refined criteria as a structured list I can use for LinkedIn Sales Na
         </div>
 
         <Tabs defaultValue="tab1" className="w-full">
-          <TabsList className="grid w-full grid-cols-7 gap-2 mb-8 bg-transparent">
-            <TabsTrigger value="tab1" className="text-xs px-3 py-2 data-[state=active]:bg-black data-[state=active]:text-white">Time & Capacity Audit</TabsTrigger>
-            <TabsTrigger value="tab2" className="text-xs px-3 py-2 data-[state=active]:bg-black data-[state=active]:text-white">Market Identity</TabsTrigger>
-            <TabsTrigger value="tab3" className="text-xs px-3 py-2 data-[state=active]:bg-black data-[state=active]:text-white">Method Structure</TabsTrigger>
-            <TabsTrigger value="tab4" className="text-xs px-3 py-2 data-[state=active]:bg-black data-[state=active]:text-white">Asset & Proof Inventory</TabsTrigger>
-            <TabsTrigger value="tab5" className="text-xs px-3 py-2 data-[state=active]:bg-black data-[state=active]:text-white">Delivery & Offer Stack</TabsTrigger>
-            <TabsTrigger value="tab6" className="text-xs px-3 py-2 data-[state=active]:bg-black data-[state=active]:text-white">Market & Tech Baseline</TabsTrigger>
-            <TabsTrigger value="tab7" className="text-xs px-3 py-2 data-[state=active]:bg-black data-[state=active]:text-white">Execution Intent</TabsTrigger>
-          </TabsList>
+          <div className="flex gap-2 mb-8 overflow-x-auto pb-2">
+            <TabsList className="inline-flex gap-2 bg-transparent h-auto p-0">
+              <TabsTrigger value="tab1" className="text-xs px-4 py-2.5 rounded-md border border-black/10 data-[state=active]:bg-black data-[state=active]:text-white data-[state=active]:border-black whitespace-nowrap">Time & Capacity Audit</TabsTrigger>
+              <TabsTrigger value="tab2" className="text-xs px-4 py-2.5 rounded-md border border-black/10 data-[state=active]:bg-black data-[state=active]:text-white data-[state=active]:border-black whitespace-nowrap">Market Identity</TabsTrigger>
+              <TabsTrigger value="tab3" className="text-xs px-4 py-2.5 rounded-md border border-black/10 data-[state=active]:bg-black data-[state=active]:text-white data-[state=active]:border-black whitespace-nowrap">Method Structure</TabsTrigger>
+              <TabsTrigger value="tab4" className="text-xs px-4 py-2.5 rounded-md border border-black/10 data-[state=active]:bg-black data-[state=active]:text-white data-[state=active]:border-black whitespace-nowrap">Asset & Proof Inventory</TabsTrigger>
+              <TabsTrigger value="tab5" className="text-xs px-4 py-2.5 rounded-md border border-black/10 data-[state=active]:bg-black data-[state=active]:text-white data-[state=active]:border-black whitespace-nowrap">Delivery & Offer Stack</TabsTrigger>
+              <TabsTrigger value="tab6" className="text-xs px-4 py-2.5 rounded-md border border-black/10 data-[state=active]:bg-black data-[state=active]:text-white data-[state=active]:border-black whitespace-nowrap">Market & Tech Baseline</TabsTrigger>
+              <TabsTrigger value="tab7" className="text-xs px-4 py-2.5 rounded-md border border-black/10 data-[state=active]:bg-black data-[state=active]:text-white data-[state=active]:border-black whitespace-nowrap">Execution Intent</TabsTrigger>
+            </TabsList>
+          </div>
 
           {Object.entries(questions).map(([key, tab]) => (
             <TabsContent key={key} value={key}>
