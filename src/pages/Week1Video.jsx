@@ -1,24 +1,34 @@
 import React from "react";
-import { ArrowLeft } from "lucide-react";
-import { Link } from "react-router-dom";
-import { createPageUrl } from "@/utils";
+import { base44 } from "@/api/base44Client";
+import ProgramSidebar from "@/components/ProgramSidebar";
 import Week1HomeworkCards from "@/components/homework/Week1HomeworkCards";
 
 export default function Week1Video() {
+  const [user, setUser] = React.useState(null);
+
+  React.useEffect(() => {
+    const loadUser = async () => {
+      try {
+        const currentUser = await base44.auth.me();
+        setUser(currentUser);
+      } catch (error) {
+        console.error("Failed to load user:", error);
+      }
+    };
+    loadUser();
+  }, []);
+
+  const showSidebar = user?.cohort_type === 'sprint' || user?.cohort_type === 'advisory';
+
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
-      <div className="border-b border-black/10">
-        <div className="max-w-6xl mx-auto px-6 md:px-16 py-6">
-          <Link
-            to={createPageUrl("VideoLibrary")}
-            className="inline-flex items-center gap-2 text-sm text-black/60 hover:text-black transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Video Library
-          </Link>
+      {showSidebar && <ProgramSidebar />}
+      
+      <div className={showSidebar ? "ml-64" : ""}>
+        {/* Header */}
+        <div className="border-b border-black/10">
+          <div className="max-w-6xl mx-auto px-6 md:px-16 py-6"></div>
         </div>
-      </div>
 
       {/* Video Section */}
       <div className="max-w-6xl mx-auto px-6 md:px-16 py-12">
@@ -55,12 +65,13 @@ export default function Week1Video() {
       {/* Homework Cards Section */}
       <Week1HomeworkCards />
 
-      {/* Footer */}
-      <div className="bg-black text-white">
-        <div className="max-w-4xl mx-auto px-6 md:px-16 py-12 text-center">
-          <p className="text-sm font-light text-white/60">
-            © {new Date().getFullYear()} Heartset Design
-          </p>
+        {/* Footer */}
+        <div className="bg-black text-white">
+          <div className="max-w-4xl mx-auto px-6 md:px-16 py-12 text-center">
+            <p className="text-sm font-light text-white/60">
+              © {new Date().getFullYear()} Heartset Design
+            </p>
+          </div>
         </div>
       </div>
     </div>

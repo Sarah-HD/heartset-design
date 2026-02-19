@@ -760,14 +760,14 @@ Output the refined criteria as a structured list I can use for LinkedIn Sales Na
         </div>
 
         <Tabs defaultValue="tab1" className="w-full">
-          <TabsList className="grid w-full grid-cols-7 gap-1 mb-8">
-            <TabsTrigger value="tab1" className="text-xs px-2">Time & Capacity</TabsTrigger>
-            <TabsTrigger value="tab2" className="text-xs px-2">Market Identity</TabsTrigger>
-            <TabsTrigger value="tab3" className="text-xs px-2">Method</TabsTrigger>
-            <TabsTrigger value="tab4" className="text-xs px-2">Assets</TabsTrigger>
-            <TabsTrigger value="tab5" className="text-xs px-2">Delivery</TabsTrigger>
-            <TabsTrigger value="tab6" className="text-xs px-2">Market & Tech</TabsTrigger>
-            <TabsTrigger value="tab7" className="text-xs px-2">Execution</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-7 gap-2 mb-8 bg-transparent">
+            <TabsTrigger value="tab1" className="text-xs px-3 py-2 data-[state=active]:bg-black data-[state=active]:text-white">Time & Capacity Audit</TabsTrigger>
+            <TabsTrigger value="tab2" className="text-xs px-3 py-2 data-[state=active]:bg-black data-[state=active]:text-white">Market Identity</TabsTrigger>
+            <TabsTrigger value="tab3" className="text-xs px-3 py-2 data-[state=active]:bg-black data-[state=active]:text-white">Method Structure</TabsTrigger>
+            <TabsTrigger value="tab4" className="text-xs px-3 py-2 data-[state=active]:bg-black data-[state=active]:text-white">Asset & Proof Inventory</TabsTrigger>
+            <TabsTrigger value="tab5" className="text-xs px-3 py-2 data-[state=active]:bg-black data-[state=active]:text-white">Delivery & Offer Stack</TabsTrigger>
+            <TabsTrigger value="tab6" className="text-xs px-3 py-2 data-[state=active]:bg-black data-[state=active]:text-white">Market & Tech Baseline</TabsTrigger>
+            <TabsTrigger value="tab7" className="text-xs px-3 py-2 data-[state=active]:bg-black data-[state=active]:text-white">Execution Intent</TabsTrigger>
           </TabsList>
 
           {Object.entries(questions).map(([key, tab]) => (
