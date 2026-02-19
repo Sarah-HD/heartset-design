@@ -284,9 +284,18 @@ export default function Week1HomeworkCards() {
   });
   const [pomodoroActive, setPomodoroActive] = useState(false);
   const [pomodoroTime, setPomodoroTime] = useState(25 * 60);
-  const [completed, setCompleted] = useState(false);
+  const [sectionCompletion, setSectionCompletion] = useState({
+    tab1: false,
+    tab2: false,
+    tab3: false,
+    tab4: false,
+    tab5: false,
+    tab6: false,
+    tab7: false
+  });
   const [uploadedFile, setUploadedFile] = useState(null);
   const [isListening, setIsListening] = useState({});
+  const [isExtractingPlan, setIsExtractingPlan] = useState(false);
 
   React.useEffect(() => {
     const loadUser = async () => {
@@ -427,6 +436,32 @@ export default function Week1HomeworkCards() {
         setUploadedFile(file_url);
       } catch (error) {
         console.error("Upload failed:", error);
+      }
+    }
+  };
+
+  const handleBusinessPlanUpload = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setIsExtractingPlan(true);
+      try {
+        const { file_url } = await base44.integrations.Core.UploadFile({ file });
+        const result = await base44.functions.invoke('extractBusinessPlanAnswers', { file_url });
+        
+        if (result.data.success) {
+          setResponses(prev => ({
+            ...prev,
+            ...result.data.answers
+          }));
+          alert('Business plan extracted successfully! Review and refine the pre-populated answers.');
+        } else {
+          alert('Failed to extract data from business plan. Please try again or fill manually.');
+        }
+      } catch (error) {
+        console.error("Business plan extraction failed:", error);
+        alert('Failed to process business plan. Please fill manually.');
+      } finally {
+        setIsExtractingPlan(false);
       }
     }
   };
@@ -666,6 +701,24 @@ Output the refined criteria as a structured list I can use for LinkedIn Sales Na
               {pomodoroActive ? formatTime(pomodoroTime) : "Start 25-Min Focus Block"}
             </Button>
           </div>
+
+          <div className="bg-blue-50 border border-blue-200 p-6 mb-6">
+            <h3 className="text-base font-medium mb-3 text-blue-900">Auto-Fill From Business Plan (Optional)</h3>
+            <p className="text-sm text-blue-800 font-light leading-relaxed mb-3">
+              Upload your business plan, pitch deck, or operational document. AI will extract relevant information and pre-populate answers for you to review and refine.
+            </p>
+            <Input
+              type="file"
+              accept=".pdf,.doc,.docx"
+              onChange={handleBusinessPlanUpload}
+              disabled={isExtractingPlan}
+              className="border-blue-300 bg-white"
+            />
+            {isExtractingPlan && (
+              <p className="text-xs text-blue-700 mt-2">Extracting data from your document...</p>
+            )}
+          </div>
+
           <div className="bg-white border border-black/10 p-6 mb-6">
             <h3 className="text-base font-medium mb-3">Execution Protocol</h3>
             <p className="text-sm text-black/60 font-light leading-relaxed mb-2">
@@ -725,26 +778,45 @@ Output the refined criteria as a structured list I can use for LinkedIn Sales Na
                 </h3>
               </div>
               {tab.questions.map(q => renderQuestion(q, key))}
+              
+              <div className="bg-white border border-black/10 p-6 mt-6">
+                <div className="flex items-center gap-3">
+                  <Checkbox
+                    checked={sectionCompletion[key]}
+                    onCheckedChange={(checked) => setSectionCompletion(prev => ({ ...prev, [key]: checked }))}
+                  />
+                  <label className="text-sm text-black/70 font-medium">
+                    Mark {tab.title} as complete
+                  </label>
+                </div>
+              </div>
             </TabsContent>
           ))}
         </Tabs>
 
         <div className="bg-white border border-black/10 p-6 mt-8">
-          <h3 className="text-lg font-medium mb-4">Week 1 Completion</h3>
+          <h3 className="text-lg font-medium mb-4">Week 1 Final Submission</h3>
           <div className="space-y-4">
-            <div className="flex items-start gap-3">
-              <Checkbox
-                checked={completed}
-                onCheckedChange={setCompleted}
-                className="mt-1"
-              />
-              <label className="text-sm text-black/70 font-light">
-                I completed all 7 sections
-              </label>
+            <div className="bg-neutral-50 border border-black/10 p-4 mb-4">
+              <p className="text-sm text-black/60 font-medium mb-2">Section Completion Status:</p>
+              <div className="grid grid-cols-2 gap-2 text-xs">
+                {Object.entries(questions).map(([key, tab]) => (
+                  <div key={key} className="flex items-center gap-2">
+                    {sectionCompletion[key] ? (
+                      <CheckCircle2 className="w-4 h-4 text-green-600" />
+                    ) : (
+                      <div className="w-4 h-4 border border-black/20 rounded" />
+                    )}
+                    <span className={sectionCompletion[key] ? 'text-black' : 'text-black/40'}>
+                      {tab.title}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
             <div>
               <label className="text-sm text-black/70 font-medium mb-2 block">
-                Upload 1-page summary OR screenshot of your drafted document
+                Upload 1-page summary OR screenshot of your drafted document (Optional)
               </label>
               <Input
                 type="file"
@@ -757,11 +829,14 @@ Output the refined criteria as a structured list I can use for LinkedIn Sales Na
               )}
             </div>
             <Button
-              disabled={!completed || !uploadedFile}
+              disabled={!Object.values(sectionCompletion).every(v => v)}
               className="bg-black text-white hover:bg-black/90"
             >
               Submit Week 1
             </Button>
+            {!Object.values(sectionCompletion).every(v => v) && (
+              <p className="text-xs text-black/40">Complete all 7 sections to submit</p>
+            )}
           </div>
         </div>
       </div>
