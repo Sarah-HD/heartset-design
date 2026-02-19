@@ -22,17 +22,16 @@ export default function Layout({ children }) {
     loadUser();
   }, []);
 
-  const isFocusGroup = user?.cohort_type === 'focus_group' || !user?.cohort_type;
-  const showFullProgram = user?.cohort_type === 'sprint' || user?.cohort_type === 'advisory' || (isAdminUser && adminViewMode === 'user');
-  
   const [adminViewMode, setAdminViewMode] = React.useState('admin'); // 'admin' or 'user'
-  
+
+  const isAdminUser = user?.role === 'admin';
+  const showingUserView = isAdminUser && adminViewMode === 'user';
+  const isFocusGroup = user?.cohort_type === 'focus_group' || !user?.cohort_type;
+  const showFullProgram = user?.cohort_type === 'sprint' || user?.cohort_type === 'advisory' || showingUserView;
+
   // Transparent nav with white text for unauthenticated Home page
   const isHomePage = location.pathname === '/' || location.pathname === '/Home';
   const isTransparent = isHomePage && !user;
-  
-  const isAdminUser = user?.role === 'admin';
-  const showingUserView = isAdminUser && adminViewMode === 'user';
   return (
     <>
       <style>{`
