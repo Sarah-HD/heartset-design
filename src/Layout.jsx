@@ -23,7 +23,7 @@ export default function Layout({ children }) {
   }, []);
 
   const isFocusGroup = user?.cohort_type === 'focus_group' || !user?.cohort_type;
-  const showFullProgram = user?.cohort_type === 'sprint' || user?.cohort_type === 'advisory';
+  const showFullProgram = user?.cohort_type === 'sprint' || user?.cohort_type === 'advisory' || (isAdminUser && adminViewMode === 'user');
   
   const [adminViewMode, setAdminViewMode] = React.useState('admin'); // 'admin' or 'user'
   
