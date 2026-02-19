@@ -646,7 +646,7 @@ Output the refined criteria as a structured list I can use for LinkedIn Sales Na
               size="sm"
               variant="ghost"
               onClick={() => startSpeechToText(question.id)}
-              className={`absolute right-2 top-2 ${isListening[question.id] ? 'text-red-600' : 'text-black/40'}`}
+              className={`absolute right-2 top-2 ${isListening[question.id] ? 'bg-black text-white' : 'text-black/40 hover:text-black'}`}
             >
               <Mic className="w-4 h-4" />
             </Button>
@@ -702,9 +702,9 @@ Output the refined criteria as a structured list I can use for LinkedIn Sales Na
             </Button>
           </div>
 
-          <div className="bg-blue-50 border border-blue-200 p-6 mb-6">
-            <h3 className="text-base font-medium mb-3 text-blue-900">Auto-Fill From Business Plan (Optional)</h3>
-            <p className="text-sm text-blue-800 font-light leading-relaxed mb-3">
+          <div className="bg-neutral-50 border border-black/10 p-6 mb-6">
+            <h3 className="text-base font-medium mb-3">Auto-Fill From Business Plan (Optional)</h3>
+            <p className="text-sm text-black/60 font-light leading-relaxed mb-3">
               Upload your business plan, pitch deck, or operational document. AI will extract relevant information and pre-populate answers for you to review and refine.
             </p>
             <Input
@@ -712,10 +712,10 @@ Output the refined criteria as a structured list I can use for LinkedIn Sales Na
               accept=".pdf,.doc,.docx"
               onChange={handleBusinessPlanUpload}
               disabled={isExtractingPlan}
-              className="border-blue-300 bg-white"
+              className="border-black/20 bg-white"
             />
             {isExtractingPlan && (
-              <p className="text-xs text-blue-700 mt-2">Extracting data from your document...</p>
+              <p className="text-xs text-black/60 mt-2">Extracting data from your document...</p>
             )}
           </div>
 
