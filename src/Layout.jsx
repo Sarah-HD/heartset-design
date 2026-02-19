@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import { Menu, X } from "lucide-react";
+import ProgramSidebar from "@/components/ProgramSidebar";
 
 export default function Layout({ children }) {
   const [user, setUser] = React.useState(null);
@@ -284,8 +285,15 @@ export default function Layout({ children }) {
         )}
       </nav>
       
+      {/* Program Sidebar for authenticated users */}
+      {showFullProgram && (
+        <div className="hidden md:block">
+          <ProgramSidebar />
+        </div>
+      )}
+
       {/* Content with top padding to account for fixed nav (except transparent home) */}
-      <div className={isTransparent ? '' : 'pt-[73px]'}>
+      <div className={`pt-[73px] ${showFullProgram ? 'md:ml-64' : ''}`}>
         {children}
       </div>
     </>

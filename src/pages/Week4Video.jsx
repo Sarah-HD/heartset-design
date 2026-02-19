@@ -1,29 +1,9 @@
 import React from "react";
-import { base44 } from "@/api/base44Client";
-import ProgramSidebar from "@/components/ProgramSidebar";
 
 export default function Week4Video() {
-  const [user, setUser] = React.useState(null);
-
-  React.useEffect(() => {
-    const loadUser = async () => {
-      try {
-        const currentUser = await base44.auth.me();
-        setUser(currentUser);
-      } catch (error) {
-        console.error("Failed to load user:", error);
-      }
-    };
-    loadUser();
-  }, []);
-
-  const showSidebar = user?.cohort_type === 'sprint' || user?.cohort_type === 'advisory';
-
   return (
     <div className="min-h-screen bg-white">
-      {showSidebar && <ProgramSidebar />}
-      
-      <div className={showSidebar ? "ml-64" : ""}>
+      <div>
         <div className="border-b border-black/10">
           <div className="max-w-6xl mx-auto px-6 md:px-16 py-6"></div>
         </div>
