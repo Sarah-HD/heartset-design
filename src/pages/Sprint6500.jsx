@@ -19,24 +19,24 @@ export default function Sprint6500() {
       {/* SECTION 1: HERO */}
       <div className="border-b border-black/20">
         <div className="max-w-5xl mx-auto px-6 md:px-16 lg:px-24 py-20 md:py-32">
-          <h1 
+          <h1
             className="text-4xl md:text-5xl lg:text-6xl leading-tight mb-8"
-            style={{ fontFamily: "'Playfair Display', serif" }}
-          >
+            style={{ fontFamily: "'Playfair Display', serif" }}>
+
             Authority Infrastructure™
             <br />
             Implementation Sprint
           </h1>
-          <p className="text-xl md:text-2xl text-black/70 font-light leading-relaxed max-w-3xl mb-16">
-            A 28-day execution cycle that formalizes your expertise into institutional infrastructure—without increasing personal labor.
+          <p className="text-xl md:text-2xl text-black/70 font-light leading-relaxed max-w-3xl mb-16">A 28-day execution cycle that formalizes your expertise into institutional infrastructure without increasing personal labor.
+
           </p>
 
           {/* The Stature Gap */}
           <div className="mb-16">
-            <h2 
+            <h2
               className="text-3xl md:text-4xl mb-8"
-              style={{ fontFamily: "'Playfair Display', serif" }}
-            >
+              style={{ fontFamily: "'Playfair Display', serif" }}>
+
               The Stature Gap
             </h2>
             <p className="text-lg text-black/60 font-light leading-relaxed mb-8">
@@ -69,8 +69,8 @@ export default function Sprint6500() {
 
           <button
             onClick={scrollToPathways}
-            className="bg-black text-white px-8 py-4 text-sm tracking-wide hover:bg-black/90 transition-colors duration-300 inline-flex items-center gap-3"
-          >
+            className="bg-black text-white px-8 py-4 text-sm tracking-wide hover:bg-black/90 transition-colors duration-300 inline-flex items-center gap-3">
+
             <span>Explore Entry Options</span>
             <ArrowRight className="w-4 h-4" />
           </button>
@@ -80,10 +80,10 @@ export default function Sprint6500() {
       {/* SECTION 2: Operational Containment */}
       <div className="border-b border-black/20 bg-neutral-50">
         <div className="max-w-5xl mx-auto px-6 md:px-16 lg:px-24 py-20 md:py-28">
-          <h2 
+          <h2
             className="text-3xl md:text-4xl mb-12"
-            style={{ fontFamily: "'Playfair Display', serif" }}
-          >
+            style={{ fontFamily: "'Playfair Display', serif" }}>
+
             The Commitment Structure
           </h2>
           <p className="text-lg text-black/60 font-light leading-relaxed mb-12">
@@ -114,10 +114,10 @@ export default function Sprint6500() {
       <div className="border-b border-black/20">
         <div className="max-w-5xl mx-auto px-6 md:px-16 lg:px-24 py-20 md:py-28">
           <div className="bg-neutral-50 border-l-2 border-black/20 pl-8 py-8">
-            <h2 
+            <h2
               className="text-3xl md:text-4xl mb-8"
-              style={{ fontFamily: "'Playfair Display', serif" }}
-            >
+              style={{ fontFamily: "'Playfair Display', serif" }}>
+
               Proven Execution
             </h2>
             <p className="text-lg text-black/60 font-light leading-relaxed mb-8">
@@ -148,10 +148,10 @@ export default function Sprint6500() {
       {/* SECTION 4: The Tangible Output */}
       <div className="border-b border-black/20 bg-black text-white">
         <div className="max-w-5xl mx-auto px-6 md:px-16 lg:px-24 py-20 md:py-28">
-          <h2 
+          <h2
             className="text-3xl md:text-4xl mb-8"
-            style={{ fontFamily: "'Playfair Display', serif" }}
-          >
+            style={{ fontFamily: "'Playfair Display', serif" }}>
+
             The Tangible Output
           </h2>
           <p className="text-xl text-white/70 font-light leading-relaxed mb-12">
@@ -181,10 +181,10 @@ export default function Sprint6500() {
       {/* SECTION 5: Entry Criteria */}
       <div className="border-b border-black/20">
         <div className="max-w-5xl mx-auto px-6 md:px-16 lg:px-24 py-20 md:py-28">
-          <h2 
+          <h2
             className="text-3xl md:text-4xl mb-8"
-            style={{ fontFamily: "'Playfair Display', serif" }}
-          >
+            style={{ fontFamily: "'Playfair Display', serif" }}>
+
             Institutional Alignment
           </h2>
           <p className="text-lg text-black/60 font-light leading-relaxed mb-12">
@@ -210,10 +210,10 @@ export default function Sprint6500() {
       {/* SECTION 6: Entry Pathways */}
       <div id="pathways" className="border-b border-black/20 bg-neutral-50">
         <div className="max-w-5xl mx-auto px-6 md:px-16 lg:px-24 py-20 md:py-28">
-          <h2 
+          <h2
             className="text-3xl md:text-4xl mb-16"
-            style={{ fontFamily: "'Playfair Display', serif" }}
-          >
+            style={{ fontFamily: "'Playfair Display', serif" }}>
+
             Entry Pathways
           </h2>
 
@@ -252,10 +252,10 @@ export default function Sprint6500() {
               <p className="text-lg text-black/60 font-light leading-relaxed mb-10">
                 For experienced operators generating consistent revenue who require immediate precision refinement.
               </p>
-              <button 
+              <button
                 onClick={() => setShowDirectEntryForm(!showDirectEntryForm)}
-                className="border-2 border-black/20 text-black px-8 py-4 text-sm tracking-wide hover:bg-black/5 transition-colors duration-300 w-full inline-flex items-center justify-center gap-3"
-              >
+                className="border-2 border-black/20 text-black px-8 py-4 text-sm tracking-wide hover:bg-black/5 transition-colors duration-300 w-full inline-flex items-center justify-center gap-3">
+
                 <span>{showDirectEntryForm ? "Hide Form" : "Apply for Direct Sprint Entry"}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
@@ -263,21 +263,21 @@ export default function Sprint6500() {
           </div>
 
           {/* Direct Entry Form */}
-          {showDirectEntryForm && (
-            <div className="bg-white border border-black/10 p-10 md:p-16">
+          {showDirectEntryForm &&
+          <div className="bg-white border border-black/10 p-10 md:p-16">
               <DirectEntryRequestForm />
             </div>
-          )}
+          }
         </div>
       </div>
 
       {/* SECTION 7: Final Alignment */}
       <div className="border-b border-black/20 bg-black text-white">
         <div className="max-w-5xl mx-auto px-6 md:px-16 lg:px-24 py-20 md:py-28 text-center">
-          <h2 
+          <h2
             className="text-3xl md:text-4xl mb-8"
-            style={{ fontFamily: "'Playfair Display', serif" }}
-          >
+            style={{ fontFamily: "'Playfair Display', serif" }}>
+
             Limited Enrollment Cycle
           </h2>
           <p className="text-xl text-white/70 font-light leading-relaxed mb-12 max-w-2xl mx-auto">
@@ -285,8 +285,8 @@ export default function Sprint6500() {
           </p>
           <button
             onClick={scrollToPathways}
-            className="bg-white text-black px-10 py-4 text-sm tracking-wide hover:bg-white/90 transition-colors duration-300 inline-flex items-center gap-3"
-          >
+            className="bg-white text-black px-10 py-4 text-sm tracking-wide hover:bg-white/90 transition-colors duration-300 inline-flex items-center gap-3">
+
             <span>Begin Implementation</span>
             <ArrowRight className="w-4 h-4" />
           </button>
@@ -297,10 +297,10 @@ export default function Sprint6500() {
       <div className="bg-white">
         <div className="max-w-5xl mx-auto px-6 md:px-16 lg:px-24 py-12">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-center md:text-left">
-            <p 
+            <p
               className="text-lg text-black"
-              style={{ fontFamily: "'Playfair Display', serif" }}
-            >
+              style={{ fontFamily: "'Playfair Display', serif" }}>
+
               Heartset Design
             </p>
             <p className="text-sm text-black/40">
@@ -309,6 +309,6 @@ export default function Sprint6500() {
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 }
