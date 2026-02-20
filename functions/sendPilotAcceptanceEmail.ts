@@ -15,33 +15,35 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    const emailBody = `Action Required: Your Pilot Participation Agreement
-
-Hi ${userName},
-
-I'm excited to let you know you've been selected to participate in the pilot of the $6,950 Implementation Sprint.
-
-This sprint is designed to help you:
-• Clarify your revenue targets
-• Strengthen your offer structure
-• Build your 100-contact targeting blueprint in a focused, practical way
-
-Next Steps
-
-1. Review & Sign: Please check your inbox for a separate email from SignWell. You will need to sign the Pilot Participation Agreement electronically.
-
-2. Access: Once the document is signed, you'll receive your platform access and onboarding instructions immediately.
-
-I'm looking forward to getting started!
-
-Best,
-Sarah`;
+    const emailBody = `
+    <p>Hi ${userName},</p>
+    
+    <p>I'm excited to let you know you've been selected to participate in the pilot of the $6,950 Implementation Sprint.</p>
+    
+    <p>This sprint is designed to help you:</p>
+    <ul>
+      <li>Clarify your revenue targets</li>
+      <li>Strengthen your offer structure</li>
+      <li>Build your 100-contact targeting blueprint in a focused, practical way</li>
+    </ul>
+    
+    <p><strong>Next Steps</strong></p>
+    
+    <ol>
+      <li><strong>Review & Sign:</strong> Please check your inbox for a separate email from SignWell. You will need to sign the Pilot Participation Agreement electronically.</li>
+      <li><strong>Access:</strong> Once the document is signed, you'll receive your platform access and onboarding instructions immediately.</li>
+    </ol>
+    
+    <p>I'm looking forward to getting started!</p>
+    
+    <p>Best,<br>Sarah</p>
+    `;
 
     // Use service role to send email to users who haven't signed up yet
     await base44.asServiceRole.integrations.Core.SendEmail({
       from_name: 'Sarah Heartset',
       to: userEmail,
-      subject: "You're In — Pilot Access",
+      subject: "Action Required: Your Pilot Participation Agreement",
       body: emailBody
     });
 
