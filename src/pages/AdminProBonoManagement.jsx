@@ -60,10 +60,9 @@ export default function AdminProBonoManagement() {
   });
 
   const sendAgreementMutation = useMutation({
-    mutationFn: async ({ email, name }) => {
+    mutationFn: async ({ email }) => {
       const response = await base44.functions.invoke('sendProBonoAgreement', {
-        userEmail: email,
-        userName: name
+        userEmail: email
       });
       return response.data;
     },
@@ -161,8 +160,8 @@ export default function AdminProBonoManagement() {
                   {onboardUserMutation.isPending ? 'Processing...' : 'Onboard User'}
                 </Button>
                 <Button
-                  onClick={() => sendAgreementMutation.mutate({ email: newUserEmail, name: newUserName })}
-                  disabled={!newUserEmail || !newUserName || sendAgreementMutation.isPending}
+                  onClick={() => sendAgreementMutation.mutate({ email: newUserEmail })}
+                  disabled={!newUserEmail || sendAgreementMutation.isPending}
                   variant="outline"
                   className="border-black/20"
                 >
