@@ -31,7 +31,8 @@ Keep going.
 —
 Sarah`;
 
-    await base44.integrations.Core.SendEmail({
+    // Use service role to send email to users who may not be logged in
+    await base44.asServiceRole.integrations.Core.SendEmail({
       from_name: 'Sarah Heartset',
       to: userEmail,
       subject: 'Quick Check-In',
