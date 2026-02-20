@@ -57,7 +57,7 @@ export default function Layout({ children }) {
 
   const isAdminUser = user?.role === 'admin';
   const showingUserView = isAdminUser && adminViewMode === 'user';
-  const isFocusGroup = user?.cohort_type === 'focus_group' || !user?.cohort_type;
+  const isFocusGroup = user?.cohort_type === 'focus_group';
   const showFullProgram = (user?.cohort_type === 'sprint' || user?.cohort_type === 'advisory' || showingUserView) && hasSignedProBonoAgreement;
 
   const isOnboardingPage = location.pathname === createPageUrl("Onboarding6500");
