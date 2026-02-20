@@ -21,16 +21,13 @@ I'm excited to let you know you've been selected to participate in the pilot of 
 
 This sprint is designed to help you clarify your revenue targets, strengthen your offer structure, and build your 100-contact targeting blueprint in a focused, practical way.
 
-Before we begin, please review and sign the Pilot Participation Agreement below:
-
-${agreementLink || '[Agreement will be sent separately]'}
+Before we begin, please review and sign the Pilot Participation Agreement. You'll receive a separate email from SignWell with the document to sign electronically.
 
 Once that's complete, you'll receive platform access and onboarding instructions.
 
 Looking forward to getting started.
 
-—
-Sarah`;
+— Sarah`;
 
     // Use service role to send email to users who haven't signed up yet
     await base44.asServiceRole.integrations.Core.SendEmail({
