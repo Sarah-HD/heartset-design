@@ -135,6 +135,16 @@ By signing below, Participant acknowledges they have read, understood, and agree
             email: userEmail,
             name: userEmail.split('@')[0]
           }],
+          fields: [{
+            type: 'signature',
+            page: 1,
+            x: 100,
+            y: 650,
+            width: 200,
+            height: 50,
+            recipient_id: '1',
+            required: true
+          }],
           draft: false
         })
       });
