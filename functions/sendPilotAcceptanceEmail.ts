@@ -32,7 +32,8 @@ Looking forward to getting started.
 —
 Sarah`;
 
-    await base44.integrations.Core.SendEmail({
+    // Use service role to send email to users who haven't signed up yet
+    await base44.asServiceRole.integrations.Core.SendEmail({
       from_name: 'Sarah Heartset',
       to: userEmail,
       subject: "You're In — Pilot Access",
