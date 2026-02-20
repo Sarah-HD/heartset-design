@@ -76,6 +76,7 @@ import Week1Video from './pages/Week1Video';
 import Week2Video from './pages/Week2Video';
 import Week3Video from './pages/Week3Video';
 import Week4Video from './pages/Week4Video';
+import PleaseSignAgreement from './pages/PleaseSignAgreement';
 import __Layout from './Layout.jsx';
 
 
@@ -109,6 +110,7 @@ export const PAGES = {
     "Week2Video": Week2Video,
     "Week3Video": Week3Video,
     "Week4Video": Week4Video,
+    "PleaseSignAgreement": PleaseSignAgreement,
 }
 
 export const pagesConfig = {

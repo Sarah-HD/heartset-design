@@ -23,11 +23,53 @@ export default function Layout({ children }) {
   }, []);
 
   const [adminViewMode, setAdminViewMode] = React.useState('admin'); // 'admin' or 'user'
+  const [isProBonoUser, setIsProBonoUser] = React.useState(false);
+  const [hasSignedProBonoAgreement, setHasSignedProBonoAgreement] = React.useState(true);
+  const [checkingProBonoStatus, setCheckingProBonoStatus] = React.useState(true);
+
+  React.useEffect(() => {
+    const checkProBonoStatus = async () => {
+      if (user && user.role !== 'admin') {
+        try {
+          const tierAssignments = await base44.entities.TierAssignment.filter({ userEmail: user.email });
+          const proBonoAssignment = tierAssignments.find(ta => ta.isProBono);
+          
+          if (proBonoAssignment) {
+            setIsProBonoUser(true);
+            const legalDocuments = await base44.entities.LegalDocument.filter({ 
+              userEmail: user.email, 
+              documentType: 'pro_bono_contract' 
+            });
+            const signedAgreement = legalDocuments.find(doc => doc.status === 'signed');
+            setHasSignedProBonoAgreement(!!signedAgreement);
+          } else {
+            setIsProBonoUser(false);
+            setHasSignedProBonoAgreement(true);
+          }
+        } catch (error) {
+          console.error('Error checking pro bono status:', error);
+        }
+      }
+      setCheckingProBonoStatus(false);
+    };
+    checkProBonoStatus();
+  }, [user]);
 
   const isAdminUser = user?.role === 'admin';
   const showingUserView = isAdminUser && adminViewMode === 'user';
   const isFocusGroup = user?.cohort_type === 'focus_group' || !user?.cohort_type;
-  const showFullProgram = user?.cohort_type === 'sprint' || user?.cohort_type === 'advisory' || showingUserView;
+  const showFullProgram = (user?.cohort_type === 'sprint' || user?.cohort_type === 'advisory' || showingUserView) && hasSignedProBonoAgreement;
+
+  const isOnboardingPage = location.pathname === createPageUrl("Onboarding6500");
+  const isPleaseSignPage = location.pathname === createPageUrl("PleaseSignAgreement");
+  const isAccountPage = location.pathname === createPageUrl("Account");
+  const isHomePage = location.pathname === '/' || location.pathname === '/Home';
+
+  React.useEffect(() => {
+    if (!checkingProBonoStatus && user && isProBonoUser && !hasSignedProBonoAgreement && !isOnboardingPage && !isPleaseSignPage && !isAccountPage && !isHomePage) {
+      window.location.href = createPageUrl("PleaseSignAgreement");
+    }
+  }, [checkingProBonoStatus, user, isProBonoUser, hasSignedProBonoAgreement, isOnboardingPage, isPleaseSignPage, isAccountPage, isHomePage]);
 
   // Transparent nav with white text for unauthenticated Home page
   const isHomePage = location.pathname === '/' || location.pathname === '/Home';
