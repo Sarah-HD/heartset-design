@@ -72,7 +72,6 @@ export default function Layout({ children }) {
   }, [checkingProBonoStatus, user, isProBonoUser, hasSignedProBonoAgreement, isOnboardingPage, isPleaseSignPage, isAccountPage, isHomePage]);
 
   // Transparent nav with white text for unauthenticated Home page
-  const isHomePage = location.pathname === '/' || location.pathname === '/Home';
   const isTransparent = isHomePage && !user;
   return (
     <>
