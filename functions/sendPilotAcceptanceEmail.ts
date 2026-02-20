@@ -15,19 +15,27 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    const emailBody = `Hi ${userName},
+    const emailBody = `Action Required: Your Pilot Participation Agreement
+
+Hi ${userName},
 
 I'm excited to let you know you've been selected to participate in the pilot of the $6,950 Implementation Sprint.
 
-This sprint is designed to help you clarify your revenue targets, strengthen your offer structure, and build your 100-contact targeting blueprint in a focused, practical way.
+This sprint is designed to help you:
+• Clarify your revenue targets
+• Strengthen your offer structure
+• Build your 100-contact targeting blueprint in a focused, practical way
 
-Before we begin, please review and sign the Pilot Participation Agreement. You'll receive a separate email from SignWell with the document to sign electronically.
+Next Steps
 
-Once that's complete, you'll receive platform access and onboarding instructions.
+1. Review & Sign: Please check your inbox for a separate email from SignWell. You will need to sign the Pilot Participation Agreement electronically.
 
-Looking forward to getting started.
+2. Access: Once the document is signed, you'll receive your platform access and onboarding instructions immediately.
 
-— Sarah`;
+I'm looking forward to getting started!
+
+Best,
+Sarah`;
 
     // Use service role to send email to users who haven't signed up yet
     await base44.asServiceRole.integrations.Core.SendEmail({
