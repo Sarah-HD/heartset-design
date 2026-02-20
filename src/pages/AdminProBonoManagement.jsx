@@ -219,7 +219,29 @@ export default function AdminProBonoManagement() {
                     )}
                     
                     <div className="border-t border-black/10 pt-4">
-                      <p className="text-sm font-medium mb-3">Email Sequence:</p>
+                      <p className="text-sm font-medium mb-3">Actions:</p>
+                      <div className="grid md:grid-cols-2 gap-2 mb-4">
+                        <Button
+                          onClick={async () => {
+                            try {
+                              await base44.functions.invoke('sendProBonoAgreement', {
+                                userEmail: assignment.userEmail
+                              });
+                              alert('Agreement resent successfully');
+                            } catch (error) {
+                              alert('Error sending agreement: ' + error.message);
+                            }
+                          }}
+                          variant="outline"
+                          size="sm"
+                          className="border-black/20"
+                        >
+                          <FileText className="w-4 h-4 mr-2" />
+                          Resend Agreement
+                        </Button>
+                      </div>
+                      
+                      <p className="text-sm font-medium mb-3 mt-4">Email Sequence:</p>
                       <div className="grid md:grid-cols-3 gap-2">
                         <Button
                           onClick={async () => {
