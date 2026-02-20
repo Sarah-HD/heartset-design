@@ -155,6 +155,12 @@ export default function Layout({ children }) {
                       Operating Manual
                     </Link>
                     <Link
+                      to={createPageUrl("AdminProBonoManagement")}
+                      className={`text-sm transition-colors duration-200 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
+                    >
+                      Pro Bono
+                    </Link>
+                    <Link
                       to={createPageUrl("AdminContentManagement")}
                       className={`text-sm px-4 py-2 transition-colors duration-200 ${isTransparent ? 'bg-white text-black hover:bg-white/90' : 'bg-black text-white hover:bg-black/80'}`}
                     >
@@ -258,6 +264,13 @@ export default function Layout({ children }) {
                         className={`text-sm transition-colors duration-200 py-2 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
                       >
                         Operating Manual
+                      </Link>
+                      <Link
+                        to={createPageUrl("AdminProBonoManagement")}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={`text-sm transition-colors duration-200 py-2 ${isTransparent ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'}`}
+                      >
+                        Pro Bono Management
                       </Link>
                       <Link
                         to={createPageUrl("AdminContentManagement")}
