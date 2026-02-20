@@ -131,9 +131,9 @@ By signing below, Participant acknowledges they have read, understood, and agree
             file_url: pdfUrl
           }],
           recipients: [{
+            id: '1',
             email: userEmail,
-            name: userEmail.split('@')[0],
-            order: 1
+            name: userEmail.split('@')[0]
           }],
           draft: false
         })
