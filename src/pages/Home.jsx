@@ -294,6 +294,9 @@ export default function Home() {
                     <Link to={createPageUrl("AdminTierManagement")}>
                       <Button variant="outline" className="w-full">Users</Button>
                     </Link>
+                    <Link to={createPageUrl("AdminProBonoManagement")}>
+                      <Button variant="outline" className="w-full">Pro Bono</Button>
+                    </Link>
                     <Link to={createPageUrl("AdminTierManagement")}>
                       <Button variant="outline" className="w-full">Onboarding Forms</Button>
                     </Link>
