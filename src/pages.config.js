@@ -66,6 +66,7 @@ import Onboarding10000 from './pages/Onboarding10000';
 import Onboarding25000 from './pages/Onboarding25000';
 import Onboarding6500 from './pages/Onboarding6500';
 import OperatingManual from './pages/OperatingManual';
+import PleaseSignAgreement from './pages/PleaseSignAgreement';
 import Referral from './pages/Referral';
 import Sprint6500 from './pages/Sprint6500';
 import SprintEnrollment from './pages/SprintEnrollment';
@@ -76,7 +77,6 @@ import Week1Video from './pages/Week1Video';
 import Week2Video from './pages/Week2Video';
 import Week3Video from './pages/Week3Video';
 import Week4Video from './pages/Week4Video';
-import PleaseSignAgreement from './pages/PleaseSignAgreement';
 import __Layout from './Layout.jsx';
 
 
@@ -100,6 +100,7 @@ export const PAGES = {
     "Onboarding25000": Onboarding25000,
     "Onboarding6500": Onboarding6500,
     "OperatingManual": OperatingManual,
+    "PleaseSignAgreement": PleaseSignAgreement,
     "Referral": Referral,
     "Sprint6500": Sprint6500,
     "SprintEnrollment": SprintEnrollment,
@@ -110,7 +111,6 @@ export const PAGES = {
     "Week2Video": Week2Video,
     "Week3Video": Week3Video,
     "Week4Video": Week4Video,
-    "PleaseSignAgreement": PleaseSignAgreement,
 }
 
 export const pagesConfig = {
