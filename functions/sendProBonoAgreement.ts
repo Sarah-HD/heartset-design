@@ -117,7 +117,7 @@ By signing below, Participant acknowledges they have read, understood, and agree
         throw new Error('SIGNWELL_API_KEY not configured');
       }
 
-      // First create the document as draft
+      // Create and send document directly without draft mode
       const signwellResponse = await fetch('https://www.signwell.com/api/v1/documents/', {
         method: 'POST',
         headers: {
@@ -134,16 +134,10 @@ By signing below, Participant acknowledges they have read, understood, and agree
           recipients: [
             {
               id: '1',
-              email: 'chelseajwilkes@gmail.com',
-              name: 'Heartset Design'
-            },
-            {
-              id: '2',
               email: userEmail,
               name: userEmail.split('@')[0]
             }
-          ],
-          draft: true
+          ]
         })
       });
 
@@ -153,60 +147,7 @@ By signing below, Participant acknowledges they have read, understood, and agree
       }
 
       const signwellData = await signwellResponse.json();
-
-      // Add signature fields to the draft
       const documentId = signwellData.id;
-      
-      const updateResponse = await fetch(`https://www.signwell.com/api/v1/documents/${documentId}/`, {
-        method: 'PUT',
-        headers: {
-          'X-Api-Key': signwellApiKey,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          fields: [
-            {
-              type: 'signature',
-              page: 1,
-              x: 100,
-              y: 650,
-              width: 200,
-              height: 50,
-              recipient_id: '2',
-              required: true
-            },
-            {
-              type: 'signature',
-              page: 1,
-              x: 100,
-              y: 580,
-              width: 200,
-              height: 50,
-              recipient_id: '1',
-              required: true
-            }
-          ]
-        })
-      });
-
-      if (!updateResponse.ok) {
-        const errorText = await updateResponse.text();
-        throw new Error(`SignWell update error: ${errorText}`);
-      }
-
-      // Send the document
-      const sendResponse = await fetch(`https://www.signwell.com/api/v1/documents/${documentId}/send/`, {
-        method: 'POST',
-        headers: {
-          'X-Api-Key': signwellApiKey,
-          'Content-Type': 'application/json',
-        }
-      });
-
-      if (!sendResponse.ok) {
-        const errorText = await sendResponse.text();
-        throw new Error(`SignWell send error: ${errorText}`);
-      }
 
       await base44.asServiceRole.entities.LegalDocument.update(docRecord.id, {
         status: 'sent',
