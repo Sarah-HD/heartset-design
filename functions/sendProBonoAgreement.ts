@@ -100,10 +100,10 @@ By signing below, Participant acknowledges they have read, understood, and agree
       const signatureY = y;
       
       doc.setFontSize(11);
-      doc.text('Participant Signature: _________________________', margin, y);
+      doc.text('Participant Signature:', margin, y);
       y += 10;
       const dateY = y;
-      doc.text(`Date: _________________________`, margin, y);
+      doc.text('Date:', margin, y);
 
       const pdfBytes = doc.output('arraybuffer');
       const pdfBlob = new Blob([pdfBytes], { type: 'application/pdf' });
@@ -145,19 +145,19 @@ By signing below, Participant acknowledges they have read, understood, and agree
               {
                 type: 'signature',
                 page: signaturePage,
-                x: 140,
-                y: pageHeight - signatureY - 10,
-                width: 200,
-                height: 40,
+                x: 115,
+                y: pageHeight - signatureY - 5,
+                width: 160,
+                height: 30,
                 recipient_id: '1',
                 required: true
               },
               {
                 type: 'text',
                 page: signaturePage,
-                x: 40,
+                x: 50,
                 y: pageHeight - dateY - 5,
-                width: 150,
+                width: 120,
                 height: 20,
                 recipient_id: '1',
                 required: true,
