@@ -24,10 +24,7 @@ Deno.serve(async (req) => {
     });
 
     try {
-      const proBonoContent = `PRO BONO / PILOT AGREEMENT
-Heartset Design
-
-This Agreement ("Agreement") is entered into between Heartset Design ("Provider") and ${userEmail} ("Participant").
+      const proBonoContent = `This Agreement ("Agreement") is entered into between Heartset Design ("Provider") and ${userEmail} ("Participant").
 
 1. NATURE OF ENGAGEMENT
 This is a pro bono or pilot engagement for the Authority Infrastructure™ Sprint program. Participant acknowledges this is a reduced-rate or complimentary offering provided in exchange for feedback and case study participation.
@@ -70,6 +67,7 @@ By signing below, Participant acknowledges they have read, understood, and agree
       // Create PDF
       const doc = new jsPDF();
       const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
       const margin = 20;
       const maxLineWidth = pageWidth - 2 * margin;
 
@@ -98,9 +96,13 @@ By signing below, Participant acknowledges they have read, understood, and agree
         y = 20;
       }
       y += 20;
+      const signaturePage = doc.internal.getCurrentPageInfo().pageNumber;
+      const signatureY = y;
+      
       doc.setFontSize(11);
       doc.text('Participant Signature: _________________________', margin, y);
       y += 10;
+      const dateY = y;
       doc.text(`Date: _________________________`, margin, y);
 
       const pdfBytes = doc.output('arraybuffer');
@@ -117,7 +119,7 @@ By signing below, Participant acknowledges they have read, understood, and agree
         throw new Error('SIGNWELL_API_KEY not configured');
       }
 
-      // Create and send document with fields as 2D array with recipient_id
+      // Create and send document with signature and date fields positioned correctly
       const signwellResponse = await fetch('https://www.signwell.com/api/v1/documents/', {
         method: 'POST',
         headers: {
@@ -142,11 +144,21 @@ By signing below, Participant acknowledges they have read, understood, and agree
             [
               {
                 type: 'signature',
-                page: 1,
-                x: 50,
-                y: 700,
+                page: signaturePage,
+                x: 140,
+                y: pageHeight - signatureY - 10,
                 width: 200,
-                height: 50,
+                height: 40,
+                recipient_id: '1',
+                required: true
+              },
+              {
+                type: 'date_signed',
+                page: signaturePage,
+                x: 40,
+                y: pageHeight - dateY - 5,
+                width: 150,
+                height: 20,
                 recipient_id: '1',
                 required: true
               }
