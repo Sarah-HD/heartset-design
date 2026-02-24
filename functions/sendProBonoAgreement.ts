@@ -117,7 +117,7 @@ By signing below, Participant acknowledges they have read, understood, and agree
         throw new Error('SIGNWELL_API_KEY not configured');
       }
 
-      // Create and send document with fields as 2D array (one array per file)
+      // Create and send document with fields as 2D array with recipient_id
       const signwellResponse = await fetch('https://www.signwell.com/api/v1/documents/', {
         method: 'POST',
         headers: {
@@ -147,7 +147,7 @@ By signing below, Participant acknowledges they have read, understood, and agree
                 y: 700,
                 width: 200,
                 height: 50,
-                recipient: '1',
+                recipient_id: '1',
                 required: true
               }
             ]
