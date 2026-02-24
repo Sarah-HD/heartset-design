@@ -117,7 +117,7 @@ By signing below, Participant acknowledges they have read, understood, and agree
         throw new Error('SIGNWELL_API_KEY not configured');
       }
 
-      // Create and send document directly with signature field
+      // Create and send document directly with signature field inside recipient
       const signwellResponse = await fetch('https://www.signwell.com/api/v1/documents/', {
         method: 'POST',
         headers: {
@@ -135,19 +135,18 @@ By signing below, Participant acknowledges they have read, understood, and agree
             {
               id: '1',
               email: userEmail,
-              name: userEmail.split('@')[0]
-            }
-          ],
-          fields: [
-            {
-              type: 'signature',
-              page: 1,
-              x: 50,
-              y: 700,
-              width: 200,
-              height: 50,
-              recipient_id: '1',
-              required: true
+              name: userEmail.split('@')[0],
+              fields: [
+                {
+                  type: 'signature',
+                  page: 1,
+                  x: 50,
+                  y: 700,
+                  width: 200,
+                  height: 50,
+                  required: true
+                }
+              ]
             }
           ]
         })
