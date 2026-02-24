@@ -153,14 +153,15 @@ By signing below, Participant acknowledges they have read, understood, and agree
                 required: true
               },
               {
-                type: 'date_signed',
+                type: 'text',
                 page: signaturePage,
                 x: 40,
                 y: pageHeight - dateY - 5,
                 width: 150,
                 height: 20,
                 recipient_id: '1',
-                required: true
+                required: true,
+                label: 'Date'
               }
             ]
           ]
