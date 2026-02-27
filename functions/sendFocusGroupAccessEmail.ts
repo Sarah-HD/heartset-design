@@ -11,11 +11,8 @@ Deno.serve(async (req) => {
 
     const dashboardUrl = 'https://heartsetdesign.base44.app';
 
-    await base44.asServiceRole.integrations.Core.SendEmail({
-      from_name: 'Heartset Design',
-      to: userEmail,
-      subject: 'You're in — next steps inside',
-      body: `Your Focus Group registration has been confirmed.
+    const accessToken = await base44.asServiceRole.connectors.getAccessToken('gmail');
+    const gmailBody = `Your Focus Group registration has been confirmed.
 
 Dashboard: ${dashboardUrl}
 
@@ -26,8 +23,22 @@ What happens next:
 
 This is an automated confirmation from the Heartset platform.
 
-Questions? Reply to any email from Sarah.`
+Questions? Reply to any email from Sarah.`;
+    const messageParts = [
+      `To: ${userEmail}`,
+      `Subject: You're in — next steps inside`,
+      'Content-Type: text/plain; charset=utf-8',
+      '',
+      gmailBody
+    ];
+    const message = messageParts.join('\n');
+    const encoded = btoa(unescape(encodeURIComponent(message))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    const gmailRes = await fetch('https://gmail.googleapis.com/gmail/v1/users/me/messages/send', {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ raw: encoded })
     });
+    if (!gmailRes.ok) throw new Error(await gmailRes.text());
 
     // Sync to HubSpot to trigger the orientation email
     try {
