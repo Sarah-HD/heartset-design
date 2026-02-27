@@ -1,5 +1,24 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
 
+async function sendGmail(base44, to, subject, body) {
+  const accessToken = await base44.asServiceRole.connectors.getAccessToken('gmail');
+  const messageParts = [
+    `To: ${to}`,
+    `Subject: ${subject}`,
+    'Content-Type: text/plain; charset=utf-8',
+    '',
+    body
+  ];
+  const message = messageParts.join('\n');
+  const encoded = btoa(unescape(encodeURIComponent(message))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  const res = await fetch('https://gmail.googleapis.com/gmail/v1/users/me/messages/send', {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ raw: encoded })
+  });
+  if (!res.ok) throw new Error(await res.text());
+}
+
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
@@ -12,11 +31,7 @@ Deno.serve(async (req) => {
 
     const dashboardUrl = 'https://heartsetdesign.base44.app';
 
-    await base44.asServiceRole.integrations.Core.SendEmail({
-      from_name: 'Heartset Design',
-      to: userEmail,
-      subject: 'Onboarding Required to Proceed',
-      body: `Your Authority Infrastructure™ Sprint onboarding is still incomplete.
+    await sendGmail(base44, userEmail, 'Onboarding Required to Proceed', `Your Authority Infrastructure™ Sprint onboarding is still incomplete.
 
 Completion is required to:
 • Unlock Week 1 materials
@@ -27,8 +42,7 @@ This onboarding is not creative work. It is an inventory of what already exists.
 
 Complete onboarding here: ${dashboardUrl}
 
-— Sarah`
-    });
+— Sarah`);
 
     return Response.json({ success: true });
   } catch (error) {

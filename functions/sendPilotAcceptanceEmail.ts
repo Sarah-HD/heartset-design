@@ -1,5 +1,24 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
 
+async function sendGmail(base44, to, subject, body) {
+  const accessToken = await base44.asServiceRole.connectors.getAccessToken('gmail');
+  const messageParts = [
+    `To: ${to}`,
+    `Subject: ${subject}`,
+    'Content-Type: text/html; charset=utf-8',
+    '',
+    body
+  ];
+  const message = messageParts.join('\n');
+  const encoded = btoa(unescape(encodeURIComponent(message))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  const res = await fetch('https://gmail.googleapis.com/gmail/v1/users/me/messages/send', {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ raw: encoded })
+  });
+  if (!res.ok) throw new Error(await res.text());
+}
+
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
@@ -39,12 +58,7 @@ Deno.serve(async (req) => {
     <p>Best,<br>Sarah</p>
     `;
 
-    await base44.asServiceRole.integrations.Core.SendEmail({
-      from_name: 'Heartset Design',
-      to: userEmail,
-      subject: "Action Required: Your Pilot Participation Agreement",
-      body: emailBody
-    });
+    await sendGmail(base44, userEmail, "Action Required: Your Pilot Participation Agreement", emailBody);
 
     return Response.json({ 
       success: true,
