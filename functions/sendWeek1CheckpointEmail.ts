@@ -1,9 +1,10 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
 
-async function sendGmail(base44, to, subject, body) {
+async function sendGmail(base44, to, subject, body, fromName = 'Sarah from Heartset Design') {
   const accessToken = await base44.asServiceRole.connectors.getAccessToken('gmail');
   const messageParts = [
     `To: ${to}`,
+    `From: ${fromName} <me>`,
     `Subject: ${subject}`,
     'Content-Type: text/plain; charset=utf-8',
     '',
