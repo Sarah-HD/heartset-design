@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import { Calendar, Clock, PlayCircle, FileText, CheckSquare, Users, TrendingUp, Navigation } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
