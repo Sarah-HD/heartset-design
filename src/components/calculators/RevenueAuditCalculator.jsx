@@ -26,6 +26,19 @@ export default function RevenueAuditCalculator() {
 
   return (
     <div className="max-w-7xl mx-auto">
+      <div className="flex items-center gap-2 mb-6">
+        <p className="text-xs text-black/40 uppercase tracking-widest">Revenue Audit Calculator</p>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <Info className="w-4 h-4 text-black/30" />
+            </TooltipTrigger>
+            <TooltipContent className="max-w-xs">
+              <p className="text-xs">Use this to audit your <strong>existing or planned</strong> revenue structure. Enter your actual client counts and prices to see your current gross, net, and hourly efficiency. This is a snapshot of what you already have — not a forecast.</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>
       <div className="grid lg:grid-cols-5 gap-8">
         {/* LEFT PANEL - INPUTS (40%) */}
         <div className="lg:col-span-2 space-y-8">
