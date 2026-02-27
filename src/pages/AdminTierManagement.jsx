@@ -196,7 +196,7 @@ export default function AdminTierManagement() {
       infrastructure_25000: "bg-green-100 text-green-800"
     };
     const labels = {
-      sprint_6500: "$6,500 Sprint",
+      sprint_6500: "$6,950 Sprint",
       advisory_10000: "$10,000 Advisory",
       infrastructure_25000: "$25,000 Infrastructure"
     };
