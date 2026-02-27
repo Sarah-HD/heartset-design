@@ -30,6 +30,7 @@ export default function AdminTierManagement() {
   });
   const [testEmail, setTestEmail] = useState("");
   const [showTestForm, setShowTestForm] = useState(false);
+  const [userActionTarget, setUserActionTarget] = useState(null); // { email, name, action: 'tier'|'probono' }
 
   const queryClient = useQueryClient();
 
