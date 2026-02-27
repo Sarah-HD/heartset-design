@@ -603,9 +603,10 @@ export default function ParticipationModelingCalculator() {
               </p>
             ) : (
               <p className="text-sm text-black/70 font-light leading-relaxed">
-                To hit your ${revenueTarget.toLocaleString()} revenue target, you need {requiredCoreSales} Core sales. 
-                At {coreConversion}% conversion, that requires {requiredRoomSize} participants in your room, 
-                which means you need {requiredOutreach} targeted outreach contacts at {participationRate}% participation.
+                To hit your ${revenueTarget.toLocaleString()} target using a <strong>{scenarioMode}</strong> conversion model, 
+                you need a room of {requiredRoomSize} participants ({requiredCoreSales} Core, {requiredMidSales} Mid, {requiredLowSales} Low), 
+                requiring {requiredOutreach} targeted outreach contacts at {participationRate}% participation.
+                Projected blended revenue: ${projectedRevenueFromTarget.toLocaleString()}.
               </p>
             )}
           </div>
