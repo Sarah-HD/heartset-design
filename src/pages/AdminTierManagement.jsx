@@ -179,6 +179,13 @@ export default function AdminTierManagement() {
     },
   });
 
+  const deleteAssignmentMutation = useMutation({
+    mutationFn: (id) => base44.entities.TierAssignment.delete(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['tierAssignments'] });
+    },
+  });
+
   const handleAddAssignment = (e) => {
     e.preventDefault();
     addAssignmentMutation.mutate(newAssignment);
