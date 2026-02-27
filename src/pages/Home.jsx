@@ -413,7 +413,125 @@ export default function Home() {
       );
     }
 
-    // Sprint, Advisory, or any other cohort type (including no cohort) — blank dashboard
+    // Sprint dashboard
+    if (isSprint || isAdvisory) {
+      const firstName = user.full_name ? user.full_name.split(' ')[0] : '';
+      return (
+        <div className="min-h-screen bg-white">
+          <div className="px-6 md:px-16 lg:px-24 py-16 md:py-24">
+            <div className="max-w-5xl mx-auto">
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-12">
+                <h1 className="text-4xl md:text-5xl mb-3" style={{ fontFamily: "'Playfair Display', serif" }}>
+                  Welcome{firstName ? `, ${firstName}` : ''}.
+                </h1>
+                <p className="text-lg text-black/50 font-light">Authority Infrastructure™ Implementation Sprint</p>
+              </motion.div>
+
+              <div className="grid md:grid-cols-2 gap-6 mb-8">
+                {/* Your Program */}
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+                  <Card className="border-black/10 h-full">
+                    <CardContent className="p-8">
+                      <h2 className="text-2xl mb-6" style={{ fontFamily: "'Playfair Display', serif" }}>Your Program</h2>
+                      <div className="space-y-3">
+                        <Link to={createPageUrl("Week1Video")} className="flex items-center gap-4 p-4 bg-neutral-50 hover:bg-neutral-100 rounded transition-colors group">
+                          <div className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center flex-shrink-0 text-sm font-medium">1</div>
+                          <div>
+                            <p className="font-medium text-sm">Week 1 – Blueprint</p>
+                            <p className="text-xs text-black/50">Framework extraction & documentation</p>
+                          </div>
+                        </Link>
+                        <Link to={createPageUrl("Week2Video")} className="flex items-center gap-4 p-4 bg-neutral-50 hover:bg-neutral-100 rounded transition-colors group">
+                          <div className="w-10 h-10 rounded-full bg-black/10 text-black/40 flex items-center justify-center flex-shrink-0 text-sm font-medium">2</div>
+                          <div>
+                            <p className="font-medium text-sm text-black/50">Week 2 – Infrastructure</p>
+                            <p className="text-xs text-black/40">Offer architecture & positioning</p>
+                          </div>
+                        </Link>
+                        <Link to={createPageUrl("Week3Video")} className="flex items-center gap-4 p-4 bg-neutral-50 hover:bg-neutral-100 rounded transition-colors group">
+                          <div className="w-10 h-10 rounded-full bg-black/10 text-black/40 flex items-center justify-center flex-shrink-0 text-sm font-medium">3</div>
+                          <div>
+                            <p className="font-medium text-sm text-black/50">Week 3 – Activation</p>
+                            <p className="text-xs text-black/40">Market testing & validation</p>
+                          </div>
+                        </Link>
+                        <Link to={createPageUrl("Week4Video")} className="flex items-center gap-4 p-4 bg-neutral-50 hover:bg-neutral-100 rounded transition-colors group">
+                          <div className="w-10 h-10 rounded-full bg-black/10 text-black/40 flex items-center justify-center flex-shrink-0 text-sm font-medium">4</div>
+                          <div>
+                            <p className="font-medium text-sm text-black/50">Week 4 – Execution</p>
+                            <p className="text-xs text-black/40">Routing logic & deployment</p>
+                          </div>
+                        </Link>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+
+                {/* Quick Links */}
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+                  <div className="space-y-4">
+                    <Card className="border-black/10">
+                      <CardContent className="p-6">
+                        <h2 className="text-lg font-medium mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>This Week</h2>
+                        <p className="text-sm text-black/60 mb-4 font-light">Start with Week 1 — watch the videos, complete your assignments, and submit your reflections.</p>
+                        <div className="flex gap-3">
+                          <Link to={createPageUrl("Week1Video")}>
+                            <Button className="bg-black hover:bg-black/80 text-sm">
+                              <PlayCircle className="w-4 h-4 mr-2" />
+                              Start Week 1
+                            </Button>
+                          </Link>
+                          <Link to={createPageUrl("Assignments")}>
+                            <Button variant="outline" className="text-sm">
+                              <FileText className="w-4 h-4 mr-2" />
+                              Assignments
+                            </Button>
+                          </Link>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    <Card className="border-black/10">
+                      <CardContent className="p-6">
+                        <h2 className="text-lg font-medium mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>Office Hours</h2>
+                        <div className="flex items-start gap-3 text-sm">
+                          <Clock className="w-4 h-4 text-black/60 mt-0.5 flex-shrink-0" />
+                          <div>
+                            <p className="font-medium">Wednesdays, 2–3 PM EST</p>
+                            <p className="text-black/50 text-xs mt-1">Live Q&A with Sarah</p>
+                          </div>
+                        </div>
+                        <div className="mt-4">
+                          <Link to={createPageUrl("OfficeHours")}>
+                            <Button variant="outline" size="sm" className="text-xs">View Schedule</Button>
+                          </Link>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    <Card className="border-black/10">
+                      <CardContent className="p-6">
+                        <h2 className="text-lg font-medium mb-4" style={{ fontFamily: "'Playfair Display', serif" }}>Tools</h2>
+                        <div className="flex flex-wrap gap-2">
+                          <Link to={createPageUrl("AuthorityEngine")}>
+                            <Button variant="outline" size="sm" className="text-xs">Calculators</Button>
+                          </Link>
+                          <Link to={createPageUrl("VideoLibrary")}>
+                            <Button variant="outline" size="sm" className="text-xs">Video Library</Button>
+                          </Link>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Fallback for any other logged-in user
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
