@@ -92,6 +92,19 @@ export default function ParticipationModelingCalculator() {
 
   return (
     <div className="max-w-7xl mx-auto">
+      <div className="flex items-center gap-2 mb-6">
+        <p className="text-xs text-black/40 uppercase tracking-widest">Participation Modeling Calculator</p>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <Info className="w-4 h-4 text-black/30" />
+            </TooltipTrigger>
+            <TooltipContent className="max-w-xs">
+              <p className="text-xs">Use this to <strong>model future revenue</strong> based on outreach volume and conversion rates. Forward mode shows what a given effort level produces. Reverse mode works backwards from a revenue target to show exactly how many people you need to reach.</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>
       {/* Mode Toggle */}
       <div className="mb-8 bg-white border border-black/10 p-6">
         <div className="flex gap-4 mb-4">
