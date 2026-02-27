@@ -11,7 +11,7 @@ Deno.serve(async (req) => {
     }
 
     await base44.asServiceRole.integrations.Core.SendEmail({
-      from_name: 'Sarah — Heartset Design',
+      from_name: 'Heartset Design',
       to: userEmail,
       subject: 'Week 1 Received',
       body: `Your Week 1 submission has been received.

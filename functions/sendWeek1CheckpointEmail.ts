@@ -13,7 +13,7 @@ Deno.serve(async (req) => {
     const dashboardUrl = 'https://heartsetdesign.base44.app';
 
     await base44.asServiceRole.integrations.Core.SendEmail({
-      from_name: 'Sarah — Heartset Design',
+      from_name: 'Heartset Design',
       to: userEmail,
       subject: 'Week 1 Execution Checkpoint',
       body: `This is a checkpoint reminder for Week 1.
