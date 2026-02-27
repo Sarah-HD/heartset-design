@@ -385,35 +385,47 @@ export default function ParticipationModelingCalculator() {
             <div className="space-y-8">
               {calculatorMode === "reverse" && (
                 <>
-                  <div className="grid md:grid-cols-3 gap-6">
-                    <div>
-                      <div className="flex items-center gap-1.5 mb-1">
-                        <p className="text-xs text-black/40 tracking-wide">REQUIRED CORE SALES</p>
+                  <div className="bg-neutral-50 border border-black/10 p-4 mb-2">
+                    <p className="text-xs text-black/50 mb-3 font-medium">WHAT YOU NEED TO HIT ${revenueTarget.toLocaleString()}</p>
+                    <div className="grid md:grid-cols-3 gap-6">
+                      <div>
+                        <p className="text-xs text-black/40 tracking-wide mb-1">REQUIRED OUTREACH</p>
+                        <p className="text-4xl font-light" style={{ fontFamily: "'Playfair Display', serif" }}>
+                          {requiredOutreach}
+                        </p>
+                        <p className="text-xs text-black/30 mt-1">{participationRate}% participation rate</p>
                       </div>
-                      <p className="text-4xl font-light" style={{ fontFamily: "'Playfair Display', serif" }}>
-                        {requiredCoreSales}
-                      </p>
-                      <p className="text-xs text-black/30 mt-1">At ${corePrice.toLocaleString()}</p>
+                      <div>
+                        <p className="text-xs text-black/40 tracking-wide mb-1">REQUIRED ROOM SIZE</p>
+                        <p className="text-4xl font-light" style={{ fontFamily: "'Playfair Display', serif" }}>
+                          {requiredRoomSize}
+                        </p>
+                        <p className="text-xs text-black/30 mt-1">Blended conversion model</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-black/40 tracking-wide mb-1">PROJECTED REVENUE</p>
+                        <p className="text-4xl font-light" style={{ fontFamily: "'Playfair Display', serif" }}>
+                          ${projectedRevenueFromTarget.toLocaleString()}
+                        </p>
+                        <p className="text-xs text-black/30 mt-1">vs. ${revenueTarget.toLocaleString()} target</p>
+                      </div>
                     </div>
-
-                    <div>
-                      <div className="flex items-center gap-1.5 mb-1">
-                        <p className="text-xs text-black/40 tracking-wide">REQUIRED ROOM SIZE</p>
+                    <div className="grid md:grid-cols-3 gap-4 mt-4 pt-4 border-t border-black/5">
+                      <div>
+                        <p className="text-xs text-black/40 mb-1">CORE SALES NEEDED</p>
+                        <p className="text-2xl font-light" style={{ fontFamily: "'Playfair Display', serif" }}>{requiredCoreSales}</p>
+                        <p className="text-xs text-black/30">@ ${corePrice.toLocaleString()}</p>
                       </div>
-                      <p className="text-4xl font-light" style={{ fontFamily: "'Playfair Display', serif" }}>
-                        {requiredRoomSize}
-                      </p>
-                      <p className="text-xs text-black/30 mt-1">{coreConversion}% conversion</p>
-                    </div>
-
-                    <div>
-                      <div className="flex items-center gap-1.5 mb-1">
-                        <p className="text-xs text-black/40 tracking-wide">REQUIRED OUTREACH</p>
+                      <div>
+                        <p className="text-xs text-black/40 mb-1">MID SALES NEEDED</p>
+                        <p className="text-2xl font-light" style={{ fontFamily: "'Playfair Display', serif" }}>{requiredMidSales}</p>
+                        <p className="text-xs text-black/30">@ ${midPrice.toLocaleString()}</p>
                       </div>
-                      <p className="text-4xl font-light" style={{ fontFamily: "'Playfair Display', serif" }}>
-                        {requiredOutreach}
-                      </p>
-                      <p className="text-xs text-black/30 mt-1">{participationRate}% participation</p>
+                      <div>
+                        <p className="text-xs text-black/40 mb-1">LOW SALES NEEDED</p>
+                        <p className="text-2xl font-light" style={{ fontFamily: "'Playfair Display', serif" }}>{requiredLowSales}</p>
+                        <p className="text-xs text-black/30">@ ${lowPrice.toLocaleString()}</p>
+                      </div>
                     </div>
                   </div>
                   <div className="border-t border-black/5"></div>
