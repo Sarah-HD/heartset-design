@@ -43,6 +43,17 @@ export default function Week1Video() {
         </div>
       </div>
 
+      {/* Week 1 Revenue Calculator */}
+      <div className="max-w-6xl mx-auto px-6 md:px-16 py-12 border-t border-black/10">
+        <div className="mb-8">
+          <h2 className="text-3xl mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>
+            Revenue Target Calculator
+          </h2>
+          <p className="text-sm text-black/50 font-light">Work backward from your revenue goal. Stress-test with scenario presets.</p>
+        </div>
+        <Week1RevenueCalculator />
+      </div>
+
       {/* Homework Cards Section */}
       <Week1HomeworkCards />
 
