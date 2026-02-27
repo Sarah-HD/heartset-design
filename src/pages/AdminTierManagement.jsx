@@ -452,6 +452,73 @@ export default function AdminTierManagement() {
             </TabsList>
 
             <TabsContent value="users" className="space-y-4">
+              {/* Quick-assign panel */}
+              {userActionTarget && (
+                <Card className="border-black/20 border-2 mb-4">
+                  <CardHeader>
+                    <CardTitle className="text-base">
+                      {userActionTarget.action === 'tier' ? 'Assign to Tier' : 'Add as Pro Bono'} — {userActionTarget.name || userActionTarget.email}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <form
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        addAssignmentMutation.mutate({
+                          ...newAssignment,
+                          userEmail: userActionTarget.email,
+                          isProBono: userActionTarget.action === 'probono' ? true : newAssignment.isProBono,
+                        });
+                        setUserActionTarget(null);
+                      }}
+                      className="space-y-4"
+                    >
+                      <div>
+                        <Label>Tier</Label>
+                        <Select
+                          value={newAssignment.tier}
+                          onValueChange={(val) => setNewAssignment(prev => ({ ...prev, tier: val }))}
+                        >
+                          <SelectTrigger className="mt-2">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="sprint_6500">$6,950 Sprint</SelectItem>
+                            <SelectItem value="advisory_10000">$10,000 Advisory</SelectItem>
+                            <SelectItem value="infrastructure_25000">$25,000 Infrastructure</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      {userActionTarget.action === 'tier' && (
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
+                            checked={newAssignment.isProBono}
+                            onCheckedChange={(checked) => setNewAssignment(prev => ({ ...prev, isProBono: checked }))}
+                            id="quickProBono"
+                          />
+                          <Label htmlFor="quickProBono">Pro Bono</Label>
+                        </div>
+                      )}
+                      <div>
+                        <Label>Admin Notes</Label>
+                        <Textarea
+                          value={newAssignment.adminNotes}
+                          onChange={(e) => setNewAssignment(prev => ({ ...prev, adminNotes: e.target.value }))}
+                          placeholder="Optional notes"
+                          className="mt-2"
+                        />
+                      </div>
+                      <div className="flex gap-2">
+                        <Button type="submit" className="bg-black hover:bg-black/80" disabled={addAssignmentMutation.isPending}>
+                          {addAssignmentMutation.isPending ? 'Saving...' : 'Assign'}
+                        </Button>
+                        <Button type="button" variant="outline" onClick={() => setUserActionTarget(null)}>Cancel</Button>
+                      </div>
+                    </form>
+                  </CardContent>
+                </Card>
+              )}
+
               {allUsers.filter(u => u.role !== 'admin').length === 0 ? (
                 <p className="text-black/40 text-center py-12">No users yet.</p>
               ) : (
@@ -474,6 +541,27 @@ export default function AdminTierManagement() {
                             <p className="text-sm text-black/60">{u.email}</p>
                             <p className="text-xs text-black/40 mt-1">Joined: {new Date(u.created_date).toLocaleString()}</p>
                           </div>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button variant="ghost" size="icon">
+                                <MoreVertical className="w-4 h-4" />
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                              <DropdownMenuItem onClick={() => {
+                                setNewAssignment({ userEmail: u.email, tier: "sprint_6500", isProBono: false, isBypass: false, adminNotes: "" });
+                                setUserActionTarget({ email: u.email, name: u.full_name, action: 'tier' });
+                              }}>
+                                Add to Tier
+                              </DropdownMenuItem>
+                              <DropdownMenuItem onClick={() => {
+                                setNewAssignment({ userEmail: u.email, tier: "sprint_6500", isProBono: true, isBypass: false, adminNotes: "" });
+                                setUserActionTarget({ email: u.email, name: u.full_name, action: 'probono' });
+                              }}>
+                                Add as Pro Bono
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
                         </div>
                       </CardContent>
                     </Card>
