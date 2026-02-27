@@ -42,7 +42,7 @@ export default function Home() {
     loadUser();
   }, []);
 
-  const isFocusGroup = user?.cohort_type === 'focus_group' || !user?.cohort_type;
+  const isFocusGroup = user?.cohort_type === 'focus_group';
   const isSprint = user?.cohort_type === 'sprint';
   const isAdvisory = user?.cohort_type === 'advisory';
   const isAdminUser = user?.role === 'admin';
