@@ -111,45 +111,23 @@ export default function ParticipationModelingCalculator() {
           </Button>
         </div>
 
-        {calculatorMode === "forward" && (
-          <div className="space-y-2">
-            <Label className="text-sm font-medium text-black/70">Scenario Preset</Label>
-            <div className="flex gap-2">
+        <div className="space-y-2">
+          <Label className="text-sm font-medium text-black/70">Scenario Preset</Label>
+          <div className="flex gap-2 flex-wrap">
+            {["conservative", "hybrid", "optimized", "custom"].map(mode => (
               <Button
-                onClick={() => setScenarioMode("conservative")}
-                variant={scenarioMode === "conservative" ? "default" : "outline"}
+                key={mode}
+                onClick={() => setScenarioMode(mode)}
+                variant={scenarioMode === mode ? "default" : "outline"}
                 size="sm"
-                className={scenarioMode === "conservative" ? "bg-black text-white" : ""}
+                className={scenarioMode === mode ? "bg-black text-white capitalize" : "capitalize"}
               >
-                Conservative
+                {mode}
               </Button>
-              <Button
-                onClick={() => setScenarioMode("hybrid")}
-                variant={scenarioMode === "hybrid" ? "default" : "outline"}
-                size="sm"
-                className={scenarioMode === "hybrid" ? "bg-black text-white" : ""}
-              >
-                Hybrid
-              </Button>
-              <Button
-                onClick={() => setScenarioMode("optimized")}
-                variant={scenarioMode === "optimized" ? "default" : "outline"}
-                size="sm"
-                className={scenarioMode === "optimized" ? "bg-black text-white" : ""}
-              >
-                Optimized
-              </Button>
-              <Button
-                onClick={() => setScenarioMode("custom")}
-                variant={scenarioMode === "custom" ? "default" : "outline"}
-                size="sm"
-                className={scenarioMode === "custom" ? "bg-black text-white" : ""}
-              >
-                Custom
-              </Button>
-            </div>
+            ))}
           </div>
-        )}
+          <p className="text-xs text-black/40">Sets participation rate, referral conversion, and core/mid/low conversion percentages</p>
+        </div>
       </div>
 
       <div className="grid lg:grid-cols-5 gap-8">
