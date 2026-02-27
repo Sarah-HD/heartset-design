@@ -51,24 +51,21 @@ export default function Home() {
     queryKey: ['tier-assignments'],
     queryFn: () => base44.entities.TierAssignment.list(),
     enabled: !!isAdminUser,
-  });
-
-  const { data: sprintOnboardings = [] } = useQuery({
-    queryKey: ['sprint-onboardings'],
-    queryFn: () => base44.entities.SprintOnboarding.list(),
-    enabled: !!isAdminUser,
+    refetchInterval: 30000,
   });
 
   const { data: advisoryApplications = [] } = useQuery({
     queryKey: ['advisory-applications'],
     queryFn: () => base44.entities.AdvisoryApplication.list(),
     enabled: !!isAdminUser,
+    refetchInterval: 30000,
   });
 
   const { data: submissions = [] } = useQuery({
     queryKey: ['submissions'],
     queryFn: () => base44.entities.HomeworkSubmission.list(),
     enabled: !!isAdminUser,
+    refetchInterval: 30000,
   });
 
   const { data: adminTasks = [] } = useQuery({
@@ -88,10 +85,6 @@ export default function Home() {
       queryClient.invalidateQueries({ queryKey: ['tier-assignments'] });
     });
 
-    const unsubscribeSprint = base44.entities.SprintOnboarding.subscribe(() => {
-      queryClient.invalidateQueries({ queryKey: ['sprint-onboardings'] });
-    });
-
     const unsubscribeAdvisory = base44.entities.AdvisoryApplication.subscribe(() => {
       queryClient.invalidateQueries({ queryKey: ['advisory-applications'] });
     });
@@ -106,7 +99,6 @@ export default function Home() {
 
     return () => {
       unsubscribeTier();
-      unsubscribeSprint();
       unsubscribeAdvisory();
       unsubscribeSubmissions();
       unsubscribeTasks();
@@ -150,7 +142,7 @@ export default function Home() {
 
     const sprintActive = tierAssignments.filter(t => t.tier === 'sprint_6500').length;
     const advisoryActive = tierAssignments.filter(t => t.tier === 'advisory_10000' || t.tier === 'infrastructure_25000').length;
-    const focusGroupCompleted = sprintOnboardings.length;
+    const focusGroupCompleted = 0;
 
     return (
       <div className="min-h-screen bg-white">
@@ -308,9 +300,6 @@ export default function Home() {
                     </Link>
                     <Link to={createPageUrl("AdminContentManagement")}>
                       <Button variant="outline" className="w-full">Content Management</Button>
-                    </Link>
-                    <Link to={createPageUrl("AdminTierManagement")}>
-                      <Button variant="outline" className="w-full">Invite User</Button>
                     </Link>
                   </div>
                 </CardContent>

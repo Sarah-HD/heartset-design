@@ -11,9 +11,8 @@ Deno.serve(async (req) => {
 
     const dashboardUrl = 'https://heartsetdesign.base44.app';
 
-    // Send access email from Base44
     await base44.asServiceRole.integrations.Core.SendEmail({
-      from_name: 'Heartset.app',
+      from_name: 'Heartset Design',
       to: userEmail,
       subject: 'You're in — next steps inside',
       body: `Your Focus Group registration has been confirmed.
@@ -37,8 +36,8 @@ Questions? Reply to any email from Sarah.`
       const contactPayload = {
         properties: {
           email: userEmail,
-          firstname: formData.firstName,
-          lastname: formData.lastName,
+          firstname: formData?.firstName,
+          lastname: formData?.lastName,
           focus_group_status: 'submitted',
           focus_group_submission_date: new Date().toISOString()
         }
@@ -54,7 +53,6 @@ Questions? Reply to any email from Sarah.`
       });
     } catch (hubspotError) {
       console.error('HubSpot sync failed:', hubspotError);
-      // Continue anyway - the Base44 email was sent
     }
 
     return Response.json({ success: true });

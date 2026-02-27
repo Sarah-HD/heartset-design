@@ -13,7 +13,7 @@ Deno.serve(async (req) => {
     const dashboardUrl = 'https://heartsetdesign.base44.app';
 
     await base44.asServiceRole.integrations.Core.SendEmail({
-      from_name: 'Sarah — Heartset Design',
+      from_name: 'Heartset Design',
       to: userEmail,
       subject: 'Your Authority Infrastructure™ Access Is Live',
       body: `You've been granted access to the Authority Infrastructure™ Sprint.

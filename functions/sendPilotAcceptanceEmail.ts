@@ -39,9 +39,8 @@ Deno.serve(async (req) => {
     <p>Best,<br>Sarah</p>
     `;
 
-    // Use service role to send email to users who haven't signed up yet
     await base44.asServiceRole.integrations.Core.SendEmail({
-      from_name: 'Sarah Heartset',
+      from_name: 'Heartset Design',
       to: userEmail,
       subject: "Action Required: Your Pilot Participation Agreement",
       body: emailBody
