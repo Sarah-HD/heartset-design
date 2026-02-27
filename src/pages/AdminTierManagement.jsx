@@ -375,7 +375,7 @@ export default function AdminTierManagement() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="sprint_6500">$6,500 Sprint</SelectItem>
+                        <SelectItem value="sprint_6500">$6,950 Sprint</SelectItem>
                         <SelectItem value="advisory_10000">$10,000 Advisory</SelectItem>
                         <SelectItem value="infrastructure_25000">$25,000 Infrastructure</SelectItem>
                       </SelectContent>
