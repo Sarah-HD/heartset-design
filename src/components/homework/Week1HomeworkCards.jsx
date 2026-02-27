@@ -6,8 +6,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { Info, Save, CheckCircle2, Download, Copy, Clock, Upload, Mic } from "lucide-react";
+import { Info, Save, CheckCircle2, Download, Copy, Clock, Upload, Mic, ChevronDown, ChevronUp, Calculator } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import TimeAuditCalculator from "@/components/calculators/TimeAuditCalculator";
+import RevenueAuditCalculator from "@/components/calculators/RevenueAuditCalculator";
+import ParticipationModelingCalculator from "@/components/calculators/ParticipationModelingCalculator";
 
 const questions = {
   tab1: {
