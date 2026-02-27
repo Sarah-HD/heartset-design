@@ -442,6 +442,37 @@ export default function AdminTierManagement() {
               </TabsTrigger>
             </TabsList>
 
+            <TabsContent value="users" className="space-y-4">
+              {allUsers.filter(u => u.role !== 'admin').length === 0 ? (
+                <p className="text-black/40 text-center py-12">No users yet.</p>
+              ) : (
+                allUsers.filter(u => u.role !== 'admin').map((u) => {
+                  const assignment = tierAssignments.find(t => t.userEmail === u.email);
+                  return (
+                    <Card key={u.id}>
+                      <CardContent className="p-6">
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <div className="flex items-center gap-3 mb-1">
+                              <h3 className="font-medium">{u.full_name || u.email}</h3>
+                              {u.data?.cohort_type && (
+                                <Badge variant="outline" className="text-xs capitalize">{u.data.cohort_type}</Badge>
+                              )}
+                              {assignment && getTierBadge(assignment.tier)}
+                              {assignment && getStatusBadge(assignment.status)}
+                              {assignment?.isProBono && <Badge variant="outline">Pro Bono</Badge>}
+                            </div>
+                            <p className="text-sm text-black/60">{u.email}</p>
+                            <p className="text-xs text-black/40 mt-1">Joined: {new Date(u.created_date).toLocaleString()}</p>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  );
+                })
+              )}
+            </TabsContent>
+
             <TabsContent value="assignments" className="space-y-4">
               {tierAssignments.length === 0 ? (
                 <p className="text-black/40 text-center py-12">No tier assignments yet.</p>
