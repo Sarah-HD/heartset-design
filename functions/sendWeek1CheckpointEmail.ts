@@ -24,15 +24,17 @@ Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
     
-    const { userEmail } = await req.json();
+    const { userEmail, userName } = await req.json();
 
     if (!userEmail) {
       return Response.json({ error: 'userEmail is required' }, { status: 400 });
     }
 
     const dashboardUrl = 'https://heartsetdesign.base44.app';
+    const firstName = userName ? userName.split(' ')[0] : '';
+    const greeting = firstName ? `Hi ${firstName},\n\n` : '';
 
-    await sendGmail(base44, userEmail, 'Week 1 Execution Checkpoint', `This is a checkpoint reminder for Week 1.
+    await sendGmail(base44, userEmail, 'Week 1 Execution Checkpoint', `${greeting}This is a checkpoint reminder for Week 1.
 
 If you are behind:
 • Catch up

@@ -24,15 +24,17 @@ Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
     
-    const { userEmail } = await req.json();
+    const { userEmail, userName } = await req.json();
 
     if (!userEmail) {
       return Response.json({ error: 'userEmail is required' }, { status: 400 });
     }
 
     const dashboardUrl = 'https://heartsetdesign.base44.app';
+    const firstName = userName ? userName.split(' ')[0] : '';
+    const greeting = firstName ? `Hi ${firstName},\n\n` : '';
 
-    await sendGmail(base44, userEmail, 'Your Authority Infrastructure™ Access Is Live', `You've been granted access to the Authority Infrastructure™ Sprint.
+    await sendGmail(base44, userEmail, 'Your Authority Infrastructure™ Access Is Live', `${greeting}You've been granted access to the Authority Infrastructure™ Sprint.
 
 Your next steps are simple:
 1. Log in to your dashboard

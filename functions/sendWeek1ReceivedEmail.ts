@@ -24,13 +24,16 @@ Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
     
-    const { userEmail } = await req.json();
+    const { userEmail, userName } = await req.json();
 
     if (!userEmail) {
       return Response.json({ error: 'userEmail is required' }, { status: 400 });
     }
 
-    await sendGmail(base44, userEmail, 'Week 1 Received', `Your Week 1 submission has been received.
+    const firstName = userName ? userName.split(' ')[0] : '';
+    const greeting = firstName ? `Hi ${firstName},\n\n` : '';
+
+    await sendGmail(base44, userEmail, 'Week 1 Received', `${greeting}Your Week 1 submission has been received.
 
 No additional action is required at this time.
 

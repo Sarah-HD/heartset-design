@@ -24,15 +24,17 @@ Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
     
-    const { userEmail } = await req.json();
+    const { userEmail, userName } = await req.json();
 
     if (!userEmail) {
       return Response.json({ error: 'userEmail is required' }, { status: 400 });
     }
 
     const dashboardUrl = 'https://heartsetdesign.base44.app';
+    const firstName = userName ? userName.split(' ')[0] : '';
+    const greeting = firstName ? `Hi ${firstName},\n\n` : '';
 
-    await sendGmail(base44, userEmail, 'Onboarding Required to Proceed', `Your Authority Infrastructure™ Sprint onboarding is still incomplete.
+    await sendGmail(base44, userEmail, 'Onboarding Required to Proceed', `${greeting}Your Authority Infrastructure™ Sprint onboarding is still incomplete.
 
 Completion is required to:
 • Unlock Week 1 materials

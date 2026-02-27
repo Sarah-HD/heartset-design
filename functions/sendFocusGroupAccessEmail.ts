@@ -24,12 +24,15 @@ What happens next:
 This is an automated confirmation from the Heartset platform.
 
 Questions? Reply to any email from Sarah.`;
+    const firstName = formData?.firstName || '';
+    const greeting = firstName ? `Hi ${firstName},\n\n` : '';
     const messageParts = [
       `To: ${userEmail}`,
+      `From: Sarah from Heartset Design <me>`,
       `Subject: You're in — next steps inside`,
       'Content-Type: text/plain; charset=utf-8',
       '',
-      gmailBody
+      greeting + gmailBody
     ];
     const message = messageParts.join('\n');
     const encoded = btoa(unescape(encodeURIComponent(message))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');

@@ -35,8 +35,9 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
+    const firstName = userName.split(' ')[0];
     const emailBody = `
-    <p>Hi ${userName},</p>
+    <p>Hi ${firstName},</p>
     
     <p>I'm excited to let you know you've been selected to participate in the pilot of the $6,950 Implementation Sprint.</p>
     
