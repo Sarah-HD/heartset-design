@@ -90,6 +90,12 @@ export default function AdminTierManagement() {
     enabled: !!user,
   });
 
+  const { data: allUsers = [] } = useQuery({
+    queryKey: ['allUsers'],
+    queryFn: () => base44.entities.User.list('-created_date'),
+    enabled: !!user,
+  });
+
   const addAssignmentMutation = useMutation({
     mutationFn: (data) => base44.entities.TierAssignment.create(data),
     onSuccess: () => {
