@@ -299,6 +299,19 @@ export default function Week1HomeworkCards() {
   const [uploadedFile, setUploadedFile] = useState(null);
   const [isListening, setIsListening] = useState({});
   const [isExtractingPlan, setIsExtractingPlan] = useState(false);
+  const [expandedCalculators, setExpandedCalculators] = useState({});
+
+  const toggleCalculator = (questionId) => {
+    setExpandedCalculators(prev => ({ ...prev, [questionId]: !prev[questionId] }));
+  };
+
+  // Map question IDs to their calculator components
+  const calculatorMap = {
+    "1.1": { label: "Open Time Audit Calculator", component: <TimeAuditCalculator /> },
+    "5.1": { label: "Open Time Audit Calculator", component: <TimeAuditCalculator /> },
+    "7.3": { label: "Open Revenue Audit Calculator", component: <RevenueAuditCalculator /> },
+    "7.4": { label: "Open Participation Modeling Calculator", component: <ParticipationModelingCalculator /> },
+  };
 
   React.useEffect(() => {
     const loadUser = async () => {
