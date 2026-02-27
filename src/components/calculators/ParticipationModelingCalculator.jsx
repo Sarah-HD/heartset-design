@@ -76,10 +76,19 @@ export default function ParticipationModelingCalculator() {
     }
   }, [scenarioMode]);
 
-  // Reverse calculations
-  const requiredCoreSales = Math.ceil(revenueTarget / corePrice);
-  const requiredRoomSize = Math.ceil(requiredCoreSales / (coreConversion / 100));
+  // Reverse calculations — solve for room size where blended revenue hits target
+  // Revenue per room person = core% × corePrice + mid%(of remaining) × midPrice + low%(of remaining after mid) × lowPrice
+  // Simplified: revenuePerPerson = (coreConv/100)*corePrice + (1-coreConv/100)*(midConv/100)*midPrice + (1-coreConv/100)*(1-midConv/100)*(lowConv/100)*lowPrice
+  const revenuePerPerson =
+    (coreConversion / 100) * corePrice +
+    (1 - coreConversion / 100) * (midConversion / 100) * midPrice +
+    (1 - coreConversion / 100) * (1 - midConversion / 100) * (lowConversion / 100) * lowPrice;
+  const requiredRoomSize = revenuePerPerson > 0 ? Math.ceil(revenueTarget / revenuePerPerson) : 0;
   const requiredOutreach = Math.ceil(requiredRoomSize / (participationRate / 100));
+  const requiredCoreSales = Math.floor(requiredRoomSize * (coreConversion / 100));
+  const requiredMidSales = Math.floor((requiredRoomSize - requiredCoreSales) * (midConversion / 100));
+  const requiredLowSales = Math.floor((requiredRoomSize - requiredCoreSales - requiredMidSales) * (lowConversion / 100));
+  const projectedRevenueFromTarget = requiredCoreSales * corePrice + requiredMidSales * midPrice + requiredLowSales * lowPrice;
 
   return (
     <div className="max-w-7xl mx-auto">
