@@ -540,6 +540,18 @@ export default function AdminTierManagement() {
                                 Mark as {assignment.status === 'assigned' ? 'Complete' : 'Active'}
                               </Button>
                             )}
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="border-red-300 text-red-600 hover:bg-red-50"
+                              onClick={() => {
+                                if (confirm(`Delete assignment for ${assignment.userEmail}?`)) {
+                                  deleteAssignmentMutation.mutate(assignment.id);
+                                }
+                              }}
+                            >
+                              Delete
+                            </Button>
                           </div>
                         </div>
                       </CardContent>
