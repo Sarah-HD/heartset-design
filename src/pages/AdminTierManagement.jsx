@@ -420,6 +420,10 @@ export default function AdminTierManagement() {
 
           <Tabs defaultValue="assignments" className="space-y-6">
             <TabsList>
+              <TabsTrigger value="users">
+                <Users className="w-4 h-4 mr-2" />
+                All Users ({allUsers.filter(u => u.role !== 'admin').length})
+              </TabsTrigger>
               <TabsTrigger value="assignments">
                 <Users className="w-4 h-4 mr-2" />
                 Tier Assignments
