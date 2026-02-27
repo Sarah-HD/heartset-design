@@ -628,6 +628,9 @@ Output the refined criteria as a structured list I can use for LinkedIn Sales Na
     }
 
     // Default rendering for all other questions
+    const calc = calculatorMap[question.id];
+    const isCalcOpen = expandedCalculators[question.id];
+
     return (
       <Card key={question.id} className="mb-4">
         <CardHeader>
@@ -649,6 +652,27 @@ Output the refined criteria as a structured list I can use for LinkedIn Sales Na
         </CardHeader>
         <CardContent className="space-y-3">
           <p className="text-sm text-black/60 font-light">{question.prompt}</p>
+
+          {calc && (
+            <div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => toggleCalculator(question.id)}
+                className="border-black/20 text-black/70 hover:bg-black hover:text-white gap-2 text-xs"
+              >
+                <Calculator className="w-3.5 h-3.5" />
+                {calc.label}
+                {isCalcOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+              </Button>
+              {isCalcOpen && (
+                <div className="mt-4 border border-black/10 p-4 bg-neutral-50">
+                  {calc.component}
+                </div>
+              )}
+            </div>
+          )}
+
           <div className="relative">
             <Textarea
               placeholder="Type your answer or use speech-to-text..."
