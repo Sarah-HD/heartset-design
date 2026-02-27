@@ -1,6 +1,5 @@
 import React from "react";
 import Week1HomeworkCards from "@/components/homework/Week1HomeworkCards";
-import Week1RevenueCalculator from "@/components/calculators/Week1RevenueCalculator";
 
 export default function Week1Video() {
   return (
