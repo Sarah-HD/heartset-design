@@ -418,7 +418,7 @@ export default function AdminTierManagement() {
             </Card>
           )}
 
-          <Tabs defaultValue="assignments" className="space-y-6">
+          <Tabs defaultValue="users" className="space-y-6">
             <TabsList>
               <TabsTrigger value="users">
                 <Users className="w-4 h-4 mr-2" />
