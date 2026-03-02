@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+// eslint-disable-next-line no-unused-vars
 
 export default function CredibilitySection() {
   const ref = useRef(null);
@@ -19,9 +20,9 @@ export default function CredibilitySection() {
           <p className="text-lg md:text-xl text-black/70 font-light mb-4">
             ★★★★★ 5-Star Client Rating · Design & Strategy Engagements · 10+ Years
           </p>
-          <button className="text-xs text-black/30 hover:text-black/50 transition-colors duration-300 italic">
+          <p className="text-xs text-black/30 italic">
             Verified reviews available upon request
-          </button>
+          </p>
         </motion.div>
       </div>
     </section>
