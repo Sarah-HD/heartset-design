@@ -692,6 +692,7 @@ Output the refined criteria as a structured list I can use for LinkedIn Sales Na
               size="sm"
               variant="ghost"
               onClick={() => startSpeechToText(question.id)}
+              aria-label={isListening[question.id] ? "Stop recording" : "Start speech to text"}
               className={`absolute right-2 top-2 ${isListening[question.id] ? 'bg-black text-white' : 'text-black/40 hover:text-black'}`}
             >
               <Mic className="w-4 h-4" />
