@@ -373,69 +373,68 @@ export default function Week1HomeworkCards() {
     }
   };
 
-  const handleExportBlank = () => {
-    let markdown = "# Week 1 Operational Manual - Blank Template\n\n";
-    
-    Object.entries(questions).forEach(([key, tab]) => {
-      markdown += `## ${tab.title}\n\n`;
-      tab.questions.forEach(q => {
-        markdown += `### ${q.id} ${q.label}\n`;
-        markdown += `${q.prompt}\n\n`;
-        markdown += `**Your Answer:**\n\n---\n\n`;
-      });
-    });
-
-    const blob = new Blob([markdown], { type: 'text/markdown' });
+  const downloadAsDoc = (title, htmlContent, filename) => {
+    const html = `
+      <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+      <head><meta charset='utf-8'><title>${title}</title>
+      <style>
+        body { font-family: Arial, sans-serif; margin: 40px; color: #000; }
+        h1 { font-size: 24pt; margin-bottom: 12pt; }
+        h2 { font-size: 16pt; margin-top: 24pt; margin-bottom: 8pt; border-bottom: 1px solid #ccc; padding-bottom: 4pt; }
+        h3 { font-size: 13pt; margin-top: 16pt; margin-bottom: 4pt; }
+        p { font-size: 11pt; color: #555; margin-bottom: 6pt; }
+        .answer-box { border: 1px solid #ccc; min-height: 60pt; padding: 8pt; margin-top: 6pt; margin-bottom: 16pt; background: #fafafa; }
+        .answer-text { font-size: 11pt; margin: 0; }
+        hr { border: none; border-top: 1px solid #eee; margin: 16pt 0; }
+      </style>
+      </head><body>${htmlContent}</body></html>
+    `;
+    const blob = new Blob([html], { type: 'application/msword' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'Week1-Blank-Template.md';
+    a.download = filename;
     a.click();
     URL.revokeObjectURL(url);
+  };
+
+  const handleExportBlank = () => {
+    let html = `<h1>Week 1 Operational Manual — Blank Template</h1>`;
+    Object.entries(questions).forEach(([key, tab]) => {
+      html += `<h2>${tab.title}</h2>`;
+      tab.questions.forEach(q => {
+        html += `<h3>${q.id} ${q.label}</h3>`;
+        html += `<p>${q.prompt}</p>`;
+        html += `<div class="answer-box"></div>`;
+      });
+    });
+    downloadAsDoc('Week 1 Blank Template', html, 'Week1-Blank-Template.doc');
   };
 
   const handleExportFilled = () => {
-    let markdown = "# Week 1 Operational Manual - My Answers\n\n";
-    
+    let html = `<h1>Week 1 Operational Manual — My Answers</h1>`;
     Object.entries(questions).forEach(([key, tab]) => {
-      markdown += `## ${tab.title}\n\n`;
+      html += `<h2>${tab.title}</h2>`;
       tab.questions.forEach(q => {
-        markdown += `### ${q.id} ${q.label}\n`;
-        markdown += `${q.prompt}\n\n`;
-        markdown += `**Your Answer:**\n${responses[q.id] || '[Not answered yet]'}\n\n---\n\n`;
+        html += `<h3>${q.id} ${q.label}</h3>`;
+        html += `<p>${q.prompt}</p>`;
+        html += `<div class="answer-box"><p class="answer-text">${(responses[q.id] || '[Not answered yet]').replace(/\n/g, '<br/>')}</p></div>`;
       });
     });
-
-    const blob = new Blob([markdown], { type: 'text/markdown' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'Week1-Filled-Template.md';
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadAsDoc('Week 1 My Answers', html, 'Week1-Filled-Template.doc');
   };
 
   const handleGenerateBlueprintDraft = () => {
-    let markdown = "# Operational Blueprint Draft\n\n";
-    markdown += "**Generated:** " + new Date().toLocaleDateString() + "\n\n";
-    markdown += "---\n\n";
-    
+    let html = `<h1>Operational Blueprint Draft</h1><p><strong>Generated:</strong> ${new Date().toLocaleDateString()}</p><hr/>`;
     Object.entries(questions).forEach(([key, tab]) => {
-      markdown += `## ${tab.title}\n\n`;
+      html += `<h2>${tab.title}</h2>`;
       tab.questions.forEach(q => {
-        markdown += `### ${q.label}\n`;
-        markdown += `${responses[q.id] || '[Not answered]'}\n\n`;
+        html += `<h3>${q.label}</h3>`;
+        html += `<div class="answer-box"><p class="answer-text">${(responses[q.id] || '[Not answered]').replace(/\n/g, '<br/>')}</p></div>`;
       });
-      markdown += "---\n\n";
+      html += `<hr/>`;
     });
-
-    const blob = new Blob([markdown], { type: 'text/markdown' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'Blueprint-Draft.md';
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadAsDoc('Operational Blueprint Draft', html, 'Blueprint-Draft.doc');
   };
 
   const formatTime = (seconds) => {
