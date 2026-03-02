@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-// eslint-disable-next-line no-unused-vars
 
 export default function CredibilitySection() {
   const ref = useRef(null);
