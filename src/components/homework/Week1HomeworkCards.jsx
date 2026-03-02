@@ -400,10 +400,10 @@ export default function Week1HomeworkCards() {
 
   const handleExportBlank = () => {
     let html = `<h1>Week 1 Operational Manual — Blank Template</h1>`;
-    Object.entries(questions).forEach(([key, tab]) => {
-      html += `<h2>${tab.title}</h2>`;
+    Object.entries(questions).forEach(([key, tab], sectionIndex) => {
+      html += `<h2>Section ${sectionIndex + 1}: ${tab.title}</h2>`;
       tab.questions.forEach(q => {
-        html += `<h3>${q.id} ${q.label}</h3>`;
+        html += `<h3>Question ${q.id} — ${q.label}</h3>`;
         html += `<p>${q.prompt}</p>`;
         html += `<div class="answer-box"></div>`;
       });
@@ -426,10 +426,10 @@ export default function Week1HomeworkCards() {
 
   const handleGenerateBlueprintDraft = () => {
     let html = `<h1>Operational Blueprint Draft</h1><p><strong>Generated:</strong> ${new Date().toLocaleDateString()}</p><hr/>`;
-    Object.entries(questions).forEach(([key, tab]) => {
-      html += `<h2>${tab.title}</h2>`;
+    Object.entries(questions).forEach(([key, tab], sectionIndex) => {
+      html += `<h2>Section ${sectionIndex + 1}: ${tab.title}</h2>`;
       tab.questions.forEach(q => {
-        html += `<h3>${q.label}</h3>`;
+        html += `<h3>Question ${q.id} — ${q.label}</h3>`;
         html += `<div class="answer-box"><p class="answer-text">${(responses[q.id] || '[Not answered]').replace(/\n/g, '<br/>')}</p></div>`;
       });
       html += `<hr/>`;
@@ -481,9 +481,17 @@ export default function Week1HomeworkCards() {
     }
   };
 
+  const recognitionRefs = React.useRef({});
+
   const startSpeechToText = (questionId) => {
     if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
       alert('Speech recognition not supported in this browser');
+      return;
+    }
+
+    // If already listening, stop it
+    if (isListening[questionId] && recognitionRefs.current[questionId]) {
+      recognitionRefs.current[questionId].stop();
       return;
     }
 
@@ -491,6 +499,7 @@ export default function Week1HomeworkCards() {
     const recognition = new SpeechRecognition();
     recognition.continuous = true;
     recognition.interimResults = true;
+    recognitionRefs.current[questionId] = recognition;
 
     recognition.onstart = () => {
       setIsListening(prev => ({ ...prev, [questionId]: true }));
@@ -506,17 +515,15 @@ export default function Week1HomeworkCards() {
 
     recognition.onerror = () => {
       setIsListening(prev => ({ ...prev, [questionId]: false }));
+      recognitionRefs.current[questionId] = null;
     };
 
     recognition.onend = () => {
       setIsListening(prev => ({ ...prev, [questionId]: false }));
+      recognitionRefs.current[questionId] = null;
     };
 
-    if (isListening[questionId]) {
-      recognition.stop();
-    } else {
-      recognition.start();
-    }
+    recognition.start();
   };
 
   const handleCopyProspectPrompt = () => {
