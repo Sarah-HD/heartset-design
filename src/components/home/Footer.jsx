@@ -14,7 +14,7 @@ export default function Footer() {
             >
               Heartset Design
             </h2>
-            <p className="text-sm text-white/40 font-light">
+            <p className="text-sm text-white/60 font-light">
               Consulting · Strategy · Systems
             </p>
           </div>
@@ -22,7 +22,7 @@ export default function Footer() {
           <div className="flex flex-col sm:flex-row gap-8 text-sm">
             <Link 
               to={createPageUrl("Contact")}
-              className="text-white/50 hover:text-white transition-colors duration-300"
+              className="text-white/70 hover:text-white transition-colors duration-300"
             >
               Contact
             </Link>
@@ -30,7 +30,7 @@ export default function Footer() {
               href="https://linkedin.com" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-white/50 hover:text-white transition-colors duration-300"
+              className="text-white/70 hover:text-white transition-colors duration-300"
             >
               LinkedIn
             </a>
