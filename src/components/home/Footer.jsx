@@ -14,7 +14,7 @@ export default function Footer() {
             >
               Heartset Design
             </h2>
-            <p className="text-sm text-white/60 font-light">
+            <p className="text-sm text-white/80 font-light">
               Consulting · Strategy · Systems
             </p>
           </div>
@@ -38,7 +38,7 @@ export default function Footer() {
         </div>
         
         <div className="mt-16 pt-8 border-t border-white/10">
-          <p className="text-xs text-white/60">
+          <p className="text-xs text-white/80">
             © {new Date().getFullYear()} Heartset Design. All rights reserved.
           </p>
         </div>

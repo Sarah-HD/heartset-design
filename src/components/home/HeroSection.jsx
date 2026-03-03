@@ -14,8 +14,10 @@ export default function HeroSection() {
           aria-hidden="true"
           fetchpriority="high"
           decoding="async"
+          width="1200"
+          height="800"
           className="absolute inset-0 w-full h-full object-cover object-center"
-          style={{ filter: 'grayscale(100%)', opacity: '0.5' }}
+          style={{ filter: 'grayscale(100%)', opacity: '0.5', contentVisibility: 'auto' }}
         />
         <div 
           className="absolute inset-0" 
