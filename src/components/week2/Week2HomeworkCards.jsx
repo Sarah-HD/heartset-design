@@ -15,7 +15,7 @@ const downloads = [
   {
     label: "Registration Form Questions",
     sublabel: "Google Doc",
-    url: "https://docs.google.com/document/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms/copy",
+    url: "https://docs.google.com/document/d/1sCdJ56HmW7XuayOwuiay7ISrbZKEg99QU-iEN5StVaQ/copy",
     type: "doc"
   },
   {
