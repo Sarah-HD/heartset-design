@@ -10,23 +10,13 @@ Deno.serve(async (req) => {
 
     const { fileUrl, fileName } = await req.json();
 
-    // Fetch the file from the provided URL
-    const fileResponse = await fetch(fileUrl);
-    if (!fileResponse.ok) {
-        return Response.json({ error: 'Failed to fetch file from URL' }, { status: 400 });
-    }
-
-    const arrayBuffer = await fileResponse.arrayBuffer();
-    const base64 = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
-    const dataUrl = `data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,${base64}`;
-
-    // Upload to private storage
-    const result = await base44.asServiceRole.integrations.Core.UploadPrivateFile({ file: dataUrl });
+    // Upload to private storage by passing the URL directly
+    const result = await base44.asServiceRole.integrations.Core.UploadPrivateFile({ file: fileUrl });
 
     return Response.json({ 
         success: true,
         file_uri: result.file_uri,
-        fileName: fileName || 'template',
-        message: 'File stored in private storage. Save the file_uri to use for authenticated downloads.'
+        fileName: fileName || 'OutreachTrackerTemplate.xlsx',
+        message: 'File stored in private storage. Save the file_uri for authenticated downloads.'
     });
 });
