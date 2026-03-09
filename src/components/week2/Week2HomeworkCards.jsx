@@ -113,7 +113,7 @@ function VideoPlaceholder({ label }) {
   );
 }
 
-function CollapsibleModule({ module, checked, onToggleCheck }) {
+function CollapsibleModule({ module, trackDownload }) {
   const [open, setOpen] = useState(module.id === "overview");
 
   return (
@@ -133,6 +133,27 @@ function CollapsibleModule({ module, checked, onToggleCheck }) {
         <div className="px-6 pb-6 border-t border-black/5 pt-6">
           <p className="text-sm text-black/50 font-light mb-6 ml-10">{module.description}</p>
           <VideoPlaceholder label={module.videoLabel} />
+          {module.downloads && module.downloads.length > 0 && (
+            <div className="mt-4 ml-10 space-y-2">
+              {module.downloads.map((item, i) => (
+                <a
+                  key={i}
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackDownload(item.label)}
+                  className="flex items-center justify-between py-3 px-4 border border-black/8 hover:border-black/20 hover:bg-neutral-50 transition-all group"
+                >
+                  <div>
+                    <p className="text-sm font-medium text-black/80 group-hover:text-black transition-colors">{item.label}</p>
+                    <p className="text-xs text-black/30 mt-0.5">{item.sublabel}</p>
+                  </div>
+                  <ExternalLink className="w-4 h-4 text-black/20 group-hover:text-black/50 transition-colors flex-shrink-0" />
+                </a>
+              ))}
+              <p className="text-xs text-black/30 font-light pt-1">Links open in Google Drive. Make a copy before editing.</p>
+            </div>
+          )}
         </div>
       )}
     </div>
