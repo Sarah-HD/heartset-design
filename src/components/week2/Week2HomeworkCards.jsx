@@ -202,6 +202,41 @@ export default function Week2HomeworkCards() {
           </p>
         </div>
 
+        {/* Legal Notice */}
+        <div className="bg-amber-50 border border-amber-200 p-8 mb-10">
+          <p className="text-xs tracking-[0.2em] uppercase text-amber-600 mb-4">Before You Host a Live Validation Session</p>
+          <p className="text-sm text-black/70 font-light mb-4">You are about to:</p>
+          <ul className="space-y-1 mb-5 ml-1">
+            {["Present original intellectual property", "Collect strategic insight", "Potentially record discussions", "Open the door to monetization"].map((item, i) => (
+              <li key={i} className="text-sm text-black/70 font-light flex items-start gap-2">
+                <span className="text-amber-500 mt-1">•</span> {item}
+              </li>
+            ))}
+          </ul>
+          <p className="text-sm text-black/70 font-light mb-4">
+            Before hosting a room like this, make sure your intellectual property and operating structure are legally protected.
+          </p>
+          <p className="text-sm text-black/70 font-light mb-3">I personally use LegalShield for:</p>
+          <ul className="space-y-1 mb-5 ml-1">
+            {["Contract review", "IP clarity", "Business legal access", "Ongoing consultation"].map((item, i) => (
+              <li key={i} className="text-sm text-black/70 font-light flex items-start gap-2">
+                <span className="text-amber-500 mt-1">•</span> {item}
+              </li>
+            ))}
+          </ul>
+          <p className="text-sm text-black/70 font-light mb-4">
+            If you don't already have business legal coverage, here is the resource I recommend:
+          </p>
+          <a
+            href="https://ssarahwilkes.legalshieldassociate.com/smb?d=eyJiaWxsaW5nUGVyaW9kIjoiTU9OVEhMWSJ9"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-sm font-medium text-amber-700 hover:text-amber-900 underline underline-offset-4 transition-colors"
+          >
+            LegalShield Business Legal Coverage <ExternalLink className="w-3.5 h-3.5" />
+          </a>
+        </div>
+
         {/* Video Modules */}
         <div className="mb-12">
           <p className="text-xs tracking-[0.2em] uppercase text-black/30 mb-5">Video Modules</p>
