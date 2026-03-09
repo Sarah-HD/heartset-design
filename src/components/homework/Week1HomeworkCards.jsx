@@ -398,6 +398,17 @@ export default function Week1HomeworkCards() {
     URL.revokeObjectURL(url);
   };
 
+  const trackDownload = (fileName) => {
+    base44.analytics.track({
+      eventName: "template_downloaded",
+      properties: {
+        file_name: fileName,
+        user_email: user?.email || "unknown",
+        timestamp: new Date().toISOString(),
+      }
+    });
+  };
+
   const handleExportBlank = () => {
     let html = `<h1>Week 1 Operational Manual — Blank Template</h1>`;
     Object.entries(questions).forEach(([key, tab], sectionIndex) => {
