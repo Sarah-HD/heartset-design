@@ -128,6 +128,22 @@ function CollapsibleModule({ module, checked, onToggleCheck }) {
 export default function Week2HomeworkCards() {
   const [checked, setChecked] = useState({});
   const [weekComplete, setWeekComplete] = useState(false);
+  const [user, setUser] = React.useState(null);
+
+  React.useEffect(() => {
+    base44.auth.me().then(setUser).catch(() => {});
+  }, []);
+
+  const trackDownload = (fileName) => {
+    base44.analytics.track({
+      eventName: "template_downloaded",
+      properties: {
+        file_name: fileName,
+        user_email: user?.email || "unknown",
+        timestamp: new Date().toISOString(),
+      }
+    });
+  };
 
   const toggleCheck = (id) => {
     setChecked(prev => ({ ...prev, [id]: !prev[id] }));
@@ -194,6 +210,7 @@ export default function Week2HomeworkCards() {
                 href={item.url}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackDownload(item.label)}
                 className="flex items-center justify-between py-3 px-4 border border-black/8 hover:border-black/20 hover:bg-neutral-50 transition-all group"
               >
                 <div>
