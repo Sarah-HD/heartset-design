@@ -25,9 +25,27 @@ const downloads = [
     type: "doc"
   },
   {
-    label: "Email Sequence Templates (9 Emails)",
+    label: "DM Outreach Templates",
     sublabel: "Google Doc",
-    url: "https://docs.google.com/document/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms/copy",
+    url: "https://docs.google.com/document/d/18f8qUAVB9yhyK_V-FMXhjNfShaUcc2zHgtLFJF4oRgA/edit?usp=sharing",
+    type: "doc"
+  },
+  {
+    label: "Focus Group Invite Email Templates",
+    sublabel: "Google Doc",
+    url: "https://docs.google.com/document/d/1p-yXIbWlkSiBLF14D71ODAKHU8XMzTw9wW2t8HRiZR4/edit?usp=sharing",
+    type: "doc"
+  },
+  {
+    label: "Post-Session Email Templates",
+    sublabel: "Google Doc",
+    url: "https://docs.google.com/document/d/1Sro7XPi7emxmkryNN3R7kO4DHPsCkBWcUkXGbsPkxpc/edit?usp=sharing",
+    type: "doc"
+  },
+  {
+    label: "LinkedIn Sales Navigator (Optional)",
+    sublabel: "External Tool",
+    url: "https://www.linkedin.com/help/linkedin/feature-launcher/urn:li:helpCenterArticle:(1355837,LITHOGRAPH)?trk=search_feature_launcher",
     type: "doc"
   },
   {
