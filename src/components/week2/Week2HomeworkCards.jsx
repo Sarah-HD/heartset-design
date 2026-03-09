@@ -235,30 +235,6 @@ export default function Week2HomeworkCards() {
           </div>
         </div>
 
-        {/* Downloads */}
-        <div className="bg-white border border-black/10 p-8 mb-8">
-          <p className="text-xs tracking-[0.2em] uppercase text-black/30 mb-6">Downloads & Templates</p>
-          <div className="space-y-3">
-            {downloads.map((item, i) => (
-              <a
-                key={i}
-                href={item.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackDownload(item.label)}
-                className="flex items-center justify-between py-3 px-4 border border-black/8 hover:border-black/20 hover:bg-neutral-50 transition-all group"
-              >
-                <div>
-                  <p className="text-sm font-medium text-black/80 group-hover:text-black transition-colors">{item.label}</p>
-                  <p className="text-xs text-black/30 mt-0.5">{item.sublabel}</p>
-                </div>
-                <ExternalLink className="w-4 h-4 text-black/20 group-hover:text-black/50 transition-colors flex-shrink-0" />
-              </a>
-            ))}
-          </div>
-          <p className="text-xs text-black/30 mt-4 font-light">Links open in Google Drive. Make a copy to your own account before editing.</p>
-        </div>
-
         {/* Mark Week Complete */}
         <div className="bg-white border border-black/10 p-8">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
