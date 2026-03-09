@@ -74,7 +74,7 @@ const modules = [
     description: "Create your Focus Group registration form with qualification logic.",
     videoLabel: "Registration Form Build",
     downloads: [
-      { label: "Registration Form Questions", sublabel: "Google Doc", url: "https://docs.google.com/document/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms/copy" }
+      { label: "Registration Form Questions", sublabel: "Google Doc", url: "https://docs.google.com/document/d/1sCdJ56HmW7XuayOwuiay7ISrbZKEg99QU-iEN5StVaQ/copy" }
     ]
   },
   {
