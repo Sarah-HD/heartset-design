@@ -3,7 +3,7 @@ import { ChevronDown, ChevronUp, CheckSquare, Square, ExternalLink, Download, Pl
 import { Button } from "@/components/ui/button";
 import { base44 } from "@/api/base44Client";
 
-const GOOGLE_SHEET_URL = "https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms/copy";
+const GOOGLE_SHEET_URL = "https://docs.google.com/spreadsheets/d/1QkAXrLgO32OgQaVv9IiNnC15chQwESO5Ik4lrqH3rrk/copy";
 
 const downloads = [
   {
