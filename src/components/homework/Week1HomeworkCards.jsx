@@ -420,6 +420,7 @@ export default function Week1HomeworkCards() {
       });
     });
     downloadAsDoc('Week 1 Blank Template', html, 'Week1-Blank-Template.doc');
+    trackDownload('Week1-Blank-Template.doc');
   };
 
   const handleExportFilled = () => {
@@ -433,6 +434,7 @@ export default function Week1HomeworkCards() {
       });
     });
     downloadAsDoc('Week 1 My Answers', html, 'Week1-Filled-Template.doc');
+    trackDownload('Week1-Filled-Template.doc');
   };
 
   const handleGenerateBlueprintDraft = () => {
@@ -446,6 +448,7 @@ export default function Week1HomeworkCards() {
       html += `<hr/>`;
     });
     downloadAsDoc('Operational Blueprint Draft', html, 'Blueprint-Draft.doc');
+    trackDownload('Blueprint-Draft.doc');
   };
 
   const formatTime = (seconds) => {
