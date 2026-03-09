@@ -54,35 +54,49 @@ const modules = [
     number: "01",
     title: "Week 2 Overview",
     description: "What you're building this week and why each piece matters.",
-    videoLabel: "Week 2 Overview Video"
+    videoLabel: "Week 2 Overview Video",
+    downloads: []
   },
   {
     id: "outreach_tracker",
     number: "02",
     title: "Outreach Tracker Build",
     description: "Set up your Google Sheet tracker with correct columns and status logic.",
-    videoLabel: "Outreach Tracker Build"
+    videoLabel: "Outreach Tracker Build",
+    downloads: [
+      { label: "Outreach Tracker Template", sublabel: "Google Sheet", url: GOOGLE_SHEET_URL }
+    ]
   },
   {
     id: "reg_form",
     number: "03",
     title: "Registration Form Build",
     description: "Create your Focus Group registration form with qualification logic.",
-    videoLabel: "Registration Form Build"
+    videoLabel: "Registration Form Build",
+    downloads: [
+      { label: "Registration Form Questions", sublabel: "Google Doc", url: "https://docs.google.com/document/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms/copy" }
+    ]
   },
   {
     id: "email_templates",
     number: "04",
     title: "Email Templates Walkthrough",
     description: "Walk through all 9 email templates: invite sequence, confirmation, and post-session.",
-    videoLabel: "Email Templates Walkthrough"
+    videoLabel: "Email Templates Walkthrough",
+    downloads: [
+      { label: "Email Sequence Templates (9 Emails)", sublabel: "Google Doc", url: "https://docs.google.com/document/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms/copy" },
+      { label: "Post-Session Survey Questions", sublabel: "Google Doc", url: "https://docs.google.com/document/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms/copy" }
+    ]
   },
   {
     id: "slide_outline",
     number: "05",
     title: "Slide Outline Walkthrough",
     description: "Structure your Focus Group presentation using the 8-section skeleton.",
-    videoLabel: "Slide Outline Walkthrough"
+    videoLabel: "Slide Outline Walkthrough",
+    downloads: [
+      { label: "Slide Outline Template", sublabel: "Google Doc", url: "https://docs.google.com/document/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms/copy" }
+    ]
   }
 ];
 
