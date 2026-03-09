@@ -115,7 +115,7 @@ const modules = [
     description: "Structure your Focus Group presentation using the 8-section skeleton.",
     videoLabel: "Slide Outline Walkthrough",
     downloads: [
-      { label: "Slide Outline Template", sublabel: "Google Doc", url: "https://docs.google.com/document/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms/copy" }
+      { label: "Slide Outline Template", sublabel: "Google Doc", url: "https://docs.google.com/document/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms/edit?usp=sharing" }
     ]
   }
 ];
