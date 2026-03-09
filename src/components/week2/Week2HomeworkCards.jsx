@@ -206,7 +206,7 @@ export default function Week2HomeworkCards() {
         <div className="mb-12">
           <p className="text-xs tracking-[0.2em] uppercase text-black/30 mb-5">Video Modules</p>
           {modules.map(module => (
-            <CollapsibleModule key={module.id} module={module} checked={checked} onToggleCheck={toggleCheck} />
+            <CollapsibleModule key={module.id} module={module} trackDownload={trackDownload} />
           ))}
         </div>
 
