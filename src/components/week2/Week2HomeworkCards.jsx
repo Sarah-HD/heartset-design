@@ -103,8 +103,9 @@ const modules = [
     videoLabel: "Email Templates Walkthrough",
     downloads: [
       { label: "DM Outreach Templates", sublabel: "Google Doc", url: "https://docs.google.com/document/d/18f8qUAVB9yhyK_V-FMXhjNfShaUcc2zHgtLFJF4oRgA/edit?usp=sharing" },
-      { label: "Focus Group Invite Email Templates", sublabel: "Google Doc", url: "https://docs.google.com/document/d/1p-yXIbWlkSiBLF14D71ODAKHU8XMzTw9wW2t8HRiZR4/edit?usp=sharing" },
-      { label: "Post-Session Email Templates", sublabel: "Google Doc", url: "https://docs.google.com/document/d/1Sro7XPi7emxmkryNN3R7kO4DHPsCkBWcUkXGbsPkxpc/edit?usp=sharing" },
+      { label: "Focus Group Delivery Architecture", sublabel: "Google Doc", url: "https://docs.google.com/document/d/1p-yXIbWlkSiBLF14D71ODAKHU8XMzTw9wW2t8HRiZR4/edit?usp=sharing" },
+      { label: "Post-Session Decision Flow", sublabel: "Google Doc", url: "https://docs.google.com/document/d/1Sro7XPi7emxmkryNN3R7kO4DHPsCkBWcUkXGbsPkxpc/edit?usp=sharing" },
+      { label: "Operational Execution Notes", sublabel: "Google Doc", url: "https://docs.google.com/document/d/10IjBbb6_5VI6pdDV_jQGFqKU9rUTzFe9r2Q15inOr3g/edit?usp=sharing" },
       { label: "LinkedIn Sales Navigator (Optional Tool)", sublabel: "External Tool", url: "https://www.linkedin.com/help/linkedin/feature-launcher/urn:li:helpCenterArticle:(1355837,LITHOGRAPH)?trk=search_feature_launcher" }
     ]
   },
