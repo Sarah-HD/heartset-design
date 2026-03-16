@@ -11,25 +11,24 @@ Deno.serve(async (req) => {
 
     const dashboardUrl = 'https://heartsetdesign.base44.app';
 
-    const accessToken = await base44.asServiceRole.connectors.getAccessToken('gmail');
+    const { accessToken } = await base44.asServiceRole.connectors.getConnection('gmail');
     const gmailBody = `Your Focus Group registration has been confirmed.
 
 Dashboard: ${dashboardUrl}
 
 What happens next:
-• You'll receive a separate email from Sarah with important instructions
 • Check both your Primary and Promotions folders
 • Watch for session dates and materials
 
-This is an automated confirmation from the Heartset platform.
-
-Questions? Reply to any email from Sarah.`;
+Questions? Reply to this email.`;
     const firstName = formData?.firstName || '';
     const greeting = firstName ? `Hi ${firstName},\n\n` : '';
+    const subjectText = "You're in \u2014 next steps inside";
+    const encodedSubject = `=?utf-8?B?${btoa(unescape(encodeURIComponent(subjectText)))}?=`;
     const messageParts = [
       `To: ${userEmail}`,
       `From: Sarah from Heartset Design <me>`,
-      `Subject: You're in — next steps inside`,
+      `Subject: ${encodedSubject}`,
       'Content-Type: text/plain; charset=utf-8',
       '',
       greeting + gmailBody
