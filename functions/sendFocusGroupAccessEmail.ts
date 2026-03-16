@@ -11,7 +11,7 @@ Deno.serve(async (req) => {
 
     const dashboardUrl = 'https://heartsetdesign.base44.app';
 
-    const { accessToken } = await base44.asServiceRole.connectors.getConnection('gmail');
+    const accessToken = await base44.asServiceRole.connectors.getAccessToken('gmail');
     const gmailBody = `Your Focus Group registration has been confirmed.
 
 Dashboard: ${dashboardUrl}
