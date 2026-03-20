@@ -294,7 +294,7 @@ export default function SlidePlayer({ slides, dayLabel, homeworkSlide }) {
             className="flex items-center gap-1.5 text-xs text-black/40 hover:text-black transition-colors px-2.5 py-1 border border-black/10 hover:border-black/25"
           >
             {isPlaying ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
-            <span>{isPlaying ? "Pause" : "▶ Listen"}</span>
+            <span>{isPlaying ? "Pause" : "Listen"}</span>
           </button>
           <button
             onClick={toggleMute}
