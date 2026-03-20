@@ -158,6 +158,18 @@ export const day3Slides = [
     },
     closing: 'This is not a motivation decision. It is an operational decision.',
     speakerNotes: "No pressure. Just clarity."
+  },
+  {
+    type: 'survey-pivot',
+    title: 'You Are a Research Contributor.',
+    subtitle: 'Not a student. A contributor.',
+    body: [
+      'You have completed the Industry Intelligence Briefing.',
+      'Your responses inform anonymized benchmarking across this cohort.',
+      'Complete the Research Survey to submit your findings.'
+    ],
+    cta: 'Complete Research Survey',
+    speakerNotes: "This is where insight becomes infrastructure. Your data shapes the next iteration of this program."
   }
 ];
 
