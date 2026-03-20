@@ -354,25 +354,8 @@ export default function SlidePlayer({ slides, dayLabel, homeworkSlide }) {
         </button>
       </div>
 
-      {/* Speaker Notes */}
-      {slide.speakerNotes && (
-        <div className="mt-5 border border-black/8 bg-neutral-50 p-4">
-          <div className="flex items-center justify-between mb-2">
-            <p className="text-xs tracking-[0.2em] uppercase text-black/25">Speaker Notes</p>
-            <button
-              onClick={togglePlay}
-              className="flex items-center gap-1 text-xs text-black/35 hover:text-black transition-colors"
-            >
-              {isPlaying ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
-              <span>{isPlaying ? "Pause" : "Read aloud"}</span>
-            </button>
-          </div>
-          <p className="text-sm text-black/50 font-light leading-relaxed italic">"{slide.speakerNotes}"</p>
-        </div>
-      )}
-
       {/* Keyboard hint */}
-      <p className="text-xs text-black/20 text-center mt-3">← → to navigate · Space to play/pause narration</p>
+      <p className="text-xs text-black/20 text-center mt-3">← → to navigate · Space to play/pause</p>
     </div>
   );
 }
