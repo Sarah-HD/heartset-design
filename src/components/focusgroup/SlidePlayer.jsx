@@ -1,39 +1,57 @@
-import React, { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import { ChevronLeft, ChevronRight, Volume2, VolumeX, Play, Pause } from "lucide-react";
 
 const serif = { fontFamily: "'Playfair Display', serif" };
+
+function getSlideText(slide) {
+  if (slide.speakerNotes) return slide.speakerNotes;
+  const parts = [];
+  if (slide.title) parts.push(slide.title);
+  if (slide.subtitle) parts.push(slide.subtitle);
+  if (slide.intro) parts.push(slide.intro);
+  if (slide.bullets) parts.push(...slide.bullets);
+  if (slide.questions) parts.push(...slide.questions);
+  if (slide.items) parts.push(...slide.items);
+  if (slide.equation) parts.push(...slide.equation);
+  if (slide.equationNote) parts.push(slide.equationNote);
+  if (slide.closing) parts.push(slide.closing);
+  if (slide.bridge) parts.push(slide.bridge);
+  if (slide.left?.bullets) parts.push(...slide.left.bullets);
+  if (slide.right?.bullets) parts.push(...slide.right.bullets);
+  return parts.join(". ");
+}
 
 function renderSlide(slide) {
   switch (slide.type) {
     case 'title':
       return (
-        <div className="flex flex-col items-center justify-center h-full text-center px-8 py-10">
-          <div className="w-10 h-px bg-black mb-8" />
-          <h1 className="text-3xl md:text-4xl lg:text-5xl leading-tight" style={serif}>{slide.title}</h1>
+        <div className="flex flex-col items-center justify-center h-full text-center px-6 py-8">
+          <div className="w-8 h-px bg-black mb-6" />
+          <h1 className="text-2xl sm:text-3xl md:text-4xl leading-tight" style={serif}>{slide.title}</h1>
           {slide.subtitle && (
-            <p className="text-sm md:text-base text-black/45 font-light mt-6 tracking-wide">{slide.subtitle}</p>
+            <p className="text-xs sm:text-sm text-black/45 font-light mt-5 tracking-wide">{slide.subtitle}</p>
           )}
-          <div className="w-10 h-px bg-black mt-8" />
+          <div className="w-8 h-px bg-black mt-6" />
         </div>
       );
 
     case 'bullets':
       return (
-        <div className="flex flex-col justify-center h-full px-10 md:px-14 py-8">
-          <h2 className="text-xl md:text-2xl lg:text-3xl mb-5" style={serif}>{slide.title}</h2>
+        <div className="flex flex-col justify-center h-full px-6 sm:px-10 md:px-14 py-6">
+          <h2 className="text-lg sm:text-xl md:text-2xl mb-4" style={serif}>{slide.title}</h2>
           {slide.intro && (
-            <p className="text-xs md:text-sm text-black/50 font-light mb-4 whitespace-pre-line">{slide.intro}</p>
+            <p className="text-xs text-black/50 font-light mb-3 whitespace-pre-line">{slide.intro}</p>
           )}
-          <ul className="space-y-2.5">
+          <ul className="space-y-2">
             {slide.bullets?.map((b, i) => (
-              <li key={i} className="flex items-start gap-3 text-sm md:text-base text-black/75 font-light">
-                <span className="text-black/40 mt-0.5 flex-shrink-0 text-xs">—</span>
+              <li key={i} className="flex items-start gap-2 text-xs sm:text-sm text-black/75 font-light">
+                <span className="text-black/40 mt-0.5 flex-shrink-0">—</span>
                 <span>{b}</span>
               </li>
             ))}
           </ul>
           {slide.closing && (
-            <p className={`mt-6 text-sm md:text-base ${slide.boldClosing ? 'font-semibold' : 'font-light text-black/50 italic'}`}>
+            <p className={`mt-4 text-xs sm:text-sm ${slide.boldClosing ? 'font-semibold' : 'font-light text-black/50 italic'}`}>
               {slide.closing}
             </p>
           )}
@@ -42,33 +60,33 @@ function renderSlide(slide) {
 
     case 'consequence':
       return (
-        <div className="flex flex-col justify-center h-full px-10 md:px-14 py-8 text-center">
-          <h2 className="text-xl md:text-2xl lg:text-3xl mb-8" style={serif}>{slide.title}</h2>
-          <p className="text-xs md:text-sm text-black/40 font-light mb-8 tracking-widest uppercase">{slide.intro}</p>
-          <div className="space-y-3 mb-8">
+        <div className="flex flex-col justify-center h-full px-6 sm:px-10 md:px-14 py-6 text-center">
+          <h2 className="text-lg sm:text-xl md:text-2xl mb-5" style={serif}>{slide.title}</h2>
+          <p className="text-xs text-black/40 font-light mb-5 tracking-widest uppercase">{slide.intro}</p>
+          <div className="space-y-2 mb-5">
             {slide.questions?.map((q, i) => (
-              <p key={i} className="text-base md:text-xl font-light">{q}</p>
+              <p key={i} className="text-sm sm:text-base md:text-lg font-light">{q}</p>
             ))}
           </div>
-          <div className="border-t border-black/10 pt-6">
-            <p className="text-sm text-black/50 font-light">{slide.bridge}</p>
-            <p className="text-sm md:text-base font-semibold mt-2">{slide.closing}</p>
+          <div className="border-t border-black/10 pt-4">
+            <p className="text-xs text-black/50 font-light">{slide.bridge}</p>
+            <p className="text-xs sm:text-sm font-semibold mt-1">{slide.closing}</p>
           </div>
         </div>
       );
 
     case 'equation':
       return (
-        <div className="flex flex-col justify-center h-full px-10 md:px-14 py-8">
-          <h2 className="text-xl md:text-2xl lg:text-3xl mb-8" style={serif}>{slide.title}</h2>
-          <div className="space-y-1.5 mb-8">
+        <div className="flex flex-col justify-center h-full px-6 sm:px-10 md:px-14 py-6">
+          <h2 className="text-lg sm:text-xl md:text-2xl mb-6" style={serif}>{slide.title}</h2>
+          <div className="space-y-1.5 mb-6">
             {slide.equation?.map((line, i) => (
-              <p key={i} className="text-base md:text-lg lg:text-xl font-light tracking-wide text-center">{line}</p>
+              <p key={i} className="text-sm sm:text-base md:text-lg font-light tracking-wide text-center">{line}</p>
             ))}
           </div>
           {slide.equationNote && (
-            <div className="border-t border-black/15 pt-6 text-center">
-              <p className="text-sm md:text-base font-semibold">{slide.equationNote}</p>
+            <div className="border-t border-black/15 pt-4 text-center">
+              <p className="text-xs sm:text-sm font-semibold">{slide.equationNote}</p>
             </div>
           )}
         </div>
@@ -76,15 +94,15 @@ function renderSlide(slide) {
 
     case 'two-column':
       return (
-        <div className="flex flex-col justify-center h-full px-10 md:px-14 py-8">
-          <h2 className="text-xl md:text-2xl lg:text-3xl mb-7" style={serif}>{slide.title}</h2>
-          <div className="grid grid-cols-2 gap-6 md:gap-10 border-t border-black/10 pt-6">
+        <div className="flex flex-col justify-center h-full px-6 sm:px-10 md:px-14 py-6">
+          <h2 className="text-lg sm:text-xl md:text-2xl mb-5" style={serif}>{slide.title}</h2>
+          <div className="grid grid-cols-2 gap-4 border-t border-black/10 pt-4">
             {[slide.left, slide.right].map((col, i) => (
-              <div key={i} className={i === 1 ? 'border-l border-black/10 pl-6 md:pl-10' : ''}>
-                <p className="text-xs tracking-[0.2em] uppercase text-black/35 mb-3">{col.heading}</p>
-                <ul className="space-y-2">
+              <div key={i} className={i === 1 ? 'border-l border-black/10 pl-4' : ''}>
+                <p className="text-xs tracking-[0.15em] uppercase text-black/35 mb-2">{col.heading}</p>
+                <ul className="space-y-1.5">
                   {col.bullets.map((b, j) => (
-                    <li key={j} className="text-xs md:text-sm text-black/65 font-light flex items-start gap-2">
+                    <li key={j} className="text-xs text-black/65 font-light flex items-start gap-1.5">
                       <span className="flex-shrink-0 text-black/30">•</span>{b}
                     </li>
                   ))}
@@ -93,61 +111,61 @@ function renderSlide(slide) {
             ))}
           </div>
           {slide.closing && (
-            <p className="mt-6 text-xs md:text-sm font-semibold text-center border-t border-black/10 pt-5 tracking-wide">{slide.closing}</p>
+            <p className="mt-4 text-xs font-semibold text-center border-t border-black/10 pt-4 tracking-wide">{slide.closing}</p>
           )}
         </div>
       );
 
     case 'stacked':
       return (
-        <div className="flex flex-col justify-center h-full px-10 md:px-14 py-8">
-          <h2 className="text-xl md:text-2xl lg:text-3xl mb-3" style={serif}>{slide.title}</h2>
-          {slide.intro && <p className="text-xs tracking-[0.15em] uppercase text-black/35 mb-6">{slide.intro}</p>}
-          <div className="space-y-3">
+        <div className="flex flex-col justify-center h-full px-6 sm:px-10 md:px-14 py-6">
+          <h2 className="text-lg sm:text-xl md:text-2xl mb-2" style={serif}>{slide.title}</h2>
+          {slide.intro && <p className="text-xs tracking-[0.12em] uppercase text-black/35 mb-4">{slide.intro}</p>}
+          <div className="space-y-2.5 overflow-y-auto">
             {slide.items?.map((item, i) => (
-              <div key={i} className="flex items-start gap-4 border-b border-black/5 pb-3">
+              <div key={i} className="flex items-start gap-3 border-b border-black/5 pb-2">
                 <span className="text-xs text-black/25 mt-0.5 w-5 flex-shrink-0 tabular-nums">{String(i + 1).padStart(2, '0')}</span>
-                <p className="text-sm md:text-base text-black/75 font-light">{item}</p>
+                <p className="text-xs sm:text-sm text-black/75 font-light">{item}</p>
               </div>
             ))}
           </div>
-          {slide.closing && <p className="mt-5 text-xs text-black/35 italic">{slide.closing}</p>}
+          {slide.closing && <p className="mt-3 text-xs text-black/35 italic">{slide.closing}</p>}
         </div>
       );
 
     case 'deliverable':
       return (
-        <div className="flex flex-col justify-center h-full px-10 md:px-14 py-8">
-          <h2 className="text-xl md:text-2xl lg:text-3xl mb-4" style={serif}>{slide.title}</h2>
-          {slide.intro && <p className="text-xs md:text-sm text-black/45 font-light mb-5">{slide.intro}</p>}
-          <ul className="space-y-3 mb-6">
+        <div className="flex flex-col justify-center h-full px-6 sm:px-10 md:px-14 py-6">
+          <h2 className="text-lg sm:text-xl md:text-2xl mb-3" style={serif}>{slide.title}</h2>
+          {slide.intro && <p className="text-xs text-black/45 font-light mb-4">{slide.intro}</p>}
+          <ul className="space-y-2.5 mb-4">
             {slide.bullets?.map((b, i) => (
-              <li key={i} className="flex items-start gap-3 text-sm md:text-base text-black/75 font-light">
+              <li key={i} className="flex items-start gap-2 text-xs sm:text-sm text-black/75 font-light">
                 <span className="text-black/30 flex-shrink-0">—</span><span>{b}</span>
               </li>
             ))}
           </ul>
           {slide.closing && (
-            <p className="text-sm font-medium text-black/40 border-t border-black/10 pt-4 italic">{slide.closing}</p>
+            <p className="text-xs font-medium text-black/40 border-t border-black/10 pt-3 italic">{slide.closing}</p>
           )}
         </div>
       );
 
     case 'before-after':
       return (
-        <div className="flex flex-col justify-center h-full px-10 md:px-14 py-8">
-          <h2 className="text-xl md:text-2xl lg:text-3xl mb-2" style={serif}>{slide.title}</h2>
-          <p className="text-xs tracking-[0.2em] uppercase text-black/35 mb-6">Before → After</p>
-          <p className="text-sm text-black/50 font-light mb-5">{slide.intro}</p>
-          <ul className="space-y-2.5">
+        <div className="flex flex-col justify-center h-full px-6 sm:px-10 md:px-14 py-6">
+          <h2 className="text-lg sm:text-xl md:text-2xl mb-2" style={serif}>{slide.title}</h2>
+          <p className="text-xs tracking-[0.15em] uppercase text-black/35 mb-4">Before → After</p>
+          <p className="text-xs text-black/50 font-light mb-4">{slide.intro}</p>
+          <ul className="space-y-2">
             {slide.bullets?.map((b, i) => (
-              <li key={i} className="flex items-start gap-3 text-sm md:text-base text-black/75 font-light">
+              <li key={i} className="flex items-start gap-2 text-xs sm:text-sm text-black/75 font-light">
                 <span className="text-black/30 flex-shrink-0">—</span><span>{b}</span>
               </li>
             ))}
           </ul>
           {slide.closing && (
-            <p className="mt-6 text-sm font-semibold">{slide.closing}</p>
+            <p className="mt-4 text-xs sm:text-sm font-semibold">{slide.closing}</p>
           )}
         </div>
       );
@@ -160,68 +178,136 @@ function renderSlide(slide) {
 export default function SlidePlayer({ slides, dayLabel, homeworkSlide }) {
   const allSlides = homeworkSlide ? [...slides, homeworkSlide] : slides;
   const [current, setCurrent] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const synthRef = useRef(window.speechSynthesis);
+  const utteranceRef = useRef(null);
 
   const slide = allSlides[current];
   const isFirst = current === 0;
   const isLast = current === allSlides.length - 1;
 
+  const stopSpeech = () => {
+    synthRef.current.cancel();
+    setIsPlaying(false);
+  };
+
+  const speakSlide = (slideToSpeak) => {
+    if (isMuted) return;
+    synthRef.current.cancel();
+    const text = getSlideText(slideToSpeak);
+    if (!text) return;
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 0.92;
+    utterance.pitch = 1;
+    utterance.onend = () => setIsPlaying(false);
+    utterance.onerror = () => setIsPlaying(false);
+    utteranceRef.current = utterance;
+    synthRef.current.speak(utterance);
+    setIsPlaying(true);
+  };
+
+  const togglePlay = () => {
+    if (isPlaying) {
+      stopSpeech();
+    } else {
+      speakSlide(slide);
+    }
+  };
+
+  const toggleMute = () => {
+    stopSpeech();
+    setIsMuted(m => !m);
+  };
+
+  const goTo = (index) => {
+    stopSpeech();
+    setCurrent(index);
+  };
+
+  const goNext = () => { if (!isLast) goTo(current + 1); };
+  const goPrev = () => { if (!isFirst) goTo(current - 1); };
+
   useEffect(() => {
     const handleKey = (e) => {
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-        if (!isLast) setCurrent(c => c + 1);
-      }
-      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-        if (!isFirst) setCurrent(c => c - 1);
-      }
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goNext();
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') goPrev();
+      if (e.key === ' ') { e.preventDefault(); togglePlay(); }
     };
     window.addEventListener('keydown', handleKey);
-    return () => window.removeEventListener('keydown', handleKey);
-  }, [isFirst, isLast]);
+    return () => { window.removeEventListener('keydown', handleKey); stopSpeech(); };
+  }, [current, isPlaying, isMuted]);
+
+  // Stop speech when unmounting
+  useEffect(() => () => synthRef.current.cancel(), []);
 
   return (
     <div className="w-full">
       {/* Header row */}
-      <div className="flex items-center justify-between mb-4">
-        <p className="text-xs tracking-[0.25em] uppercase text-black/30">{dayLabel}</p>
-        <p className="text-xs text-black/25 tabular-nums">{current + 1} of {allSlides.length}</p>
+      <div className="flex items-center justify-between mb-3">
+        <p className="text-xs tracking-[0.2em] uppercase text-black/30">{dayLabel}</p>
+        <div className="flex items-center gap-3">
+          {/* TTS controls */}
+          <button
+            onClick={togglePlay}
+            title={isPlaying ? "Pause narration" : "Play narration"}
+            className="flex items-center gap-1.5 text-xs text-black/40 hover:text-black transition-colors px-2 py-1 border border-black/10 hover:border-black/25"
+          >
+            {isPlaying ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
+            <span className="hidden sm:inline">{isPlaying ? "Pause" : "Listen"}</span>
+          </button>
+          <button
+            onClick={toggleMute}
+            title={isMuted ? "Unmute" : "Mute narration"}
+            className="text-black/30 hover:text-black transition-colors"
+          >
+            {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+          </button>
+          <p className="text-xs text-black/25 tabular-nums">{current + 1} / {allSlides.length}</p>
+        </div>
       </div>
 
       {/* Slide canvas */}
-      <div
-        className="border border-black/15 bg-white w-full relative overflow-hidden min-h-[280px] md:aspect-video"
-        style={{ position: 'relative' }}
-      >
+      <div className="border border-black/15 bg-white w-full relative overflow-hidden" style={{ minHeight: '320px' }}>
         {/* Top rule */}
         <div className="absolute top-0 left-0 right-0 h-[2px] bg-black z-10" />
-        
-        <div className="absolute inset-0 flex flex-col">
+
+        {/* Playing indicator */}
+        {isPlaying && (
+          <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5 bg-black text-white px-2 py-1 text-xs">
+            <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
+            <span>Narrating</span>
+          </div>
+        )}
+
+        <div className="pt-2">
           {renderSlide(slide)}
         </div>
 
         {/* Slide number watermark */}
-        <div className="absolute bottom-4 right-5 z-10">
+        <div className="absolute bottom-3 right-4 z-10">
           <span className="text-xs text-black/10 tabular-nums">{String(current + 1).padStart(2, '0')}</span>
         </div>
       </div>
 
       {/* Navigation */}
-      <div className="flex items-center justify-between mt-5">
+      <div className="flex items-center justify-between mt-4">
         <button
-          onClick={() => setCurrent(c => c - 1)}
+          onClick={goPrev}
           disabled={isFirst}
-          className="flex items-center gap-1.5 text-sm text-black/35 hover:text-black disabled:opacity-15 disabled:cursor-not-allowed transition-colors"
+          className="flex items-center gap-1 text-sm text-black/35 hover:text-black disabled:opacity-15 disabled:cursor-not-allowed transition-colors px-3 py-2 min-w-[60px]"
         >
           <ChevronLeft className="w-4 h-4" />
           Prev
         </button>
 
         {/* Dot indicators */}
-        <div className="flex items-center gap-1.5 flex-wrap justify-center max-w-xs">
+        <div className="flex items-center gap-1.5 flex-wrap justify-center max-w-[200px] sm:max-w-xs">
           {allSlides.map((_, i) => (
             <button
               key={i}
-              onClick={() => setCurrent(i)}
-              className={`h-1 rounded-full transition-all duration-200 ${
+              onClick={() => goTo(i)}
+              className={`h-1.5 rounded-full transition-all duration-200 ${
                 i === current ? 'w-5 bg-black' : 'w-1.5 bg-black/15 hover:bg-black/35'
               }`}
             />
@@ -229,9 +315,9 @@ export default function SlidePlayer({ slides, dayLabel, homeworkSlide }) {
         </div>
 
         <button
-          onClick={() => setCurrent(c => c + 1)}
+          onClick={goNext}
           disabled={isLast}
-          className="flex items-center gap-1.5 text-sm text-black/35 hover:text-black disabled:opacity-15 disabled:cursor-not-allowed transition-colors"
+          className="flex items-center gap-1 text-sm text-black/35 hover:text-black disabled:opacity-15 disabled:cursor-not-allowed transition-colors px-3 py-2 min-w-[60px] justify-end"
         >
           Next
           <ChevronRight className="w-4 h-4" />
@@ -240,14 +326,23 @@ export default function SlidePlayer({ slides, dayLabel, homeworkSlide }) {
 
       {/* Speaker Notes */}
       {slide.speakerNotes && (
-        <div className="mt-6 border border-black/8 bg-neutral-50 p-5">
-          <p className="text-xs tracking-[0.2em] uppercase text-black/25 mb-2">Speaker Notes</p>
+        <div className="mt-5 border border-black/8 bg-neutral-50 p-4">
+          <div className="flex items-center justify-between mb-2">
+            <p className="text-xs tracking-[0.2em] uppercase text-black/25">Speaker Notes</p>
+            <button
+              onClick={togglePlay}
+              className="flex items-center gap-1 text-xs text-black/35 hover:text-black transition-colors"
+            >
+              {isPlaying ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
+              <span>{isPlaying ? "Pause" : "Read aloud"}</span>
+            </button>
+          </div>
           <p className="text-sm text-black/50 font-light leading-relaxed italic">"{slide.speakerNotes}"</p>
         </div>
       )}
 
-      {/* Use keyboard hint */}
-      <p className="text-xs text-black/20 text-center mt-4">Use ← → arrow keys to navigate</p>
+      {/* Keyboard hint */}
+      <p className="text-xs text-black/20 text-center mt-3">← → to navigate · Space to play/pause narration</p>
     </div>
   );
 }
