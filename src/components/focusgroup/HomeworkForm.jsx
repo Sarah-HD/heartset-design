@@ -64,7 +64,7 @@ export default function HomeworkForm({ day, userEmail }) {
   }
 
   return (
-    <div className="border border-black/15 bg-white mt-8">
+    <div className="border border-black/15 bg-white mt-8" style={{ scrollMarginTop: '90px' }}>
       <div className="h-[2px] bg-black" />
       <div className="px-6 py-6">
         <p className="text-xs tracking-[0.25em] uppercase text-black/30 mb-1">Homework</p>
