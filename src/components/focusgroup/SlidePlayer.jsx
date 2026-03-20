@@ -312,6 +312,22 @@ export default function SlidePlayer({ slides, dayLabel, homeworkSlide }) {
             {isPlaying ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
             <span>{isPlaying ? "Pause" : "Listen"}</span>
           </button>
+          {voices.length > 0 && (
+            <select
+              value={selectedVoice?.name || ''}
+              onChange={e => {
+                const v = voices.find(v => v.name === e.target.value) || null;
+                setSelectedVoice(v);
+                stopSpeech();
+              }}
+              className="text-xs text-black/50 border border-black/10 px-2 py-1 bg-white hover:border-black/25 transition-colors max-w-[130px] truncate"
+            >
+              <option value="">Default voice</option>
+              {voices.map(v => (
+                <option key={v.name} value={v.name}>{v.name}</option>
+              ))}
+            </select>
+          )}
           <button
             onClick={toggleMute}
             title={isMuted ? "Unmute" : "Mute"}
