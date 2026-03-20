@@ -39,6 +39,9 @@ export default function FocusGroupDay3() {
           homeworkSlide={day3Homework}
         />
 
+        {/* Revenue Rhythm Calculator */}
+        <RevenueRhythmCalculator />
+
       </div>
 
       <footer className="border-t border-black/5 py-8 mt-16">
