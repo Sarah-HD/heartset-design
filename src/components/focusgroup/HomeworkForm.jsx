@@ -19,11 +19,11 @@ const DAY_FIELDS = {
     label: 'Day 2 — Mechanism Blueprint',
     disclosure: 'Your responses are auto-saved and emailed to you. You retain full ownership of your business concepts. Heartset Design Co. may use anonymized, aggregated insights for research and benchmarking.',
     fields: [
-      { key: 'protocol_outline', label: '4-Stage Protocol (short outline)', placeholder: 'Diagnosis → Strategy → Installation → Optimization — describe each briefly.', type: 'textarea' },
-      { key: 'outcome_90_days', label: '90-Day Outcome', placeholder: 'What tangibly changes for the client?', type: 'textarea' },
+      { key: 'protocol_outline', label: '4-Stage Protocol (short outline)', placeholder: 'Diagnosis → Strategy → Installation → Optimization', type: 'textarea' },
+      { key: 'outcome_90_days', label: '90-Day Outcome', placeholder: '', type: 'textarea' },
       { key: 'installation_price', label: 'Installation Price', placeholder: 'e.g. $6,950', type: 'text' },
-      { key: 'scale_bottleneck', label: 'One bottleneck currently preventing scale', placeholder: 'Be specific.', type: 'textarea' },
-      { key: 'common_objection', label: 'One objection you commonly encounter', placeholder: 'What do prospects say before they say yes or no?', type: 'textarea' },
+      { key: 'scale_bottleneck', label: 'One bottleneck currently preventing scale', placeholder: '', type: 'textarea' },
+      { key: 'common_objection', label: 'One objection you commonly encounter', placeholder: '', type: 'textarea' },
     ]
   }
 };
