@@ -278,24 +278,22 @@ export default function SlidePlayer({ slides, dayLabel, homeworkSlide }) {
       {/* Header row */}
       <div className="flex items-center justify-between mb-3">
         <p className="text-xs tracking-[0.2em] uppercase text-black/30">{dayLabel}</p>
-        <div className="flex items-center gap-3">
-          {/* TTS controls */}
+        <div className="flex items-center gap-2">
           <button
             onClick={togglePlay}
             title={isPlaying ? "Pause narration" : "Play narration"}
-            className="flex items-center gap-1.5 text-xs text-black/40 hover:text-black transition-colors px-2 py-1 border border-black/10 hover:border-black/25"
+            className="flex items-center gap-1.5 text-xs text-black/40 hover:text-black transition-colors px-2.5 py-1 border border-black/10 hover:border-black/25"
           >
             {isPlaying ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
-            <span className="hidden sm:inline">{isPlaying ? "Pause" : "Listen"}</span>
+            <span>{isPlaying ? "Pause" : "▶ Listen"}</span>
           </button>
           <button
             onClick={toggleMute}
-            title={isMuted ? "Unmute" : "Mute narration"}
-            className="text-black/30 hover:text-black transition-colors"
+            title={isMuted ? "Unmute" : "Mute"}
+            className="text-black/30 hover:text-black transition-colors p-1"
           >
             {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
           </button>
-          <p className="text-xs text-black/25 tabular-nums">{current + 1} / {allSlides.length}</p>
         </div>
       </div>
 
