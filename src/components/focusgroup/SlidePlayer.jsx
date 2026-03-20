@@ -314,9 +314,9 @@ export default function SlidePlayer({ slides, dayLabel, homeworkSlide }) {
           {renderSlide(slide)}
         </div>
 
-        {/* Slide number watermark */}
+        {/* Slide counter bottom right */}
         <div className="absolute bottom-3 right-4 z-10">
-          <span className="text-xs text-black/10 tabular-nums">{String(current + 1).padStart(2, '0')}</span>
+          <span className="text-xs text-black/20 tabular-nums">{current + 1} / {allSlides.length}</span>
         </div>
       </div>
 
