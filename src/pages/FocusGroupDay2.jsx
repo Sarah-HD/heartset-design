@@ -42,7 +42,7 @@ export default function FocusGroupDay2() {
       </div>
 
       {/* Homework Form */}
-      <div id="homework" className="max-w-4xl mx-auto px-6 md:px-12 pb-12">
+      <div id="homework" className="max-w-4xl mx-auto px-6 md:px-12 pb-12" style={{ scrollMarginTop: '90px' }}>
         <HomeworkForm day={2} userEmail={user?.email || ''} />
       </div>
 
