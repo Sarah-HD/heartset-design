@@ -433,21 +433,7 @@ export default function SlidePlayer({ slides, dayLabel, homeworkSlide }) {
       {/* Keyboard hint */}
       <p className="text-xs text-black/20 text-center mt-3">← → to navigate · Space to play/pause</p>
 
-      {/* Homework reveal nudge — only shows on last slide */}
-      {isLast && (
-        <div className="mt-6 border border-black/12 px-5 py-4 flex items-center justify-between bg-white animate-in fade-in duration-500">
-          <div>
-            <p className="text-xs tracking-[0.2em] uppercase text-black/30 mb-0.5">Next</p>
-            <p className="text-sm font-light text-black">Complete your homework assignment below ↓</p>
-          </div>
-          <a
-            href="#homework"
-            className="text-xs tracking-[0.15em] uppercase text-black/40 hover:text-black transition-colors border-b border-black/15 hover:border-black pb-0.5"
-          >
-            Go
-          </a>
-        </div>
-      )}
+
     </div>
   );
 }
