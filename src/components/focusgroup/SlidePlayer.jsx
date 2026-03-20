@@ -180,16 +180,20 @@ export default function SlidePlayer({ slides, dayLabel, homeworkSlide }) {
   const [current, setCurrent] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
+
+  // Stable refs so recursive callbacks always see latest values
   const synthRef = useRef(window.speechSynthesis);
-  const utteranceRef = useRef(null);
+  const isPlayingRef = useRef(false);
+  const isMutedRef = useRef(false);
+  const currentRef = useRef(0);
+  const allSlidesRef = useRef(allSlides);
+  allSlidesRef.current = allSlides;
+  currentRef.current = current;
+  isMutedRef.current = isMuted;
 
   const slide = allSlides[current];
   const isFirst = current === 0;
   const isLast = current === allSlides.length - 1;
-
-  const isPlayingRef = useRef(false);
-  const currentRef = useRef(current);
-  currentRef.current = current;
 
   const stopSpeech = () => {
     synthRef.current.cancel();
@@ -197,14 +201,16 @@ export default function SlidePlayer({ slides, dayLabel, homeworkSlide }) {
     setIsPlaying(false);
   };
 
-  const speakFrom = (index) => {
-    if (isMuted || index >= allSlides.length) {
+  // Use a ref for speakFrom so the recursive setTimeout always calls the latest version
+  const speakFromRef = useRef(null);
+  speakFromRef.current = (index) => {
+    if (isMutedRef.current || index >= allSlidesRef.current.length) {
       isPlayingRef.current = false;
       setIsPlaying(false);
       return;
     }
     synthRef.current.cancel();
-    const text = getSlideText(allSlides[index]);
+    const text = getSlideText(allSlidesRef.current[index]);
     if (!text) {
       isPlayingRef.current = false;
       setIsPlaying(false);
@@ -213,17 +219,22 @@ export default function SlidePlayer({ slides, dayLabel, homeworkSlide }) {
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.rate = 0.88;
     utterance.pitch = 1.02;
-    // Pick a natural voice if available
-    const voices = synthRef.current.getVoices();
-    const preferred = voices.find(v => v.name.includes('Samantha') || v.name.includes('Karen') || v.name.includes('Google US English') || v.name.includes('en-US'));
-    if (preferred) utterance.voice = preferred;
+    // Wait for voices to load (Chrome loads them async)
+    const trySetVoice = () => {
+      const voices = synthRef.current.getVoices();
+      const preferred = voices.find(v =>
+        v.name.includes('Samantha') || v.name.includes('Karen') ||
+        v.name.includes('Google US English') || (v.lang === 'en-US' && v.localService)
+      );
+      if (preferred) utterance.voice = preferred;
+    };
+    trySetVoice();
     utterance.onend = () => {
       if (!isPlayingRef.current) return;
       const next = currentRef.current + 1;
-      if (next < allSlides.length) {
+      if (next < allSlidesRef.current.length) {
         setCurrent(next);
-        // small pause between slides
-        setTimeout(() => speakFrom(next), 600);
+        setTimeout(() => speakFromRef.current(next), 500);
       } else {
         isPlayingRef.current = false;
         setIsPlaying(false);
@@ -233,7 +244,6 @@ export default function SlidePlayer({ slides, dayLabel, homeworkSlide }) {
       isPlayingRef.current = false;
       setIsPlaying(false);
     };
-    utteranceRef.current = utterance;
     synthRef.current.speak(utterance);
   };
 
@@ -243,7 +253,7 @@ export default function SlidePlayer({ slides, dayLabel, homeworkSlide }) {
     } else {
       isPlayingRef.current = true;
       setIsPlaying(true);
-      speakFrom(current);
+      speakFromRef.current(current);
     }
   };
 
@@ -262,15 +272,14 @@ export default function SlidePlayer({ slides, dayLabel, homeworkSlide }) {
 
   useEffect(() => {
     const handleKey = (e) => {
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goNext();
-      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') goPrev();
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') setCurrent(c => Math.min(c + 1, allSlides.length - 1));
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') setCurrent(c => Math.max(c - 1, 0));
       if (e.key === ' ') { e.preventDefault(); togglePlay(); }
     };
     window.addEventListener('keydown', handleKey);
-    return () => { window.removeEventListener('keydown', handleKey); stopSpeech(); };
-  }, [current, isPlaying, isMuted]);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, [isPlaying]);
 
-  // Stop speech when unmounting
   useEffect(() => () => synthRef.current.cancel(), []);
 
   return (
