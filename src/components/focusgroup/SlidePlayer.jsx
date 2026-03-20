@@ -397,6 +397,9 @@ export default function SlidePlayer({ slides, dayLabel, homeworkSlide }) {
 
       {/* Keyboard hint */}
       <p className="text-xs text-black/20 text-center mt-3">← → to navigate · Space to play/pause</p>
+
+      {/* Copyright */}
+      <p className="text-[10px] text-black/20 text-center mt-1">© Heartset Design 2026</p>
     </div>
   );
 }
