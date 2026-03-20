@@ -8,11 +8,11 @@ const DAY_FIELDS = {
     label: 'Day 1 — Problem–Value Matrix',
     disclosure: 'Your responses are auto-saved and emailed to you. You retain full ownership of your business concepts. Heartset Design Co. may use anonymized, aggregated insights for research and benchmarking.',
     fields: [
-      { key: 'problem_statement', label: 'Problem Statement', placeholder: 'One sentence.', type: 'textarea' },
-      { key: 'who_experiences', label: 'Who experiences this problem?', placeholder: 'Role, industry, context.', type: 'textarea' },
+      { key: 'problem_statement', label: 'Problem Statement', placeholder: '', type: 'textarea' },
+      { key: 'who_experiences', label: 'Who experiences this problem?', placeholder: '', type: 'textarea' },
       { key: 'cost_of_inaction', label: 'Estimated cost of inaction', placeholder: 'e.g. $50,000/year in lost revenue', type: 'text' },
-      { key: 'urgency_reason', label: 'Why must this be solved within 90 days?', placeholder: 'What changes if it is not?', type: 'textarea' },
-      { key: 'ignored_outcome', label: 'What currently happens when it is ignored?', placeholder: 'Real-world consequence.', type: 'textarea' },
+      { key: 'urgency_reason', label: 'Why must this be solved within 90 days?', placeholder: '', type: 'textarea' },
+      { key: 'ignored_outcome', label: 'What currently happens when it is ignored?', placeholder: '', type: 'textarea' },
     ]
   },
   2: {
