@@ -170,6 +170,27 @@ function renderSlide(slide) {
         </div>
       );
 
+    case 'survey-pivot':
+      return (
+        <div className="flex flex-col items-center justify-center h-full text-center px-6 py-8">
+          <div className="w-8 h-px bg-black mb-6" />
+          <h2 className="text-xl sm:text-2xl md:text-3xl mb-3" style={serif}>{slide.title}</h2>
+          {slide.subtitle && (
+            <p className="text-xs tracking-[0.18em] uppercase text-black/35 mb-6">{slide.subtitle}</p>
+          )}
+          {slide.body?.map((line, i) => (
+            <p key={i} className="text-xs sm:text-sm text-black/50 font-light mb-2 max-w-sm">{line}</p>
+          ))}
+          <div className="w-8 h-px bg-black mt-6 mb-6" />
+          <a
+            href="/FocusGroupSurvey"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-black text-white text-xs tracking-[0.15em] uppercase hover:bg-black/80 transition-colors"
+          >
+            {slide.cta || 'Complete Survey'}
+          </a>
+        </div>
+      );
+
     default:
       return <div className="flex items-center justify-center h-full"><p className="text-black/30">Slide</p></div>;
   }
