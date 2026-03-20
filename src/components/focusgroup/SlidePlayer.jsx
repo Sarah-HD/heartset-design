@@ -223,12 +223,16 @@ export default function SlidePlayer({ slides, dayLabel, homeworkSlide }) {
     utterance.pitch = 1.02;
     // Wait for voices to load (Chrome loads them async)
     const trySetVoice = () => {
-      const voices = synthRef.current.getVoices();
-      const preferred = voices.find(v =>
-        v.name.includes('Samantha') || v.name.includes('Karen') ||
-        v.name.includes('Google US English') || (v.lang === 'en-US' && v.localService)
-      );
-      if (preferred) utterance.voice = preferred;
+      if (selectedVoice) {
+        utterance.voice = selectedVoice;
+      } else {
+        const allVoices = synthRef.current.getVoices();
+        const preferred = allVoices.find(v =>
+          v.name.includes('Samantha') || v.name.includes('Karen') ||
+          v.name.includes('Google US English') || (v.lang === 'en-US' && v.localService)
+        );
+        if (preferred) utterance.voice = preferred;
+      }
     };
     trySetVoice();
     utterance.onend = () => {
