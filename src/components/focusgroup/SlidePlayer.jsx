@@ -180,6 +180,8 @@ export default function SlidePlayer({ slides, dayLabel, homeworkSlide }) {
   const [current, setCurrent] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
+  const [voices, setVoices] = useState([]);
+  const [selectedVoice, setSelectedVoice] = useState(null);
 
   // Stable refs so recursive callbacks always see latest values
   const synthRef = useRef(window.speechSynthesis);
