@@ -63,6 +63,7 @@ const AuthenticatedApp = () => {
       ))}
       <Route path="/FocusGroupDay1" element={<LayoutWrapper currentPageName="FocusGroupDay1"><FocusGroupDay1 /></LayoutWrapper>} />
       <Route path="/FocusGroupDay2" element={<LayoutWrapper currentPageName="FocusGroupDay2"><FocusGroupDay2 /></LayoutWrapper>} />
+      <Route path="/FocusGroupDay3" element={<LayoutWrapper currentPageName="FocusGroupDay3"><FocusGroupDay3 /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
