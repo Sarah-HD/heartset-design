@@ -5,10 +5,34 @@ import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Play, Clock } from "lucide-react";
+import { Play, Clock, Presentation } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
+
+const focusGroupDays = [
+  {
+    day: "Day 1",
+    title: "Market Viability Analysis",
+    subtitle: "Identifying the High-Consequence Problem",
+    slides: 7,
+    path: "/FocusGroupDay1"
+  },
+  {
+    day: "Day 2",
+    title: "Revenue Architecture & Mechanism Design",
+    subtitle: "From Consulting Labor to Installable Infrastructure",
+    slides: 8,
+    path: "/FocusGroupDay2"
+  },
+  {
+    day: "Day 3",
+    title: "Revenue Yield & Infrastructure Decision",
+    subtitle: "Coming soon",
+    slides: null,
+    path: null
+  }
+];
 
 export default function VideoLibrary() {
   const [user, setUser] = React.useState(null);
