@@ -8,22 +8,22 @@ const DAY_FIELDS = {
     label: 'Day 1 — Problem–Value Matrix',
     disclosure: 'Your responses are auto-saved and emailed to you. You retain full ownership of your business concepts. Heartset Design Co. may use anonymized, aggregated insights for research and benchmarking.',
     fields: [
-      { key: 'problem_statement', label: 'Problem Statement', placeholder: '', type: 'textarea' },
-      { key: 'who_experiences', label: 'Who experiences this problem?', placeholder: '', type: 'textarea' },
+      { key: 'problem_statement', label: 'Problem Statement', placeholder: 'One sentence.', type: 'textarea' },
+      { key: 'who_experiences', label: 'Who experiences this problem?', placeholder: 'Role, industry, context.', type: 'textarea' },
       { key: 'cost_of_inaction', label: 'Estimated cost of inaction', placeholder: 'e.g. $50,000/year in lost revenue', type: 'text' },
-      { key: 'urgency_reason', label: 'Why must this be solved within 90 days?', placeholder: '', type: 'textarea' },
-      { key: 'ignored_outcome', label: 'What currently happens when it is ignored?', placeholder: '', type: 'textarea' },
+      { key: 'urgency_reason', label: 'Why must this be solved within 90 days?', placeholder: 'What changes if it is not?', type: 'textarea' },
+      { key: 'ignored_outcome', label: 'What currently happens when it is ignored?', placeholder: 'Real-world consequence.', type: 'textarea' },
     ]
   },
   2: {
     label: 'Day 2 — Mechanism Blueprint',
     disclosure: 'Your responses are auto-saved and emailed to you. You retain full ownership of your business concepts. Heartset Design Co. may use anonymized, aggregated insights for research and benchmarking.',
     fields: [
-      { key: 'protocol_outline', label: '4-Stage Protocol (short outline)', placeholder: 'Diagnosis → Strategy → Installation → Optimization', type: 'textarea' },
-      { key: 'outcome_90_days', label: '90-Day Outcome', placeholder: '', type: 'textarea' },
+      { key: 'protocol_outline', label: '4-Stage Protocol (short outline)', placeholder: 'Diagnosis → Strategy → Installation → Optimization — describe each briefly.', type: 'textarea' },
+      { key: 'outcome_90_days', label: '90-Day Outcome', placeholder: 'What tangibly changes for the client?', type: 'textarea' },
       { key: 'installation_price', label: 'Installation Price', placeholder: 'e.g. $6,950', type: 'text' },
-      { key: 'scale_bottleneck', label: 'One bottleneck currently preventing scale', placeholder: '', type: 'textarea' },
-      { key: 'common_objection', label: 'One objection you commonly encounter', placeholder: '', type: 'textarea' },
+      { key: 'scale_bottleneck', label: 'One bottleneck currently preventing scale', placeholder: 'Be specific.', type: 'textarea' },
+      { key: 'common_objection', label: 'One objection you commonly encounter', placeholder: 'What do prospects say before they say yes or no?', type: 'textarea' },
     ]
   }
 };
