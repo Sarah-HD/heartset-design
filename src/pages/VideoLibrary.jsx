@@ -28,9 +28,17 @@ const focusGroupDays = [
   {
     day: "Day 3",
     title: "Revenue Yield & Infrastructure Decision",
-    subtitle: "Coming soon",
+    subtitle: "Conservative yield modeling and predictable revenue rhythm.",
+    slides: 12,
+    path: "/FocusGroupDay3"
+  },
+  {
+    day: "Final Step",
+    title: "Research Survey",
+    subtitle: "Submit your findings. Your responses inform anonymized benchmarking.",
     slides: null,
-    path: null
+    path: "/FocusGroupSurvey",
+    isSurvey: true
   }
 ];
 

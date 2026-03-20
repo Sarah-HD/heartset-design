@@ -25,6 +25,16 @@ const DAY_FIELDS = {
       { key: 'scale_bottleneck', label: 'One bottleneck currently preventing scale', placeholder: 'Be specific.', type: 'textarea' },
       { key: 'common_objection', label: 'One objection you commonly encounter', placeholder: 'What do prospects say before they say yes or no?', type: 'textarea' },
     ]
+  },
+  3: {
+    label: 'Day 3 — Yield Projection',
+    disclosure: 'Your responses are auto-saved and emailed to you. You retain full ownership of your business concepts. Heartset Design Co. may use anonymized, aggregated insights for research and benchmarking.',
+    fields: [
+      { key: 'installation_price', label: 'Your Installation Price Point', placeholder: 'e.g. $6,950', type: 'text' },
+      { key: 'floor_revenue', label: 'Revenue at Floor (Price × 3 installs)', placeholder: 'e.g. $20,850', type: 'text' },
+      { key: 'annualized_revenue', label: 'Annualized at 4 Cycles (Price × 12)', placeholder: 'e.g. $83,400', type: 'text' },
+      { key: 'rhythm_impact', label: 'What would this rhythm change for your business?', placeholder: 'One sentence.', type: 'textarea' },
+    ]
   }
 };
 
