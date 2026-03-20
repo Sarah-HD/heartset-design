@@ -284,6 +284,16 @@ export default function SlidePlayer({ slides, dayLabel, homeworkSlide }) {
 
   useEffect(() => () => synthRef.current.cancel(), []);
 
+  // Load available voices
+  useEffect(() => {
+    const loadVoices = () => {
+      const v = synthRef.current.getVoices().filter(v => v.lang.startsWith('en'));
+      if (v.length) setVoices(v);
+    };
+    loadVoices();
+    synthRef.current.onvoiceschanged = loadVoices;
+  }, []);
+
   return (
     <div className="w-full">
       {/* Header row */}
