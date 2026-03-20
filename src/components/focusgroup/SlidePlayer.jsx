@@ -380,6 +380,11 @@ export default function SlidePlayer({ slides, dayLabel, homeworkSlide }) {
         <div className="absolute bottom-3 right-4 z-10">
           <span className="text-xs text-black/20 tabular-nums">{current + 1} / {allSlides.length}</span>
         </div>
+
+        {/* Copyright watermark — always visible on slide */}
+        <div className="absolute bottom-3 left-4 z-10">
+          <span className="text-[9px] text-black/15 select-none">© Heartset Design 2026</span>
+        </div>
       </div>
 
       {/* Navigation */}
