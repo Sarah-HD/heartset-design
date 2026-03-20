@@ -93,6 +93,54 @@ export default function VideoLibrary() {
             <p className="text-xl text-black/60 font-light">Video Library</p>
           </motion.div>
 
+          {/* Focus Group Series */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-16"
+          >
+            <h2
+              className="text-2xl md:text-3xl mb-2 pb-4 border-b border-black/10"
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
+              Focus Group Series
+            </h2>
+            <p className="text-sm text-black/40 font-light mb-8">Interactive slide decks with speaker notes — click through at your own pace.</p>
+            <div className="grid md:grid-cols-3 gap-6">
+              {focusGroupDays.map((item) => (
+                <div
+                  key={item.day}
+                  className={`border border-black/10 p-6 flex flex-col gap-4 ${item.path ? 'hover:border-black/30 transition-colors group' : 'opacity-40'}`}
+                >
+                  <div className="flex items-center justify-between">
+                    <p className="text-xs tracking-[0.2em] uppercase text-black/30">{item.day}</p>
+                    {item.slides && <p className="text-xs text-black/25">{item.slides} slides</p>}
+                  </div>
+                  <div>
+                    <h3 className="text-base font-medium mb-1" style={{ fontFamily: "'Playfair Display', serif" }}>{item.title}</h3>
+                    <p className="text-xs text-black/40 font-light">{item.subtitle}</p>
+                  </div>
+                  <div className="mt-auto pt-2 border-t border-black/8 flex items-center justify-between">
+                    <div className="flex items-center gap-1.5">
+                      <Presentation className="w-3.5 h-3.5 text-black/25" />
+                      <span className="text-xs text-black/30">Slide Deck</span>
+                    </div>
+                    {item.path ? (
+                      <Link
+                        to={item.path}
+                        className="text-xs font-medium bg-black text-white px-3 py-1.5 hover:bg-black/80 transition-colors"
+                      >
+                        Open →
+                      </Link>
+                    ) : (
+                      <span className="text-xs text-black/30 italic">Coming soon</span>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
           {isLoading ? (
             <p className="text-black/40">Loading videos...</p>
           ) : allVideos.length === 0 ? (
