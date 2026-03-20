@@ -42,7 +42,7 @@ export default function FocusGroupDay1() {
       </div>
 
       {/* Homework Form */}
-      <div className="max-w-4xl mx-auto px-6 md:px-12 pb-12">
+      <div id="homework" className="max-w-4xl mx-auto px-6 md:px-12 pb-12">
         <HomeworkForm day={1} userEmail={user?.email || ''} />
       </div>
 
