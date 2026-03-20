@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
 import SlidePlayer from "@/components/focusgroup/SlidePlayer";
 import { day3Slides, day3Homework } from "@/components/focusgroup/Day3Slides";
+import RevenueRhythmCalculator from "@/components/focusgroup/RevenueRhythmCalculator";
 
 const serif = { fontFamily: "'Playfair Display', serif" };
 
