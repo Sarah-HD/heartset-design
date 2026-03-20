@@ -411,14 +411,23 @@ export default function SlidePlayer({ slides, dayLabel, homeworkSlide }) {
           ))}
         </div>
 
-        <button
-          onClick={goNext}
-          disabled={isLast}
-          className="flex items-center gap-1 text-sm text-black/35 hover:text-black disabled:opacity-15 disabled:cursor-not-allowed transition-colors px-3 py-2 min-w-[60px] justify-end"
-        >
-          Next
-          <ChevronRight className="w-4 h-4" />
-        </button>
+        {isLast ? (
+          <a
+            href="#homework"
+            className="flex items-center gap-1 text-sm text-black hover:text-black/60 transition-colors px-3 py-2 font-medium"
+          >
+            Complete your homework
+            <ChevronRight className="w-4 h-4" />
+          </a>
+        ) : (
+          <button
+            onClick={goNext}
+            className="flex items-center gap-1 text-sm text-black/35 hover:text-black transition-colors px-3 py-2 min-w-[60px] justify-end"
+          >
+            Next
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        )}
       </div>
 
       {/* Keyboard hint */}
