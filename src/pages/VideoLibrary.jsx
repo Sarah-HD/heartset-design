@@ -131,7 +131,7 @@ export default function VideoLibrary() {
                   <div className="mt-auto pt-2 border-t border-black/8 flex items-center justify-between">
                     <div className="flex items-center gap-1.5">
                       <Presentation className="w-3.5 h-3.5 text-black/25" />
-                      <span className="text-xs text-black/30">Slide Deck</span>
+                      <span className="text-xs text-black/30">{item.isSurvey ? 'Survey' : 'Slide Deck'}</span>
                     </div>
                     {item.path ? (
                       <Link
