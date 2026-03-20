@@ -41,6 +41,11 @@ export default function FocusGroupDay1() {
         />
       </div>
 
+      {/* Homework Form */}
+      <div className="max-w-4xl mx-auto px-6 md:px-12 pb-12">
+        <HomeworkForm day={1} userEmail={user?.email || ''} />
+      </div>
+
       {/* Footer */}
       <div className="bg-black text-white">
         <div className="max-w-4xl mx-auto px-6 md:px-12 py-10 text-center">
