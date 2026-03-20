@@ -187,31 +187,63 @@ export default function SlidePlayer({ slides, dayLabel, homeworkSlide }) {
   const isFirst = current === 0;
   const isLast = current === allSlides.length - 1;
 
+  const isPlayingRef = useRef(false);
+  const currentRef = useRef(current);
+  currentRef.current = current;
+
   const stopSpeech = () => {
     synthRef.current.cancel();
+    isPlayingRef.current = false;
     setIsPlaying(false);
   };
 
-  const speakSlide = (slideToSpeak) => {
-    if (isMuted) return;
+  const speakFrom = (index) => {
+    if (isMuted || index >= allSlides.length) {
+      isPlayingRef.current = false;
+      setIsPlaying(false);
+      return;
+    }
     synthRef.current.cancel();
-    const text = getSlideText(slideToSpeak);
-    if (!text) return;
+    const text = getSlideText(allSlides[index]);
+    if (!text) {
+      isPlayingRef.current = false;
+      setIsPlaying(false);
+      return;
+    }
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = 0.92;
-    utterance.pitch = 1;
-    utterance.onend = () => setIsPlaying(false);
-    utterance.onerror = () => setIsPlaying(false);
+    utterance.rate = 0.88;
+    utterance.pitch = 1.02;
+    // Pick a natural voice if available
+    const voices = synthRef.current.getVoices();
+    const preferred = voices.find(v => v.name.includes('Samantha') || v.name.includes('Karen') || v.name.includes('Google US English') || v.name.includes('en-US'));
+    if (preferred) utterance.voice = preferred;
+    utterance.onend = () => {
+      if (!isPlayingRef.current) return;
+      const next = currentRef.current + 1;
+      if (next < allSlides.length) {
+        setCurrent(next);
+        // small pause between slides
+        setTimeout(() => speakFrom(next), 600);
+      } else {
+        isPlayingRef.current = false;
+        setIsPlaying(false);
+      }
+    };
+    utterance.onerror = () => {
+      isPlayingRef.current = false;
+      setIsPlaying(false);
+    };
     utteranceRef.current = utterance;
     synthRef.current.speak(utterance);
-    setIsPlaying(true);
   };
 
   const togglePlay = () => {
     if (isPlaying) {
       stopSpeech();
     } else {
-      speakSlide(slide);
+      isPlayingRef.current = true;
+      setIsPlaying(true);
+      speakFrom(current);
     }
   };
 
