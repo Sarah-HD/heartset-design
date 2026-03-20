@@ -2,6 +2,7 @@ import { Toaster } from "@/components/ui/toaster"
 import FocusGroupDay1 from './pages/FocusGroupDay1';
 import FocusGroupDay2 from './pages/FocusGroupDay2';
 import FocusGroupDay3 from './pages/FocusGroupDay3';
+import FocusGroupSurvey from './pages/FocusGroupSurvey';
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
 import NavigationTracker from '@/lib/NavigationTracker'

@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SlidePlayer from "@/components/focusgroup/SlidePlayer";
 import { day1Slides, day1Homework } from "@/components/focusgroup/Day1Slides";
+import HomeworkForm from "@/components/focusgroup/HomeworkForm";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
+import { base44 } from "@/api/base44Client";
 
 const serif = { fontFamily: "'Playfair Display', serif" };
 
