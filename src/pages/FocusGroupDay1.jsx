@@ -9,6 +9,9 @@ import { base44 } from "@/api/base44Client";
 const serif = { fontFamily: "'Playfair Display', serif" };
 
 export default function FocusGroupDay1() {
+  const [user, setUser] = useState(null);
+  useEffect(() => { base44.auth.me().then(setUser).catch(() => {}); }, []);
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
