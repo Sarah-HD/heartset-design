@@ -1,0 +1,49 @@
+{
+  "name": "AdvisoryApplication",
+  "type": "object",
+  "properties": {
+    "userEmail": {
+      "type": "string",
+      "description": "Email of applicant"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "submitted",
+        "under_review",
+        "accepted",
+        "declined"
+      ],
+      "default": "submitted",
+      "description": "Application status"
+    },
+    "priorRevenue": {
+      "type": "string",
+      "description": "Proof of prior revenue or implementation"
+    },
+    "existingFrameworks": {
+      "type": "string",
+      "description": "Existing frameworks already in market"
+    },
+    "executionEvidence": {
+      "type": "string",
+      "description": "Evidence of execution (links, programs, results)"
+    },
+    "timeAvailability": {
+      "type": "string",
+      "description": "Time availability"
+    },
+    "applicationReason": {
+      "type": "string",
+      "description": "Reason for applying directly to Advisory"
+    },
+    "adminReviewNotes": {
+      "type": "string",
+      "description": "Admin review notes"
+    }
+  },
+  "required": [
+    "userEmail",
+    "applicationReason"
+  ]
+}

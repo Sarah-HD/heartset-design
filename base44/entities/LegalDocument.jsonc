@@ -1,0 +1,54 @@
+{
+  "name": "LegalDocument",
+  "type": "object",
+  "properties": {
+    "userEmail": {
+      "type": "string",
+      "description": "Email of the client"
+    },
+    "documentType": {
+      "type": "string",
+      "enum": [
+        "scope_of_work",
+        "pro_bono_contract",
+        "nda"
+      ],
+      "description": "Type of legal document"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "generating",
+        "sent",
+        "signed",
+        "failed"
+      ],
+      "default": "generating",
+      "description": "Document status"
+    },
+    "generatedContent": {
+      "type": "string",
+      "description": "AI-generated document content"
+    },
+    "docusealSubmissionId": {
+      "type": "string",
+      "description": "DocuSeal submission ID"
+    },
+    "signedDocumentUrl": {
+      "type": "string",
+      "description": "URL to the signed document"
+    },
+    "tierAssignmentId": {
+      "type": "string",
+      "description": "Related tier assignment ID"
+    },
+    "errorMessage": {
+      "type": "string",
+      "description": "Error message if failed"
+    }
+  },
+  "required": [
+    "userEmail",
+    "documentType"
+  ]
+}

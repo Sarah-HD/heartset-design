@@ -1,0 +1,34 @@
+{
+  "name": "Survey",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Survey title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Survey description"
+    },
+    "questions": {
+      "type": "array",
+      "description": "Survey questions as JSON",
+      "items": {
+        "type": "object"
+      }
+    },
+    "accessCode": {
+      "type": "string",
+      "description": "Optional access code for survey"
+    },
+    "isActive": {
+      "type": "boolean",
+      "description": "Whether survey is currently active",
+      "default": true
+    }
+  },
+  "required": [
+    "title",
+    "questions"
+  ]
+}

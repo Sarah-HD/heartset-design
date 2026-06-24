@@ -1,0 +1,23 @@
+{
+  "name": "AdminTask",
+  "type": "object",
+  "properties": {
+    "text": {
+      "type": "string",
+      "description": "Task description"
+    },
+    "done": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the task is completed"
+    },
+    "adminEmail": {
+      "type": "string",
+      "description": "Email of the admin who created this task"
+    }
+  },
+  "required": [
+    "text",
+    "adminEmail"
+  ]
+}

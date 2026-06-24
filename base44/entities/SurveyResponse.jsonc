@@ -1,0 +1,23 @@
+{
+  "name": "SurveyResponse",
+  "type": "object",
+  "properties": {
+    "surveyId": {
+      "type": "string",
+      "description": "ID of the survey"
+    },
+    "userEmail": {
+      "type": "string",
+      "description": "Email of respondent"
+    },
+    "responses": {
+      "type": "object",
+      "description": "Survey responses as JSON"
+    }
+  },
+  "required": [
+    "surveyId",
+    "userEmail",
+    "responses"
+  ]
+}

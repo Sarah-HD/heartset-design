@@ -1,0 +1,35 @@
+{
+  "name": "Assignment",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Assignment title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Assignment description"
+    },
+    "timeEstimate": {
+      "type": "string",
+      "description": "Time estimate (e.g., '10 minutes')"
+    },
+    "googleDocUrl": {
+      "type": "string",
+      "description": "Google Doc or Form URL"
+    },
+    "phaseTag": {
+      "type": "string",
+      "description": "Phase tag (e.g., 'Focus Group Day 1')"
+    },
+    "order": {
+      "type": "number",
+      "description": "Display order"
+    }
+  },
+  "required": [
+    "title",
+    "timeEstimate",
+    "order"
+  ]
+}

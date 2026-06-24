@@ -1,0 +1,52 @@
+{
+  "name": "DirectEntryRequest",
+  "type": "object",
+  "properties": {
+    "userEmail": {
+      "type": "string",
+      "description": "Email of requester"
+    },
+    "fullName": {
+      "type": "string",
+      "description": "Full name"
+    },
+    "linkedinUrl": {
+      "type": "string",
+      "description": "LinkedIn or website URL"
+    },
+    "highestPrice": {
+      "type": "number",
+      "description": "Highest price point sold"
+    },
+    "methodDescription": {
+      "type": "string",
+      "description": "One-sentence method/offer description"
+    },
+    "understands": {
+      "type": "boolean",
+      "description": "Understands this is paid sprint"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "routed_to_focus_group",
+        "declined"
+      ],
+      "default": "pending",
+      "description": "Request status"
+    },
+    "adminNotes": {
+      "type": "string",
+      "description": "Admin review notes"
+    }
+  },
+  "required": [
+    "userEmail",
+    "fullName",
+    "highestPrice",
+    "methodDescription",
+    "understands"
+  ]
+}

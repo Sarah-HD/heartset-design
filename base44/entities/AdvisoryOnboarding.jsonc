@@ -1,0 +1,44 @@
+{
+  "name": "AdvisoryOnboarding",
+  "type": "object",
+  "properties": {
+    "userEmail": {
+      "type": "string",
+      "description": "Email of the user"
+    },
+    "frameworkDescriptions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "componentName": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Framework component descriptions"
+    },
+    "marketPositioning": {
+      "type": "string",
+      "description": "Market positioning"
+    },
+    "audienceClarity": {
+      "type": "string",
+      "description": "Audience clarity"
+    },
+    "refinementGoals": {
+      "type": "string",
+      "description": "Refinement goals"
+    },
+    "advisoryExpectations": {
+      "type": "string",
+      "description": "Advisory expectations"
+    }
+  },
+  "required": [
+    "userEmail"
+  ]
+}

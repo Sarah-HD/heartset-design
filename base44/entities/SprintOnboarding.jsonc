@@ -1,0 +1,139 @@
+{
+  "name": "SprintOnboarding",
+  "type": "object",
+  "properties": {
+    "userEmail": {
+      "type": "string",
+      "description": "Email of the user"
+    },
+    "hasMethod": {
+      "type": "boolean",
+      "description": "Uses a repeatable method or process"
+    },
+    "methodName": {
+      "type": "string",
+      "description": "Working name of method or approach"
+    },
+    "methodComponents": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Main parts, phases, or components (up to 8)"
+    },
+    "existingAssets": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Existing assets - checkbox selections"
+    },
+    "primaryAudience": {
+      "type": "string",
+      "description": "Who they primarily serve"
+    },
+    "audienceLocation": {
+      "type": "string",
+      "description": "Where audience gathers or participates"
+    },
+    "highestPrice": {
+      "type": "number",
+      "description": "Highest price currently charged or have charged"
+    },
+    "hasLowerTier": {
+      "type": "boolean",
+      "description": "Has lower-tier or entry-level option"
+    },
+    "capacityLimits": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "What limits capacity (multiple)"
+    },
+    "credentials": {
+      "type": "string",
+      "description": "Relevant credentials, certifications, licenses"
+    },
+    "outcomes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Real outcomes helped clients achieve (up to 3)"
+    },
+    "weeklyClientHours": {
+      "type": "string",
+      "description": "Hours per week actively delivering client work"
+    },
+    "weeklyAdminHours": {
+      "type": "string",
+      "description": "Hours per week spent on admin/operations"
+    },
+    "deliveryFormat": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "How work is currently delivered (multiple)"
+    },
+    "toolWebsite": {
+      "type": "string",
+      "description": "Website or platform tool"
+    },
+    "toolDocuments": {
+      "type": "string",
+      "description": "Documents or workbooks tool"
+    },
+    "toolEmail": {
+      "type": "string",
+      "description": "Email tool"
+    },
+    "toolScheduling": {
+      "type": "string",
+      "description": "Scheduling tool"
+    },
+    "toolForms": {
+      "type": "string",
+      "description": "Forms or intake tool"
+    },
+    "ipAcknowledgement": {
+      "type": "boolean",
+      "description": "Materials are proprietary for business use only"
+    },
+    "clientIpAcknowledgement": {
+      "type": "boolean",
+      "description": "Client's submitted information remains their IP"
+    },
+    "executionAcknowledgement": {
+      "type": "boolean",
+      "description": "Understands Sprint focuses on organizing existing work"
+    },
+    "recommendedSolution": {
+      "type": "string",
+      "enum": [
+        "sprint_6500",
+        "custom_advanced",
+        "diy_selfguided"
+      ],
+      "description": "System-recommended solution based on survey responses"
+    },
+    "adminOverride": {
+      "type": "string",
+      "enum": [
+        "sprint_6500",
+        "custom_advanced",
+        "diy_selfguided",
+        "none"
+      ],
+      "default": "none",
+      "description": "Admin manual override of recommended solution"
+    }
+  },
+  "required": [
+    "userEmail",
+    "ipAcknowledgement",
+    "clientIpAcknowledgement",
+    "executionAcknowledgement"
+  ]
+}

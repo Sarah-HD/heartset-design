@@ -1,0 +1,34 @@
+{
+  "name": "Video",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Video title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Video description"
+    },
+    "fileUrl": {
+      "type": "string",
+      "description": "URL of the uploaded video file"
+    },
+    "thumbnailUrl": {
+      "type": "string",
+      "description": "URL of the video thumbnail image"
+    },
+    "duration": {
+      "type": "string",
+      "description": "Video duration (e.g., '12 minutes')"
+    },
+    "phaseTag": {
+      "type": "string",
+      "description": "Phase tag (e.g., 'Focus Group Day 1')"
+    }
+  },
+  "required": [
+    "title",
+    "fileUrl"
+  ]
+}

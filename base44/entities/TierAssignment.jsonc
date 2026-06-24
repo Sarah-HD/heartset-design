@@ -1,0 +1,51 @@
+{
+  "name": "TierAssignment",
+  "type": "object",
+  "properties": {
+    "userEmail": {
+      "type": "string",
+      "description": "Email of the assigned user"
+    },
+    "tier": {
+      "type": "string",
+      "enum": [
+        "sprint_6500",
+        "advisory_10000",
+        "infrastructure_25000"
+      ],
+      "description": "Assigned tier"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "assigned",
+        "onboarding_complete",
+        "active"
+      ],
+      "default": "assigned",
+      "description": "Current status"
+    },
+    "isProBono": {
+      "type": "boolean",
+      "default": false,
+      "description": "Pro bono or assisted entry flag"
+    },
+    "isBypass": {
+      "type": "boolean",
+      "default": false,
+      "description": "Bypassed application process"
+    },
+    "capacity": {
+      "type": "number",
+      "description": "Soft capacity limit (admin editable)"
+    },
+    "adminNotes": {
+      "type": "string",
+      "description": "Admin notes about this assignment"
+    }
+  },
+  "required": [
+    "userEmail",
+    "tier"
+  ]
+}

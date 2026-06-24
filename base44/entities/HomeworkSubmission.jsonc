@@ -1,0 +1,27 @@
+{
+  "name": "HomeworkSubmission",
+  "type": "object",
+  "properties": {
+    "assignmentName": {
+      "type": "string",
+      "description": "Name of the assignment"
+    },
+    "response": {
+      "type": "string",
+      "description": "User's reflection or response"
+    },
+    "fileUrl": {
+      "type": "string",
+      "description": "Optional uploaded file URL"
+    },
+    "userEmail": {
+      "type": "string",
+      "description": "Email of the user who submitted"
+    }
+  },
+  "required": [
+    "assignmentName",
+    "response",
+    "userEmail"
+  ]
+}

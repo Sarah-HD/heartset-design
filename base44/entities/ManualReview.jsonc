@@ -1,0 +1,28 @@
+{
+  "name": "ManualReview",
+  "type": "object",
+  "properties": {
+    "review_type": {
+      "type": "string",
+      "enum": [
+        "monthly",
+        "quarterly"
+      ],
+      "description": "Type of review completed"
+    },
+    "review_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the review was confirmed"
+    },
+    "user_email": {
+      "type": "string",
+      "description": "Email of user who confirmed review"
+    }
+  },
+  "required": [
+    "review_type",
+    "review_date",
+    "user_email"
+  ]
+}
