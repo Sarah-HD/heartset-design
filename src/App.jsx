@@ -3,6 +3,7 @@ import FocusGroupDay1 from './pages/FocusGroupDay1';
 import FocusGroupDay2 from './pages/FocusGroupDay2';
 import FocusGroupDay3 from './pages/FocusGroupDay3.jsx';
 import ContentExport from './pages/ContentExport';
+import DesignExport from './pages/DesignExport';
 import FocusGroupSurvey from './pages/FocusGroupSurvey';
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
@@ -68,6 +69,7 @@ const AuthenticatedApp = () => {
       <Route path="/FocusGroupDay3" element={<LayoutWrapper currentPageName="FocusGroupDay3"><FocusGroupDay3 /></LayoutWrapper>} />
       <Route path="/FocusGroupSurvey" element={<LayoutWrapper currentPageName="FocusGroupSurvey"><FocusGroupSurvey /></LayoutWrapper>} />
       <Route path="/ContentExport" element={<LayoutWrapper currentPageName="ContentExport"><ContentExport /></LayoutWrapper>} />
+      <Route path="/DesignExport" element={<LayoutWrapper currentPageName="DesignExport"><DesignExport /></LayoutWrapper>} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
